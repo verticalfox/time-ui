@@ -5,10 +5,9 @@ import { BrowserRouter ,Routes ,Switch, Route, Link } from "react-router-dom";
 import SubMenu from "./SubMenu";
 import Topbar from "./Topbar";
 import Login from "./Login";
-import ProjectView from "./components/ProjectView";
+import ProjectView , {TaskView}from "./components/ProjectView";
 function FrontHello() {
   return (<div  color="light"
-  light
   className="navbar shadow-sm p-3 mb-5 bg-white rounded"
   expand="md"
   >
@@ -17,14 +16,12 @@ function FrontHello() {
 }
 function About() {
   return(<div  color="light"
-  light
   className="navbar shadow-sm p-3 mb-5 bg-white rounded"
   expand="md">
     <h2>this is about page from contentjs</h2> </div> );
 }
 function UsersView() {
   return(<div  color="light"
-  light
   className="navbar shadow-sm p-3 mb-5 bg-white rounded"
   expand="md">
     <h2>here list of users will appear</h2> </div> );
@@ -32,19 +29,9 @@ function UsersView() {
 
 function ReportView() {
   return(<div  color="light"
-  light
   className="navbar shadow-sm p-3 mb-5 bg-white rounded"
   expand="md">
     <h2>this is reports page</h2> </div> );
-}
-
-
-function TaskView() {
-  return(<div  color="light"
-  light
-  className="navbar shadow-sm p-3 mb-5 bg-white rounded"
-  expand="md">
-    <h2>You are in task view now !  happy hacking !!</h2> </div> );
 }
 
 
@@ -53,7 +40,6 @@ function TaskView() {
 function TrackerView() {
   return (
     <div  color="light"
-    light
     className="navbar shadow-sm p-3 mb-5 bg-white rounded"
     expand="md">
     <table>
@@ -80,7 +66,7 @@ function DashboardView() {
  
 
       <div  color="light"
-      light
+      
       className="navbar shadow-sm p-3 mb-5 bg-white rounded"
       expand="md">
         <h4> 
@@ -94,7 +80,7 @@ const Content = ({ sidebarIsOpen = false, toggleSidebar = {} }) => (
     fluid
     className={classNames("content", { "is-open": sidebarIsOpen })}
   >
-    <Topbar toggleSidebar={toggleSidebar} />
+    <Topbar toggleSidebar={toggleSidebar} /> 
       <Routes>
       <Route path="/" element={<FrontHello/>} />
       <Route path="/project" element={<ProjectView/>} />
