@@ -11,6 +11,9 @@ body {
   background: #fafafa;
 }
 
+input {
+  background: transparent !important;
+}
 
 td,th {
   padding: 10px;
@@ -105,7 +108,7 @@ li a.dropdown-toggle::after {
   display: none;
 }
 .side-menu {
-  height: calc(100vh - 130px);
+  height: calc(110vh - 130px);
   overflow-y: scroll;
 }
 
@@ -161,6 +164,19 @@ li a.dropdown-toggle::after {
     left: 68%;
   }
 }
+
+/*
+--------------------------------------------------------------------------
+Tracker View css
+--------------------------------------------------------------------------
+*/
+
+.tracker-input {
+  width: 50em;
+}
+
+
+
 
 
 /*

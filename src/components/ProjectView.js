@@ -1,7 +1,5 @@
 import React, { useEffect , useState} from "react";
-import SubMenu from "../SubMenu";
 import { Table } from "reactstrap";
-import { NavItem, NavLink, Nav } from "reactstrap";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import axios from 'axios';
@@ -12,6 +10,23 @@ import {
 
 
 function TaskView() {
+
+    const [TaskData, setTaskData] = useState("dummy task ");
+    useEffect(() => {
+        axios.get(`http://localhost:3000/tasks`, {
+            headers: {
+               'Access-Control-Allow-Origin': '*'
+            }
+        })
+       .then(function (response) {
+             setTaskData(response.data);
+         })
+    
+   
+    }, []);
+
+
+
     return ( <div color="light"
     className="navbar shadow-sm p-3 mb-5 bg-white "
     expand="md">
@@ -22,7 +37,7 @@ function TaskView() {
                     #
                 </th>
                 <th>
-                    Project
+                    Task 
                 </th>
                 <th>
                     Description
@@ -38,13 +53,13 @@ function TaskView() {
                     1
                 </th>
                 <td>
-                   task 1
+                   {TaskData[0].title}
                 </td>
                 <td>
-                    this is dummy task
+                {TaskData[0].description}
                 </td>
                 <td>
-                    3
+                {TaskData[0].time}
                 </td>
                 <td>
                     <Link to="/project/view" className="btn btn-primary">
@@ -55,16 +70,16 @@ function TaskView() {
             </tr>
             <tr>
                 <th scope="row">
-                    2
+                    1
                 </th>
                 <td>
-                    task 2
+                   {TaskData[1].title}
                 </td>
                 <td>
-                    this is dummy task 2
+                {TaskData[1].description}
                 </td>
                 <td>
-                    3
+                {TaskData[1].time}
                 </td>
                 <td>
                     <Link to="/project/view" className="btn btn-primary">
@@ -84,20 +99,21 @@ function TaskView() {
 function ProjectView() {
     // const [data, setdata] = useState(second);
     // //put this below code in useEffect
-    const [taskData, setTaskData] = useState("dummy task ");
+    const [ProjectData, setProjectData] = useState("dummy project ");
     useEffect(() => {
-        axios.get(`http://localhost:3000/projects/1`, {
+        axios.get(`http://localhost:3000/projects`, {
             headers: {
                'Access-Control-Allow-Origin': '*'
             }
         })
        .then(function (response) {
-             setTaskData(response.data);
+             setProjectData(response.data);
          })
     
    
     }, []);
 
+    // console.log(ProjectData);
     return (
         <div color="light"
             className="navbar shadow-sm p-3 mb-5 bg-white "
@@ -125,33 +141,13 @@ function ProjectView() {
                             1
                         </th>
                         <td>
-                           {taskData.title}
+                           {ProjectData[0].title}
                         </td>
                         <td>
-                            this is dummy project
+                           {ProjectData[0].description}
                         </td>
                         <td>
-                            3
-                        </td>
-                        <td>
-                            <Link to="/project/view" className="btn btn-primary">
-                                <FontAwesomeIcon icon={faPencil} className="mr-2" />
-                                Edit
-                            </Link>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">
-                            1
-                        </th>
-                        <td>
-                            Vertical fox Project 2
-                        </td>
-                        <td>
-                            this is dummy project
-                        </td>
-                        <td>
-                            3
+                            {ProjectData[0].time}
                         </td>
                         <td>
                             <Link to="/project/view" className="btn btn-primary">
@@ -165,13 +161,33 @@ function ProjectView() {
                             1
                         </th>
                         <td>
-                            Vertical fox Project 3
+                           {ProjectData[1].title}
                         </td>
                         <td>
-                            this is dummy project
+                           {ProjectData[1].description}
                         </td>
                         <td>
-                            3
+                            {ProjectData[1].time}
+                        </td>
+                        <td>
+                            <Link to="/project/view" className="btn btn-primary">
+                                <FontAwesomeIcon icon={faPencil} className="mr-2" />
+                                Edit
+                            </Link>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">
+                            1
+                        </th>
+                        <td>
+                           {ProjectData[2].title}
+                        </td>
+                        <td>
+                           {ProjectData[2].description}
+                        </td>
+                        <td>
+                            {ProjectData[2].time}
                         </td>
                         <td>
                             <Link to="/project/view" className="btn btn-primary">
