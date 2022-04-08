@@ -24,11 +24,12 @@ const SideBar = ({ isOpen, toggle }) => (
       <span color="info" onClick={toggle} style={{ color: "#fff" }}>
         &times;
       </span>
-      <h3>Foxy Clock</h3>
+      <h2 >Foxy Clock </h2>
+       
     </div>
     <div className="side-menu">
       <Nav vertical className="list-unstyled pb-3">
-        <p>Keeping the track </p> 
+      <p></p>
         {/* <NavItem >
           <NavLink tag={Link} to={'/login'}>
             <FontAwesomeIcon icon={faLock} className="mr-2" />

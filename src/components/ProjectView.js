@@ -70,7 +70,7 @@ function TaskView() {
             </tr>
             <tr>
                 <th scope="row">
-                    1
+                    2
                 </th>
                 <td>
                    {TaskData[1].title}
@@ -158,7 +158,7 @@ function ProjectView() {
                     </tr>
                     <tr>
                         <th scope="row">
-                            1
+                            2
                         </th>
                         <td>
                            {ProjectData[1].title}
@@ -178,7 +178,7 @@ function ProjectView() {
                     </tr>
                     <tr>
                         <th scope="row">
-                            1
+                            3
                         </th>
                         <td>
                            {ProjectData[2].title}

@@ -8,8 +8,10 @@
 
 body {
   font-family: "Poppins", sans-serif;
+  /* font-family: "Montserrat", sans-serif; */
   background: #fafafa;
 }
+
 
 input {
   background: transparent !important;
@@ -60,9 +62,11 @@ a:focus {
   background: #6d7fcc;
 }
 
-.sidebar-header h3 {
+.sidebar-header  h2 {
   color: #fff;
   padding: 1em;
+  font-family: "McLaren", cursive;
+  font-weight: 500;
 }
 
 .sidebar ul p {
