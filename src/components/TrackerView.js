@@ -13,9 +13,22 @@ const initialFormData = Object.freeze({
 function TrackerView() {
 
 
-        const [formData, updateFormData] = React.useState(initialFormData);
-
-        
+        const [formData, updateFormData] = useState(initialFormData);
+        const [selectOptions , setOptions] = useState("dummy");
+        useEffect(() => {
+            axios.get(`http://localhost:3000/projects`, {
+                headers: {
+                    'Access-Control-Allow-Origin': '*'
+                }
+            })
+                .then(function (response) {
+                   setOptions(response.data);
+                     console.log(selectOptions[0].title);
+                })
+    
+    
+        }, []);
+       
 
         const handleChange = (e) => {
           updateFormData({
@@ -33,7 +46,7 @@ function TrackerView() {
             axios.post('http://localhost:3000/tasks', {
             'title': formData.task_name,
             'description' : formData.task_desc,
-            'time   ': parseInt(formData.time_taken),
+            'time': parseInt(formData.time_taken),
             'projectId' :999
           })
           .then(function (response) {
@@ -45,8 +58,19 @@ function TrackerView() {
     
           axios.post('http://localhost:3000/users', {
             'name': formData.assigned_to,
-            'project assigned' : formData.select_project,
+            'projectAssigned' : formData.select_project,
             'projectId' : 999
+          })
+          .then(function (response) {
+            console.log(response);
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+   
+        axios.post('http://localhost:3000/reports', {
+            'name': formData.assigned_to,
+            'totalhours' : formData.time_taken
           })
           .then(function (response) {
             console.log(response);
@@ -79,13 +103,13 @@ function TrackerView() {
          select project 
       </option>
       <option>
-         Project 1
+        project 1
       </option>
       <option>
-       Project 2
+       project 2
       </option>
       <option>
-       Project 3
+       project 3
       </option>
     </Input>
   </FormGroup>
@@ -143,9 +167,12 @@ function TrackerView() {
  
   
   </FormGroup>
+  <span style={{backgroundColor: "lightblue"}}>
   <Button onClick={handleSubmit} type="submit">
     Submit
   </Button>
+  </span>
+  
   </div> 
 </Form>
     </div>

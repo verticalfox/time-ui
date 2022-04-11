@@ -1,15 +1,50 @@
 import React, { useEffect , useState} from "react";
 import { Table } from "reactstrap";
+import axios from 'axios';
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import axios from 'axios';
 import {
     faPencil,
 } from "@fortawesome/free-solid-svg-icons";
 
 
+function IterableTable2(tableEntry) {
+    return (
+        <PrintTable2
+        key={tableEntry.id}
+        id={tableEntry.id}
+        name={tableEntry.name}
+        projectAssigned={tableEntry.projectAssigned} 
+        />
+    );
+}
+
+function PrintTable2(props) {
+    return (
+                <tbody>
+
+                    <tr>
+                        <th scope="row">
+                            {props.id}
+                        </th>
+                        <td>
+                            {props.name}
+                        </td>
+                        <td>
+                            {props.projectAssigned}
+                        </td>
+                        <td>
+                            <Link to="/users/edit" className="btn btn-primary">
+                                <FontAwesomeIcon icon={faPencil} className="mr-2" />
+                                Edit
+                            </Link>
+                        </td>
+                    </tr>
+                </tbody>
+    );
+}
 function UsersView() {
-    const [UserData, setUserData] = useState("dummy task ");
+    const [UserData, setUserData] = useState([]);
     useEffect(() => {
         axios.get(`http://localhost:3000/users`, {
             headers: {
@@ -42,30 +77,7 @@ function UsersView() {
                 </th>
             </tr>
         </thead>
-        <tbody>
-            <tr>
-                <th scope="row">
-                    1
-                </th>
-                <td>
-                   {UserData[0].name}
-                </td>
-                <td>
-                {UserData[0]['project assigned']}
-                </td>
-            </tr>
-            <tr>
-                <th scope="row">
-                    2
-                </th>
-                <td>
-                   {UserData[1].name}
-                </td>
-                <td>
-                {UserData[1]['project assigned']}
-                </td>
-            </tr>
-        </tbody>
+        {UserData.map(IterableTable2)}
     </Table>
 
 </div>);

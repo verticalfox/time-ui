@@ -39,8 +39,10 @@ a:focus {
   background-color: #778be2 !important;
   border: none !important;
   /* text-decoration: none !important; */
-  box-shadow: none !important;
+  background-color: transparent !important;
+  /* box-shadow: none !important; */
 }
+
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
@@ -198,4 +200,11 @@ Reactstrap css
   background-color: white;
   background-clip: border-box;
 
+}
+
+
+.btn-secondary {
+  color: #fff;
+  background-color: #7386d5;
+  border-color: #7386d5;
 }
