@@ -1,4 +1,4 @@
-import React, { useEffect, useState ,useLayoutEffect} from "react";
+import React, { useEffect, useState} from "react";
 import { Table } from "reactstrap";
 import axios from 'axios';
 import IterableTable from "./IterableTable";

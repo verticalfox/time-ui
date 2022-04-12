@@ -1,37 +1,21 @@
 import React ,{useState, useEffect}from "react";
-import { Table ,Form,FormGroup,Label,Input,FormText,Button} from "reactstrap";
+import {Form,FormGroup,Label,Input,Button} from "reactstrap";
 import axios from "axios";
 
 
+//// reminder : this page code is incomplete and need some updations .../////
+
 const initialFormData = Object.freeze({
-    select_project:"",
     project_name: "",
     project_desc: "",
     assigned_to: "",
-    time_taken: null
   });
   
 function CreateProject() {
 
-        // let  flagCheck=true; //useState hook is needed : reminder ( taking break now !)
         const [flagCheck,setFlagCheck] = useState(false);
         const [formData, updateFormData] = useState(initialFormData);
-        const [selectOptions , setOptions] = useState("dummy");
-        useEffect(() => {
-            axios.get(`http://localhost:3000/projects`, {
-                headers: {
-                    'Access-Control-Allow-Origin': '*'
-                }
-            })
-                .then(function (response) {
-                   setOptions(response.data);
-                     console.log(selectOptions[0].title);
-                })
     
-    
-        }, []);
-       
-      
         const handleChange = (e) => {
          setFlagCheck(false);
          if(e.target.value==='') {
@@ -39,8 +23,6 @@ function CreateProject() {
          }
           updateFormData({
             ...formData,
-      
-            // Trimming any whitespace
             [e.target.name]: e.target.value.trim()
           });
         };  
@@ -52,8 +34,6 @@ function CreateProject() {
             axios.post('http://localhost:3000/projects', {
             'title': formData.project_name,
             'description' : formData.project_desc,
-            'time': parseInt(formData.time_taken),
-            'projectId' :999
           })
           .then(function (response) {
             console.log(response);
@@ -76,7 +56,6 @@ function CreateProject() {
    
         axios.post('http://localhost:3000/reports', {
             'name': formData.assigned_to,
-            'totalhours' : formData.time_taken
           })
           .then(function (response) {
             console.log(response);
