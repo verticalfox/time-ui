@@ -12,6 +12,7 @@ import ReportView from "./components/ReportView";
 import DashboardView from "./components/DashboardView";
 import EditUserInfo from "./components/EditUserInfo";
 import EditTaskInfo from "./components/EditTaskInfo";
+import CreateProject from "./components/CreateProject";
 function FrontHello() {
   return (<div  color="light"
   className="navbar shadow-sm p-3 mb-5 bg-white rounded"
@@ -44,6 +45,7 @@ const Content = ({ sidebarIsOpen = false, toggleSidebar = {} }) => (
       <Route exact path="/project/view" element={<TaskView/>} />
       <Route exact path="/users/edit" element={<EditUserInfo/>} />
       <Route exact path="/project/view/edit" element={<EditTaskInfo/>} />
+      <Route exact path="/project/create" element={<CreateProject/>} />
       </Routes>
   </Container>
 );
