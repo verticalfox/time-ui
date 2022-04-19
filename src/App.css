@@ -177,8 +177,13 @@ Tracker View css
 --------------------------------------------------------------------------
 */
 
+.modal-input {
+  width: 29rem;
+  /* width: 90%; */
+}
+
 .tracker-input {
-  width: 50em;
+  width:60rem;
 }
 
 
@@ -207,4 +212,8 @@ Reactstrap css
   color: #fff;
   background-color: #7386d5;
   border-color: #7386d5;
+}
+
+.transparent-background {
+  background-color: transparent !important;
 }

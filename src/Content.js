@@ -9,11 +9,10 @@ import ProjectView , {TaskView}from "./components/ProjectView";
 import TrackerView from "./components/TrackerView";
 import UsersView from "./components/UsersView";
 import ReportView from "./components/ReportView";
-import DashboardView from "./components/DashboardView";
 import EditUserInfo from "./components/EditUserInfo";
 import EditTaskInfo from "./components/EditTaskInfo";
 import CreateProject from "./components/CreateProject";
-function FrontHello() {
+function HomeView() {
   return (<div  color="light"
   className="navbar shadow-sm p-3 mb-5 bg-white rounded"
   expand="md"
@@ -21,31 +20,28 @@ function FrontHello() {
     <h2> Welcome Home !</h2>
     </div>);
 }
-function About() {
-  return(<div  color="light"
-  className="navbar shadow-sm p-3 mb-5 bg-white rounded"
-  expand="md">
-    <h2>this is about page from contentjs</h2> </div> );
-}
-
-
 const Content = ({ sidebarIsOpen = false, toggleSidebar = {} }) => (
   <Container
     fluid
     className={classNames("content", { "is-open": sidebarIsOpen })}
   >
+    {/* <Routes>
+    <Route path="/login" element={<Login/>} />
+      </Routes> */}
     <Topbar toggleSidebar={toggleSidebar} /> 
       <Routes>
-      <Route path="/" element={<FrontHello/>} />
-      <Route path="/project" element={<ProjectView/>} />
-      <Route path="/dashboard" element={<DashboardView/>} />
-      <Route exact path="/report" element={<ReportView/>} />
+      <Route path="/" element={<HomeView/>} />
+      
+      <Route path="/projects" element={<ProjectView/>} />
+      <Route exact path="/reports" element={<ReportView/>} />
       <Route exact path="/tracker" element={<TrackerView/>} />
       <Route exact path="/users" element={<UsersView/>} />
-      <Route exact path="/project/view" element={<TaskView/>} />
+      <Route exact path="/projects/view" element={<TaskView/>} />
       <Route exact path="/users/edit" element={<EditUserInfo/>} />
-      <Route exact path="/project/view/edit" element={<EditTaskInfo/>} />
-      <Route exact path="/project/create" element={<CreateProject/>} />
+      <Route exact path="/users/create" element={<EditUserInfo/>} />
+      <Route exact path="/projects/view/edit" element={<EditTaskInfo/>} />
+      <Route exact path="/projects/create" element={<CreateProject/>} />
+      <Route exact path="/projects/edit" element={<CreateProject/>} />
       </Routes>
   </Container>
 );

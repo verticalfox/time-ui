@@ -16,7 +16,7 @@ const SubMenu = (props) => {
         className={classNames({ "menu-open": !collapsed })}
       >
         <NavLink className="dropdown-toggle">
-          {/* <FontAwesomeIcon icon={icon} className="mr-2" /> */}
+          <FontAwesomeIcon icon={icon} className="mr-2" />
           {title}
         </NavLink>
       </NavItem>
@@ -28,7 +28,8 @@ const SubMenu = (props) => {
         {items.map((item, index) => (
           <NavItem key={index} className="pl-4">
             <NavLink tag={Link} to={item.target}>
-              {item.title}
+             &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+             {item.title}
             </NavLink>
           </NavItem>
         ))}
