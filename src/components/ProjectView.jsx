@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { Link , useParams } from "react-router-dom";
 
-import { useProjects } from '../hooks/projects';
+import { useProjects } from '../hooks/adminProjects';
 
 import ProjectModal from './ProjectModal';
 import TaskModal from './TaskModal'

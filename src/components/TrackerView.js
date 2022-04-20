@@ -1,178 +1,64 @@
-import React, { useState, useEffect } from "react";
-import { Form, FormGroup, Label, Input, Button } from "reactstrap";
-import axios from "axios";
+import React from "react";
+import { Button, Card, CardBody } from "reactstrap";
+import { useForm } from 'react-hook-form';
 
+import { SelectField, TextField, TextAreaField } from './Form';
 
-const initialFormData = Object.freeze({
-  select_project: "",
-  task_name: "",
-  task_desc: "",
-  time_taken: null
-});
-const DropDown = (e) => {
-  return (
+import { useProjects, useTasks } from '../hooks/userProjects';
+import { getOptions } from "../utils";
+import { useCreateTimeEntry } from '../hooks/useCreateTimeEntry';
 
-    <option>
+const TrackerView = () => {
+  const { register, handleSubmit, watch, reset, formState: { errors } } = useForm();
+  const [projectLoading, projects] = useProjects();
+  const watchProjectId = watch('project_id');
+  const [taskLoading, tasks] = useTasks(watchProjectId);
+  
+  const { submitting, onCreate } = useCreateTimeEntry();
 
-      {e.name}
-      
-    </option>
-
-  );
-}
-const DropDown2 = (e) => {
-  return (
-
-    <option>
-
-      {e.title}
-      
-    </option>
-
-  );
-}
-function TrackerView() {
-  const [flagCheck, setFlagCheck] = useState(false);//for form validation
-  const [formData, updateFormData] = useState(initialFormData);
-  const [selectProjectOption, setProjectOptions] = useState(["select Project"]);
-  const [selectTaskOption, setTaskOptions] = useState(["task"]);
-
-  useEffect(() => {
-    axios.get(`http://localhost:3000/api/v1/project`, {
-      headers: {
-        'Access-Control-Allow-Origin': '*'
-      }
-    })
-      .then(function (response) {
-        setProjectOptions(response.data.projects);
-      });
-
-      axios.get(`http://localhost:3000/api/v1/task`, {
-        headers: {
-          'Access-Control-Allow-Origin': '*'
-        }
-      })
-        .then(function (response) {
-          console.log('Task Data is', response.data.tasks);
-
-          setTaskOptions(response.data.tasks);
-          console.log(selectTaskOption);
-        });
-
-  }, []);
-
-
-  const handleChange = (e) => {
-
-    setFlagCheck(false);
-    if (e.target.value === '') {
-      setFlagCheck(true);
-    }
-    updateFormData({
-      ...formData,
-
-      // Trimming any whitespace
-      [e.target.name]: e.target.value.trim()
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    console.log(formData);
-    axios.post('http://localhost:3000/api/v1/task', {
-      "task": {
-          "title":formData.task_name,
-          "description": formData.task_desc,
-          "project_id": 3  //this is dummy project ID ...remember to take it dyanamically.
-      }
-  })
-        .then(function (response) {
-          // console.log(response);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-  };
+  console.log(projectLoading, taskLoading, errors);
 
   return (
-    <div color="light"
-      className="navbar shadow-sm p-3 mb-5 bg-white rounded"
-      expand="md">
-      <Form action="/" method="POST">
-        <div className="tracker-input">
-          <FormGroup>
-            <Label for="selectProject">
-              Select Project
-            </Label>
-            <Input
-              id="select_project"
-              name="select_project"
-              type="select"
-              onChange={handleChange}
-           
-            >
-              {selectProjectOption.map(DropDown)}
-            </Input>
-          </FormGroup>
-          <FormGroup>
-            <Label for="selectProject">
-              Select task
-            </Label>
-            <Input
-              id="select_task"
-              name="select_task"
-              type="select"
-              onChange={handleChange}
-            >
-              {selectTaskOption.map(DropDown2)}
-            </Input>
-          </FormGroup>
-          {/* <FormGroup>
-            <Label for="taskName">
-              Task
-            </Label>
-
-            <Input
-              id="task_name"
-              name="task_name"
-              placeholder="enter task title..."
-              type="text"
-              onChange={handleChange}
-              invalid={flagCheck}
+    <Card>
+      <CardBody>
+        <form onSubmit={handleSubmit(onCreate)} autoComplete="off">
+          <input type="hidden" value="2022-04-20" name="entry_date" />
+          <div className="tracker-input">
+            <SelectField
+              labelText="Select Project"
+              name="project_id"
+              register={register}
+              rules={{ required: true }}
+              options={getOptions(projects)}
             />
-          </FormGroup> */}
-          <FormGroup>
-            <Label for="text">
-             Description
-            </Label>
-            <Input
-              id="task_desc"
-              name="task_desc"
-              type="textarea"
-              placeholder="enter detail description of task.."
-              onChange={handleChange}
+            <SelectField
+              labelText="Select Task"
+              name="task_id"
+              register={register}
+              rules={{ required: true }}
+              options={getOptions(tasks, 'id', 'title')}
             />
-          </FormGroup>
-          <FormGroup>
-            <Label for="taskName">
-              Time
-            </Label>
-            <Input
-              id="time_taken"
-              name="time_taken"
-              placeholder="total time taken"
-              type="input"
-              onChange={handleChange}
+            <TextAreaField
+              labelText="Description"
+              name="description"
+              register={register}
+              rules={{ required: true }}
+              placeholder="Enter detail description of task."
             />
-          </FormGroup>
-          <span style={{ backgroundColor: "lightblue" }}>
-            <Button onClick={handleSubmit} type="submit">
-              Submit
-            </Button>
-          </span>
-        </div>
-      </Form>
-    </div>
+            <TextField
+              labelText="Time"
+              name="hours"
+              register={register}
+              rules={{ required: true }}
+              placeholder="Enter total time taken"
+            />
+            <span style={{ backgroundColor: "lightblue" }}>
+              <Button type="submit" disabled={submitting}>Submit</Button>
+            </span>
+          </div>
+        </form>
+      </CardBody>
+    </Card>
   );
 }
 

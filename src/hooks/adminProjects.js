@@ -19,7 +19,7 @@ export const useProjects = () => {
   return [loading, projects];
 }
 
-export const useTasks = (projectId) => {
+export const useTasks = () => {
   const [loading, setLoading] = useState(false);
   const [tasks, setTasks] = useState([]);
 
