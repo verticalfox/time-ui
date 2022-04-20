@@ -8,7 +8,7 @@ const initialFormData = Object.freeze({
   password:"",
   role:""
 });
-function EditUserInfo() {
+function CreateUser() {
   const [formData, updateFormData] = useState(initialFormData);
 
   const handleChange = (e) => {
@@ -111,4 +111,4 @@ function EditUserInfo() {
   );
 }
 
-export default EditUserInfo;
+export default CreateUser;

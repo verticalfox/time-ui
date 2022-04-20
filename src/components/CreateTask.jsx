@@ -1,13 +1,14 @@
-import React, { useState} from "react";
-import { Form, FormGroup, Label, Input, Button } from "reactstrap";
+
+import React, { useState } from "react";
+import { Form, FormGroup, Input, Button } from "reactstrap";
 import axios from "axios";
 const initialFormData = Object.freeze({
-  name: "",
-  description: "",
+  task_name: "",
+  task_desc: "",
 });
-const token= "dnfglkndskfln";
 
-function CreateProject() {
+
+const CreateTask = (props) => {
   const [formData, updateFormData] = useState(initialFormData);
 
   const handleChange = (e) => {
@@ -20,12 +21,13 @@ function CreateProject() {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(formData);
-    // ... submit to API 
-    axios.post('http://localhost:3000/api/v1/project', {
-    "project": {
-        "name":formData.name,
-        "description": formData.description,
-        "workspace_id":"1"
+    //here hit PUT api request.
+    console.log("this is project Id : "+props.projectId);
+    axios.post('http://localhost:3000/api/v1/task', {
+    "task": {
+        "title":formData.task_name,
+        "description": formData.task_desc,
+        "project_id":props.projectId
     }
 })
       .then(function (response) {
@@ -34,37 +36,34 @@ function CreateProject() {
       .catch(function (error) {
         console.log(error);
       });
-  };
 
+  };
   return (
     <div color="light"
       className="navbar shadow-sm p-3 mb-5 bg-white rounded"
       expand="md">
       <Form action="/" method="POST">
         <div className="modal-input">
-        {/* <div > */}
+
           <FormGroup>
-            <Label for="name">
-              Project Name :
-            </Label>
+            Task :
             <Input
-              id="name"
-              name="name"
-              placeholder="enter project title..."
+              id="task_name"
+              name="task_name"
+              placeholder="enter task name..."
               type="text"
               onChange={handleChange}
             />
           </FormGroup>
           <FormGroup>
-            <Label for="text">
-              Project Description :
-            </Label>
+           Description :
             <Input
-              id="description"
-              name="description"
+              id="task_desc"
+              name="task_desc"
+              placeholder="enter task description..."
               type="textarea"
-              placeholder="enter detail description of project.."
               onChange={handleChange}
+
             />
           </FormGroup>
           <span style={{ backgroundColor: "lightblue" }}>
@@ -72,30 +71,12 @@ function CreateProject() {
               Submit
             </Button>
           </span>
-
         </div>
       </Form>
     </div>
 
   );
+
 }
 
-export default CreateProject;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+export default CreateTask;

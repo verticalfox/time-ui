@@ -7,11 +7,11 @@ import UserModal from './UserModal'
 import {
     faPencil,
 } from "@fortawesome/free-solid-svg-icons";
-function IterableTable2(info) {
+function IterableTable2(info,index) {
     return (
         <PrintTable2
         key={info.id}
-        id={info.id}
+        id={index+1}
         name={info.name}
         email={info.email}
         mobile_number={info.mobile_number}
@@ -21,14 +21,14 @@ function IterableTable2(info) {
 }
 function deleteUser(index) {
     console.log(index);
-    // axios.delete(`http://localhost:3000/users/${index}`, {
-    //         headers: {
-    //            'Access-Control-Allow-Origin': '*'    
-    //         }
-    //     })
-    //    .then(function (response) {
-    //         console.log(response.data  + ": deleted successfully !");
-    //      })
+    axios.delete(`http://localhost:3000/users/${index}`, {
+            headers: {
+               'Access-Control-Allow-Origin': '*'    
+            }
+        })
+       .then(function (response) {
+            console.log(response.data  + ": deleted successfully !");
+         })
 
 }
 function PrintTable2(props) {
@@ -58,7 +58,7 @@ function PrintTable2(props) {
                             </Link>
                             &nbsp;&nbsp;&nbsp;&nbsp;
                            
-                            <Button className="btn" color="primary" onClick={deleteUser}>
+                            <Button className="btn" color="primary" onClick={deleteUser(props.id)}>
                                 <FontAwesomeIcon icon={faPencil} className="mr-2" />
                                 Delete
                             </Button>

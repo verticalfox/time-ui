@@ -34,9 +34,8 @@ const DropDown2 = (e) => {
 function TrackerView() {
   const [flagCheck, setFlagCheck] = useState(false);//for form validation
   const [formData, updateFormData] = useState(initialFormData);
-  const [selectOptions, setOptions] = useState(["select Project"]);
-  const [selectTaskOptions, setTaskOptions] = useState(["task"]);
-  const [selectedOption, setSelectedOption] = useState(0);
+  const [selectProjectOption, setProjectOptions] = useState(["select Project"]);
+  const [selectTaskOption, setTaskOptions] = useState(["task"]);
 
   useEffect(() => {
     axios.get(`http://localhost:3000/api/v1/project`, {
@@ -45,11 +44,7 @@ function TrackerView() {
       }
     })
       .then(function (response) {
-        // console.log('Data is', response.data);
-        setOptions(response.data.projects);
-        // setSelectedOption(response.data.projects.id)
-        // console.log(selectOptions);
-        // console.log(selectedOption);
+        setProjectOptions(response.data.projects);
       });
 
       axios.get(`http://localhost:3000/api/v1/task`, {
@@ -61,14 +56,14 @@ function TrackerView() {
           console.log('Task Data is', response.data.tasks);
 
           setTaskOptions(response.data.tasks);
-          console.log(selectTaskOptions);
+          console.log(selectTaskOption);
         });
 
   }, []);
 
 
   const handleChange = (e) => {
-    setSelectedOption(e.target.value);
+
     setFlagCheck(false);
     if (e.target.value === '') {
       setFlagCheck(true);
@@ -114,9 +109,9 @@ function TrackerView() {
               name="select_project"
               type="select"
               onChange={handleChange}
-              value={selectedOption}
+           
             >
-              {selectOptions.map(DropDown)}
+              {selectProjectOption.map(DropDown)}
             </Input>
           </FormGroup>
           <FormGroup>
@@ -129,7 +124,7 @@ function TrackerView() {
               type="select"
               onChange={handleChange}
             >
-              {selectTaskOptions.map(DropDown2)}
+              {selectTaskOption.map(DropDown2)}
             </Input>
           </FormGroup>
           {/* <FormGroup>
