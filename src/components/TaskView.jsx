@@ -1,35 +1,32 @@
-import React, { useEffect, useState} from "react";
-import { Table ,Button, Modal , ModalHeader ,ModalBody,ModalFooter} from "reactstrap";
-import axios from 'axios';
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faPencil,
 } from "@fortawesome/free-solid-svg-icons";
-import { Link , useParams} from "react-router-dom";
-import ProjectModal from './ProjectModal';
+import { Link, useParams } from "react-router-dom";
 import TaskModal from './TaskModal'
+import { useTasks } from '../hooks/userProjects'
+import axios from "axios";
 
-
-
-
-function IterableTableForView(tableEntry, index) {
-    return (
-        <PrintTableForView
-        key={tableEntry.id}
-        id={index+1}
-        title={tableEntry.title}
-        description={tableEntry.description}
-        />
-    );
+const handleDelete= (id) => {
+    axios.delete(`http://localhost:3000/api/v1/task/${id}`, {
+            headers: {
+               'Access-Control-Allow-Origin': '*'    
+            }
+        })
+       .then(function (response) {
+            console.log(response.data  + ": deleted successfully !");
+         })
+        
+         window.location.reload(true);
 }
 
 function PrintTableForView(props) {
-
     return (
         <tbody>
             <tr>
                 <th scope="row">
-                    {props.id}
+                    {props.index}
                 </th>
                 <td>
                     {props.title}
@@ -38,16 +35,9 @@ function PrintTableForView(props) {
                     {props.description}
                 </td>
                 <td>
-                    
-                    <Link to="/projects/view/edit" className="btn btn-primary">
-                        <FontAwesomeIcon icon={faPencil} className="mr-2" />
-                        Edit
-                    </Link>
+                    <Link to="/projects/view/edit" className="btn btn-primary"><FontAwesomeIcon icon={faPencil} className="mr-2" />Edit</Link>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <Link to="/projects/view" className="btn btn-primary" >
-                        <FontAwesomeIcon icon={faPencil} className="mr-2" />
-                        Delete
-                    </Link>
+                    <Link to={`/projects/${props.project_id}/view`}className="btn btn-primary" onClick={()=>handleDelete(props.id)}><FontAwesomeIcon icon={faPencil} className="mr-2" />Delete </Link>
                 </td>
             </tr>
         </tbody>
@@ -55,35 +45,13 @@ function PrintTableForView(props) {
 }
 
 function TaskView() {
-
-    const [TaskData, setTaskData] = useState([]);
-    const param = useParams();
-    console.log("check :"+ param.id);
-    useEffect(() => {
-        axios.get(`http://localhost:3000/api/v1/task`, {
-            headers: {
-                'Access-Control-Allow-Origin': '*'
-            }
-        })
-        .then(function (response) {
-            console.log(response.data.tasks);
-            // setTaskData(response.data.tasks);
-        }) 
-
-        axios.get(`http://localhost:3000/api/v1/task/${param.id}`, {
-            headers: {
-                'Access-Control-Allow-Origin': '*'
-            }
-        })
-        .then(function (response) {
-            console.log(response.data.task);
-             setTaskData(response.data.task);
-        }) 
-    }, []);
+    const param = useParams();  
+    const [loading, tasks] = useTasks(param.id);   
+    console.log("check :" + param.id);
     return (<div color="light"
         className="navbar shadow-sm p-3 mb-5 bg-white "
         expand="md">
-        <Table striped>
+        <table className="table table-striped" striped>
             <thead>
                 <tr>
                     <th>
@@ -96,13 +64,24 @@ function TaskView() {
                         Description
                     </th>
                     <th>
-                    <TaskModal id={param.id} buttonLabel="Create Task"/>
+                        <TaskModal id={param.id} buttonLabel="Create Task" />
                     </th>
                 </tr>
             </thead>
-           { TaskData.map(IterableTableForView) }
-        </Table>
-
+            {tasks.map((tableEntry, index) => {
+                console.log("this is table entry id :" + tableEntry.id);
+                return (
+                    <PrintTableForView
+                        key={tableEntry.id}
+                        index={index + 1}
+                        id={tableEntry.id}
+                        title={tableEntry.title}
+                        project_id={param.id}
+                        description={tableEntry.description}
+                    />
+                );
+            })}
+        </table>
     </div>);
 
 }

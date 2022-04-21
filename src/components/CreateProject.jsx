@@ -5,7 +5,6 @@ const initialFormData = Object.freeze({
   name: "",
   description: "",
 });
-const token= "dnfglkndskfln";
 
 function CreateProject() {
   const [formData, updateFormData] = useState(initialFormData);
@@ -34,6 +33,8 @@ function CreateProject() {
       .catch(function (error) {
         console.log(error);
       });
+
+      window.location.reload(true);
   };
 
   return (

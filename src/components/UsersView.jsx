@@ -11,7 +11,8 @@ function IterableTable2(info,index) {
     return (
         <PrintTable2
         key={info.id}
-        id={index+1}
+        index={index+1}
+        id={info.id}
         name={info.name}
         email={info.email}
         mobile_number={info.mobile_number}
@@ -19,9 +20,9 @@ function IterableTable2(info,index) {
         />
     );
 }
-function deleteUser(index) {
-    console.log(index);
-    axios.delete(`http://localhost:3000/users/${index}`, {
+function deleteUser(id) {
+
+    axios.delete(`http://localhost:3000/users`, {
             headers: {
                'Access-Control-Allow-Origin': '*'    
             }
@@ -32,12 +33,13 @@ function deleteUser(index) {
 
 }
 function PrintTable2(props) {
+    console.log("this is user id : " + props.id);
     return (
                 <tbody>
 
                     <tr>
                         <th scope="row">
-                            {props.id}
+                            {props.index}
                         </th>
                         <td>
                             {props.name}
@@ -86,7 +88,7 @@ function UsersView() {
     return ( <div color="light"
     className="navbar shadow-sm p-3 mb-5 bg-white "
     expand="md">
-    <Table striped>
+   <table className="table table-striped">
         <thead>
             <tr>
                 <th>
@@ -110,7 +112,7 @@ function UsersView() {
             </tr>
         </thead>
         {userData.map(IterableTable2)}
-    </Table>
+    </table>
 </div>);
   }
 

@@ -49,7 +49,7 @@
       return ( <div color="light"
       className="navbar shadow-sm p-3 mb-5 bg-white "
       expand="md">
-      <Table striped>
+      <table className="table table-striped">
           <thead>
               <tr>
                   <th>
@@ -64,7 +64,7 @@
               </tr>
           </thead>
           {ReportData.map(IterableTable2)}
-      </Table>
+      </table>
   
   </div>);
     }

@@ -10,7 +10,6 @@ const initialFormData = Object.freeze({
 
 const CreateTask = (props) => {
   const [formData, updateFormData] = useState(initialFormData);
-
   const handleChange = (e) => {
     updateFormData({
       ...formData,
@@ -36,7 +35,7 @@ const CreateTask = (props) => {
       .catch(function (error) {
         console.log(error);
       });
-
+      window.location.reload(true);
   };
   return (
     <div color="light"

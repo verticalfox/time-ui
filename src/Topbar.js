@@ -28,16 +28,7 @@ const Topbar = ({ toggleSidebar }) => {
       </Button>
       <select>
         <option>
-          workspace 1
-        </option>
-        <option>
-          workspace 2
-        </option>
-        <option>
-          workspace 3
-        </option>
-        <option>
-          workspace 4
+         workspace-VF
         </option>
       </select>
       <h5 style={{color:"black"}}value={"Hello ! Jayesh"}> Hello ! John

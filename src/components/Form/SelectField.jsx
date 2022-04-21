@@ -11,7 +11,7 @@ const SelectField = props => {
       <select
         id={fieldId}
         name={name}
-        className="form-control"
+        className="form-control form-select"
         defaultValue=""
         {...register(name, rules)}
         {...rest}

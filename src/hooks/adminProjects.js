@@ -8,7 +8,7 @@ export const useProjects = () => {
   useEffect(() => {
     setLoading(true);
     getRequest({
-      url: `/project/`,
+      url: `/project`,
     })
     .then(function (response) {
       setProjects(response.data.projects);
