@@ -7,6 +7,7 @@ import { SelectField, TextField, TextAreaField } from './Form';
 import { useProjects, useTasks } from '../hooks/userProjects';
 import { getOptions } from "../utils";
 import { useCreateTimeEntry } from '../hooks/useCreateTimeEntry';
+import DateField from "./Form/DateField";
 
 const TrackerView = () => {
   const { register, handleSubmit, watch, reset, formState: { errors } } = useForm();
@@ -24,6 +25,14 @@ const TrackerView = () => {
         <form onSubmit={handleSubmit(onCreate)} autoComplete="off">
           <input type="hidden" value="2022-04-20" name="entry_date" />
           <div className="tracker-input">
+          <DateField
+              labelText="Select Date"
+              name="recorded_at"
+              type="date"
+              register={register}
+              rules={{ required: true }}
+              options={getOptions(projects)}
+            />
             <SelectField
               labelText="Select Project"
               name="project_id"

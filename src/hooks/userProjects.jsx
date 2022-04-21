@@ -8,7 +8,7 @@ export const useProjects = () => {
   useEffect(() => {
     setLoading(true);
     getRequest({
-      url: `/project/`,
+      url: `projects/`,
     })
     .then(function (response) {
       setProjects(response.data.projects);
@@ -26,7 +26,7 @@ export const useTasks = (projectId) => {
   useEffect(() => {
     setLoading(true);
     getRequest({
-      url: `/task`
+      url: `tasks`
     })
     .then(function (response) {
       const allTask = response.data.tasks;
@@ -46,4 +46,22 @@ export const useTasks = (projectId) => {
   const tasks = projectMap[projectId] || [];
 
   return [loading, tasks];
+}
+
+
+export const useUsers = () => {
+  const [loading, setLoading] = useState(false);
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    setLoading(true);
+    getRequest({
+      url: `users`,
+    })
+    .then(function (response) {
+      setUsers(response.data.users);
+      setLoading(false);
+    })
+  }, []);
+
+  return [loading, users];
 }

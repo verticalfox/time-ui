@@ -22,13 +22,14 @@ function IterableTable2(info,index) {
 }
 function deleteUser(id) {
 
-    axios.delete(`http://localhost:3000/users`, {
+    axios.delete(`http://localhost:3000/api/v1/users/${id}`, {
             headers: {
                'Access-Control-Allow-Origin': '*'    
             }
         })
        .then(function (response) {
             console.log(response.data  + ": deleted successfully !");
+            window.location.reload(true);
          })
 
 }
@@ -60,7 +61,7 @@ function PrintTable2(props) {
                             </Link>
                             &nbsp;&nbsp;&nbsp;&nbsp;
                            
-                            <Button className="btn" color="primary" onClick={deleteUser(props.id)}>
+                            <Button className="btn" color="primary" onClick={()=>deleteUser(props.id)}>
                                 <FontAwesomeIcon icon={faPencil} className="mr-2" />
                                 Delete
                             </Button>

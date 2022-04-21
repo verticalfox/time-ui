@@ -1,6 +1,8 @@
 import React from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import CreateProject from '../CreateProject'
+import EditProject from '../EditProject'
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPencil } from "@fortawesome/free-solid-svg-icons";
 class ProjectModal extends React.Component {
   constructor(props) {
     super(props);
@@ -19,13 +21,14 @@ class ProjectModal extends React.Component {
 
   render() {
     return (
-      <div>
-        <Button color="secondary" onClick={this.toggle}>{this.props.buttonLabel}</Button>
+      <>
+      
+        <Button color="primary" onClick={this.toggle}><FontAwesomeIcon icon={faPencil} className="mr-2" />{this.props.buttonLabel}</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} fade={false}  backdrop={false}>
-          <ModalHeader toggle={this.toggle}>New Project</ModalHeader>
-            <CreateProject project_name= {this.props.project__name} project_description={this.props.project__description}/>
+          <ModalHeader toggle={this.toggle}>Edit Project</ModalHeader>
+            <EditProject project_name= {this.props.project__name} project_description={this.props.project__description} project_id={this.props.project__id}/>
         </Modal>
-      </div>
+      </>
     );
   }
 }

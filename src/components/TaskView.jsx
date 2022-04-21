@@ -9,7 +9,7 @@ import { useTasks } from '../hooks/userProjects'
 import axios from "axios";
 
 const handleDelete= (id) => {
-    axios.delete(`http://localhost:3000/api/v1/task/${id}`, {
+    axios.delete(`http://localhost:3000/api/v1/tasks/${id}`, {
             headers: {
                'Access-Control-Allow-Origin': '*'    
             }

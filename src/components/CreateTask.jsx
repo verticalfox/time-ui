@@ -22,7 +22,7 @@ const CreateTask = (props) => {
     console.log(formData);
     //here hit PUT api request.
     console.log("this is project Id : "+props.projectId);
-    axios.post('http://localhost:3000/api/v1/task', {
+    axios.post('http://localhost:3000/api/v1/tasks', {
     "task": {
         "title":formData.task_name,
         "description": formData.task_desc,

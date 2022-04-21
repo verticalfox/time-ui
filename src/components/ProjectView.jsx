@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Table} from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
@@ -8,18 +8,27 @@ import { useProjects } from '../hooks/adminProjects';
 
 import ProjectModal from './Modal/ProjectModal';
 import axios from "axios";
+import EditProjectModal from './Modal/EditProjectModal'
+import CreateProject from "./CreateProject";
 const handleDelete= (id) => {
-    axios.delete(`http://localhost:3000/api/v1/project/${id}`, {
+    axios.delete(`http://localhost:3000/api/v1/projects/${id}`, {
             headers: {
                'Access-Control-Allow-Origin': '*'    
             }
         })
        .then(function (response) {
             console.log(response.data  + ": deleted successfully !");
+            window.location.reload(true);
          })
 
-         window.location.reload(true);
 }
+
+const handleEdit= (id) => {
+    console.log("you are in edit");
+
+
+}
+
 const PrintTable =(props) => {
     return (
         <tbody>
@@ -34,9 +43,12 @@ const PrintTable =(props) => {
                     <a href="/projects/view">{props.description}</a>
                 </td>
                 <td>
-                    <Link to="/projects/edit" className="btn btn-primary"><FontAwesomeIcon icon={faPencil} className="mr-2" /> Edit</Link>
-                     &nbsp;&nbsp;&nbsp;&nbsp;
+                
+                    <EditProjectModal buttonLabel="Edit" project__name={props.name} project__description={props.description} project__id={props.id} ></EditProjectModal>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
                     <Link to={`/projects`}className="btn btn-primary" onClick={()=>handleDelete(props.id)}><FontAwesomeIcon icon={faPencil} className="mr-2" />Delete </Link>
+                
+                    
                 </td>
             </tr>
         </tbody>
@@ -44,6 +56,7 @@ const PrintTable =(props) => {
 }
 function ProjectView() {
     const [loading, projects] = useProjects();
+    const [userData , setUserData] = useState("");
     return (
         <div color="light"
             className="navbar shadow-sm p-3 mb-5 bg-white "
