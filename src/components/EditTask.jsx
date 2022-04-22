@@ -4,19 +4,19 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const initialFormData = Object.freeze({
-  name: "",
+  title: "",
   description: "",
 });
 
-function EditProject(props) {
+function EditTask(props) {
   const [formData, updateFormData] = useState(initialFormData);
 
   const handleChange = (e) => {
-    if(e.target.id === "name") {
-      setProjectNameValue(e.target.value);
+    if(e.target.id === "title") {
+      setTaskNameValue(e.target.value);
     }
     if(e.target.id === "description") {
-      setProjectDescriptionValue(e.target.value);
+      setTaskDescriptionValue(e.target.value);
     }
     updateFormData({
       ...formData,
@@ -29,13 +29,13 @@ function EditProject(props) {
     console.log(formData);
 
     //fetch workspace id here 
-
+console.log("this is task id through props:" + props.task_id);
     // ... submit to API 
-    axios.patch(`http://localhost:3000/api/v1/projects/${props.project_id}`, {
-    "project": {
-        "name":formData.name,
+    axios.patch(`http://localhost:3000/api/v1/tasks/${props.task_id}`, {
+    "task": {
+        "title":formData.title,
         "description": formData.description,
-        "workspace_id":"b41e1eff-6884-42f1-9829-17578cb06dcb"
+        // "project_id":"53bf03f4-a5bd-4fea-b867-ffde17c64dde"
     }
 })
       .then(function (response) {
@@ -51,8 +51,8 @@ function EditProject(props) {
   const handleCancel = ()=> {
     // window.location.reload(true);
   }
-  const [projectNameValue, setProjectNameValue] = useState(props.project_name);
-  const [projectDescriptionValue, setProjectDescriptionValue] = useState(props.project_description);
+  const [taskNameValue, setTaskNameValue] = useState(props.task_title);
+  const [taskDescriptionValue, setTaskDescriptionValue] = useState(props.task_description);
   return (
     <div color="light"
       className="navbar shadow-sm p-3 mb-5 bg-white rounded"
@@ -61,28 +61,28 @@ function EditProject(props) {
         <div className="modal-input">
         {/* <div > */}
           <FormGroup>
-            <Label for="name">
-              Project Name :
+            <Label for="title">
+              Task Name :
             </Label>
             <Input
-              id="name"
-              name="name"
-              value={projectNameValue}
-              placeholder="enter project title..."
+              id="title"
+              name="title"
+              value={taskNameValue}
+              placeholder="enter task title..."
               type="text"
               onChange={handleChange}
             />
           </FormGroup>
           <FormGroup>
             <Label for="text">
-              Project Description :
+              Task Description :
             </Label>
             <Input
               id="description"
               name="description"
               type="textarea"
-              value={projectDescriptionValue}
-              placeholder="enter detail description of project.."
+              value={taskDescriptionValue}
+              placeholder="enter detail description of task.."
               onChange={handleChange}
             />
           </FormGroup>
@@ -90,7 +90,7 @@ function EditProject(props) {
             <Button onClick={handleSubmit} type="submit">
               Save
             </Button>
-            <Link to={`/projects`}className="btn btn-primary"  onClick={()=>handleCancel()}>Cancel </Link>
+            <Link to={`/tasks`}className="btn btn-primary"  onClick={()=>handleCancel()}>Cancel </Link>
           </span>
 
         </div>
@@ -100,7 +100,7 @@ function EditProject(props) {
   );
 }
 
-export default EditProject;
+export default EditTask;
 
 
 

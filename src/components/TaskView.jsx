@@ -7,7 +7,7 @@ import { Link, useParams } from "react-router-dom";
 import TaskModal from './TaskModal'
 import { useTasks } from '../hooks/userProjects'
 import axios from "axios";
-
+import EditTaskModal from './Modal/EditTaskModal'
 const handleDelete= (id) => {
     axios.delete(`http://localhost:3000/api/v1/tasks/${id}`, {
             headers: {
@@ -18,7 +18,7 @@ const handleDelete= (id) => {
             console.log(response.data  + ": deleted successfully !");
          })
         
-         window.location.reload(true);
+        //  window.location.reload(true);
 }
 
 function PrintTableForView(props) {
@@ -35,7 +35,8 @@ function PrintTableForView(props) {
                     {props.description}
                 </td>
                 <td>
-                    <Link to="/projects/view/edit" className="btn btn-primary"><FontAwesomeIcon icon={faPencil} className="mr-2" />Edit</Link>
+                    {/* <Link to="/projects/view/edit" className="btn btn-primary"><FontAwesomeIcon icon={faPencil} className="mr-2" />Edit</Link> */}
+                    <EditTaskModal buttonLabel="Edit" task__title={props.title} task__description={props.description} task__id={props.id} ></EditTaskModal>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <Link to={`/projects/${props.project_id}/view`}className="btn btn-primary" onClick={()=>handleDelete(props.id)}><FontAwesomeIcon icon={faPencil} className="mr-2" />Delete </Link>
                 </td>

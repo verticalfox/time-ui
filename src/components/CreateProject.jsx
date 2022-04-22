@@ -1,39 +1,53 @@
-import React, { useState} from "react";
+import React, { useState, useEffect, useLayoutEffect } from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
-import axios from "axios";
+import { getRequest, postRequest } from "../utils/http";
+
+
+
+
 const initialFormData = Object.freeze({
   name: "",
   description: "",
+  workspace_id : "b41e1eff-6884-42f1-9829-17578cb06dcb"
 });
 
 function CreateProject(props) {
-  const [formData, updateFormData] = useState(initialFormData);
+  const [formData, updateFormData] = useState(initialFormData); 
 
+  const [workspace, setWorkspace] = useState([]);
+
+  useLayoutEffect(() => {
+    //fetch workspace_id here ..
+    getRequest({
+      url: `/workspaces`,
+    })
+    .then(function (response) {
+      console.log("you are here ")
+      setWorkspace(response.data.workspace);
+      console.log(workspace[0].id);
+    })
+  }, );
+ 
+ 
+ 
   const handleChange = (e) => {
     updateFormData({
       ...formData,
       [e.target.name]: e.target.value.trim()
     });
   };
-
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(formData);
     // ... submit to API 
-    axios.post('http://localhost:3000/api/v1/projects', {
-    "project": {
-        "name":formData.name,
-        "description": formData.description,
-        "workspace_id":"b41e1eff-6884-42f1-9829-17578cb06dcb"
-    }
-})
-      .then(function (response) {
-        // console.log(response);
-             window.location.reload(true);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    postRequest({
+      url:`/projects`,
+      data: formData
+    })
+    .then(function(response) {
+      console.log("successfully added project entry !");
+      // window.location.reload(true);
+     });
 
   };
   return (

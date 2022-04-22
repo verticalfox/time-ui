@@ -8,7 +8,7 @@ const initialFormData = Object.freeze({
   description: "",
 });
 
-function EditProject(props) {
+function EditUser(props) {
   const [formData, updateFormData] = useState(initialFormData);
 
   const handleChange = (e) => {
@@ -100,7 +100,7 @@ function EditProject(props) {
   );
 }
 
-export default EditProject;
+export default EditUser;
 
 
 

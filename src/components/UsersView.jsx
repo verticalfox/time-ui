@@ -3,10 +3,12 @@ import { Table , Button} from "reactstrap";
 import axios from 'axios';
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import UserModal from './UserModal'
+import UserModal from './Modal/UserModal'
 import {
     faPencil,
 } from "@fortawesome/free-solid-svg-icons";
+import { useUsers } from "../hooks/adminProjects";
+import EditProjectModal from './Modal/EditProjectModal'
 function IterableTable2(info,index) {
     return (
         <PrintTable2
@@ -29,12 +31,12 @@ function deleteUser(id) {
         })
        .then(function (response) {
             console.log(response.data  + ": deleted successfully !");
-            window.location.reload(true);
+            // window.location.reload(true);
          })
 
 }
 function PrintTable2(props) {
-    console.log("this is user id : " + props.id);
+
     return (
                 <tbody>
 
@@ -55,10 +57,11 @@ function PrintTable2(props) {
                             {props.role}
                         </td>
                         <td>
-                            <Link to="/users/edit" className="btn btn-primary">
+                            {/* <Link to="/users/edit" className="btn btn-primary">
                                 <FontAwesomeIcon icon={faPencil} className="mr-2" />
                                 Edit
-                            </Link>
+                            </Link> */}
+                                <EditProjectModal buttonLabel="Edit" project__name={props.name} project__description={props.description} project__id={props.id} ></EditProjectModal>
                             &nbsp;&nbsp;&nbsp;&nbsp;
                            
                             <Button className="btn" color="primary" onClick={()=>deleteUser(props.id)}>
@@ -71,21 +74,7 @@ function PrintTable2(props) {
     );
 }
 function UsersView() {
-    const [userData, setUserData] = useState([]);
-    useEffect(() => {
-        axios.get(`http://localhost:3000/api/v1/users`, {
-            headers: {
-               'Access-Control-Allow-Origin': '*'
-            }
-        })
-       .then(function (response) {
-             setUserData(response.data.users);
-             console.log(userData);
-         })
-    
-   
-    }, []);
-
+    const [loading , users] = useUsers();
     return ( <div color="light"
     className="navbar shadow-sm p-3 mb-5 bg-white "
     expand="md">
@@ -112,7 +101,7 @@ function UsersView() {
                 </th>
             </tr>
         </thead>
-        {userData.map(IterableTable2)}
+        {users.map(IterableTable2)}
     </table>
 </div>);
   }

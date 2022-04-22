@@ -3,7 +3,7 @@ import { Button, Modal, ModalHeader} from 'reactstrap';
 import EditProject from '../EditProject'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
-class EditProjectModal extends React.Component {
+class EditUserModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -33,4 +33,4 @@ class EditProjectModal extends React.Component {
   }
 }
 
-export default EditProjectModal;
+export default EditUserModal;

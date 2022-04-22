@@ -13,6 +13,7 @@ import ReportView from "./components/ReportView";
 import CreateUser from "./components/CreateUser";
 import CreateTask from "./components/CreateTask";
 import CreateProject from "./components/CreateProject";
+import CreateWorkspace from "./components/CreateWorkspace";
 function HomeView() {
   return (<div  color="light"
   className="navbar shadow-sm p-3 mb-5 bg-white rounded"
@@ -42,7 +43,8 @@ const Content = ({ sidebarIsOpen = false, toggleSidebar = {} }) => (
       <Route exact path="/users/create" element={<CreateUser/>} />
       <Route exact path="/projects/view/edit" element={<CreateTask/>} />
       <Route exact path="/projects/create" element={<CreateProject/>} />
-      <Route exact path="/projects/edit" element={<CreateProject/>} />
+        <Route exact path="/projects/edit" element={<CreateProject/>} />
+      {/* <Route exact path="/workspaces/create" element={<CreateWorkspace/>} /> */}
       </Routes>
   </Container>
 );

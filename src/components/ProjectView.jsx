@@ -18,7 +18,7 @@ const handleDelete= (id) => {
         })
        .then(function (response) {
             console.log(response.data  + ": deleted successfully !");
-            window.location.reload(true);
+            // window.location.reload(true);
          })
 
 }
