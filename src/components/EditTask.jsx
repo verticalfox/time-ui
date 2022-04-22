@@ -35,7 +35,6 @@ console.log("this is task id through props:" + props.task_id);
     "task": {
         "title":formData.title,
         "description": formData.description,
-        // "project_id":"53bf03f4-a5bd-4fea-b867-ffde17c64dde"
     }
 })
       .then(function (response) {

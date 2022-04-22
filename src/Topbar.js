@@ -33,7 +33,8 @@ const Topbar = ({ toggleSidebar }) => {
     .then(function (response) {
       setWorkspace(response.data.workspace);
       console.log("topbar console response");
-      console.log(workspace);
+      console.log(workspace[0].id);
+      console.log(workspace.values);
     })
   }, []);
 
@@ -54,7 +55,7 @@ const Topbar = ({ toggleSidebar }) => {
               register={register}
               className="form-select"
               rules={{ required: true }}
-              value=""
+              // value=""
               options={getOptions(workspace)}
             />
       {/* <select>
