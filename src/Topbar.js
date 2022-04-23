@@ -25,18 +25,18 @@ const Topbar = ({ toggleSidebar }) => {
   const toggleTopbar = () => setTopbarOpen(!topbarIsOpen);
 
   
-  const [workspace, setWorkspace] = useState([]);
-  useEffect(() => {
-    getRequest({
-      url: `/workspaces`,
-    })
-    .then(function (response) {
-      setWorkspace(response.data.workspace);
-      console.log("topbar console response");
-      console.log(workspace[0].id);
-      console.log(workspace.values);
-    })
-  }, []);
+  // const [workspace, setWorkspace] = useState([]);
+  // useEffect(() => {
+  //   getRequest({
+  //     url: `/workspaces`,
+  //   })
+  //   .then(function (response) {
+  //     setWorkspace(response.data.workspace);
+  //     console.log("topbar console response");
+  //     console.log(workspace[0].id);
+  //     console.log(workspace.values);
+  //   })
+  // }, []);
 
 
 
@@ -50,14 +50,14 @@ const Topbar = ({ toggleSidebar }) => {
         <FontAwesomeIcon icon={faAlignLeft} />
       </Button>
       <>
-      <SelectField
+      {/* <SelectField
               name="workspace_id"
               register={register}
               className="form-select"
               rules={{ required: true }}
               // value=""
               options={getOptions(workspace)}
-            />
+            /> */}
       {/* <select>
       <FontAwesomeIcon icon={faAlignLeft} />
         <option>

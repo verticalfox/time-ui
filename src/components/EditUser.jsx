@@ -35,7 +35,7 @@ function EditUser(props) {
     "project": {
         "name":formData.name,
         "description": formData.description,
-        "workspace_id":"b41e1eff-6884-42f1-9829-17578cb06dcb"
+        "workspace_id":"50dcdbab-61df-4713-a4a8-6eaa68a46614"
     }
 })
       .then(function (response) {

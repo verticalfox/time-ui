@@ -8,7 +8,7 @@ import { getRequest, postRequest } from "../utils/http";
 const initialFormData = Object.freeze({
   name: "",
   description: "",
-  workspace_id : "b41e1eff-6884-42f1-9829-17578cb06dcb"
+  workspace_id : "50dcdbab-61df-4713-a4a8-6eaa68a46614"
 });
 
 function CreateProject(props) {
