@@ -14,12 +14,16 @@ import CreateUser from "./components/CreateUser";
 import CreateTask from "./components/CreateTask";
 import CreateProject from "./components/CreateProject";
 import CreateWorkspace from "./components/CreateWorkspace";
+import ProtectedRoutes, { ProtectedRoutesAdmin, ProtectedRoutesUser } from "./ProtectedRoutes";
+import UnauthorizedView from "./components/UnauthorizedView";
 function HomeView() {
+
   return (<div  color="light"
   className="navbar shadow-sm p-3 mb-5 bg-white rounded"
   expand="md"
   >
     <h2> Welcome Home !</h2>
+  
     </div>);
 }
 const Content = ({ sidebarIsOpen = false, toggleSidebar = {} }) => (
@@ -27,16 +31,22 @@ const Content = ({ sidebarIsOpen = false, toggleSidebar = {} }) => (
     fluid
     className={classNames("content", { "is-open": sidebarIsOpen })}
   >
-    {/* <Routes>
-    <Route path="/login" element={<Login/>} />
-      </Routes> */}
     <Topbar toggleSidebar={toggleSidebar} /> 
       <Routes>
       <Route path="/" element={<HomeView/>} />
-      
+      <Route element={<ProtectedRoutesUser/>}>
+     
+      <Route exact path="/tracker" element={<TrackerView/>} />
+      </Route>
+
+
+
+
+      <Route element={<ProtectedRoutesAdmin/>}> 
+  
       <Route path="/projects" element={<ProjectView/>} />
       <Route exact path="/reports" element={<ReportView/>} />
-      <Route exact path="/tracker" element={<TrackerView/>} />
+    
       <Route exact path="/users" element={<UsersView/>} />
       <Route exact path="/projects/:id/view" element={<TaskView/>} />
       <Route exact path="/users/:id/edit" element={<CreateUser/>} />
@@ -44,7 +54,7 @@ const Content = ({ sidebarIsOpen = false, toggleSidebar = {} }) => (
       <Route exact path="/projects/view/edit" element={<CreateTask/>} />
       <Route exact path="/projects/create" element={<CreateProject/>} />
         <Route exact path="/projects/edit" element={<CreateProject/>} />
-      {/* <Route exact path="/workspaces/create" element={<CreateWorkspace/>} /> */}
+        </Route>
       </Routes>
   </Container>
 );

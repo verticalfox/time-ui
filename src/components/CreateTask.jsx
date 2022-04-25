@@ -26,16 +26,16 @@ const CreateTask = (props) => {
     "task": {
         "title":formData.task_name,
         "description": formData.task_desc,
-        "project_id":props.projectId
+        "project_id":"ab6be56b-0527-4d9b-bb40-d3a8a5dc02c9"
     }
 })
       .then(function (response) {
-        // console.log(response);
+       console.log(response);
       })
       .catch(function (error) {
         console.log(error);
       });
-      window.location.reload(true);
+      // window.location.reload(true);
   };
   return (
     <div color="light"

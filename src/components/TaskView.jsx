@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState,useEffect} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faPencil,
@@ -47,7 +47,29 @@ function PrintTableForView(props) {
 
 function TaskView() {
     const param = useParams();  
-    const [loading, tasks] = useTasks(param.id);   
+    // const [loading, tasks] = useTasks(param.id);   
+
+
+    const [tasks , setTasks] = useState([]);   
+    useEffect(() => {
+        axios.get(`http://localhost:3000/api/v1/tasks/${param.id}`, {
+        headers: {
+           'Access-Control-Allow-Origin': '*'    
+        }
+    })
+   .then(function (response) {
+       console.log(response);
+       setTasks(response.data.task);
+       console.log(tasks);  
+     },[])
+    
+      return () => {
+        
+      }
+    }, [])
+    
+  
+
     console.log("check :" + param.id);
     return (<div color="light"
         className="navbar shadow-sm p-3 mb-5 bg-white "

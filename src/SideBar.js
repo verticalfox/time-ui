@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faImage,
@@ -11,12 +11,21 @@ import { NavItem, NavLink, Nav } from "reactstrap";
 import classNames from "classnames";
 import { Link } from "react-router-dom";
 
-import SubMenu from "./SubMenu";
 
+import SubMenu from "./SubMenu";
+import { MyContext } from "./App";
+
+
+
+var user=false;
+var user_role = localStorage.getItem('user_role');
+console.log("sidebar | role | : " + user_role);
+if(user_role==='user') {
+  user=true;
+}
 const SideBar = ({ isOpen, toggle }) => (
 
  
-
 
   <div className={classNames("sidebar", { "is-open": isOpen })}>
     <div className="sidebar-header">
@@ -26,52 +35,94 @@ const SideBar = ({ isOpen, toggle }) => (
       <h2 >Foxy Clock </h2>
        
     </div>
-    <div className="side-menu">
-      <Nav vertical className="list-unstyled pb-3">
-      <p></p>
 
-      {/* view for normal user */}
-        <NavItem >
-          <NavLink tag={Link} to={'/tracker'}>
-            <FontAwesomeIcon icon={faClock} className="mr-2" />
-            Tracker
-          </NavLink>
-        </NavItem>
+    { user  ?
+    
+    
+    
+    (
+      <div className="side-menu">
+        <Nav vertical className="list-unstyled pb-3">
+        <p></p>
+  
+        {/* view for normal user */}
+          <NavItem >
+            <NavLink tag={Link} to={'/tracker'}>
+              <FontAwesomeIcon icon={faClock} className="mr-2" />
+              Tracker
+            </NavLink>
+          </NavItem>
 
-
-
-
-    {/* view for ADMIN */}
-        {/* <SubMenu title="Project" icon={faImage} items={submenus[0]}/>
-        <SubMenu title="Users" icon={faUser} items={submenus[1]}/> */}
-        <NavItem>
-          <NavLink tag={Link} to={"/projects"}>
-            <FontAwesomeIcon icon={faImage} className="mr-2" />
-            Projects
-          </NavLink>
-        </NavItem> <NavItem>
-          <NavLink tag={Link} to={"/users"}>
-            <FontAwesomeIcon icon={faUser} className="mr-2" />
-            Users
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink tag={Link} to={"/reports"}>
-            <FontAwesomeIcon icon={faSheetPlastic} className="mr-2" />
-            Report
-          </NavLink>
-        </NavItem>
-        <NavItem>
-          <NavLink tag={Link} to={"/logout"}>
-            <FontAwesomeIcon icon={faSignOut} className="mr-2" />
-            Logout
-          </NavLink>
-        </NavItem>
+          <NavItem>
+        <NavLink tag={Link} to={"/logout"}>
+          <FontAwesomeIcon icon={faSignOut} className="mr-2" />
+          Logout
+        </NavLink>
+      </NavItem>
 
 
+  
+        </Nav>
+      </div>
+  ) 
+    
+    
+    : 
+    
+    
+    
+    (<div className="side-menu">
+    <Nav vertical className="list-unstyled pb-3">
 
-      </Nav>
-    </div>
+
+  {/* view for ADMIN */}
+      {/* <SubMenu title="Project" icon={faImage} items={submenus[0]}/>
+      <SubMenu title="Users" icon={faUser} items={submenus[1]}/> */}
+      <NavItem>
+        <NavLink tag={Link} to={"/projects"}>
+          <FontAwesomeIcon icon={faImage} className="mr-2" />
+          Projects
+        </NavLink>
+      </NavItem> <NavItem>
+        <NavLink tag={Link} to={"/users"}>
+          <FontAwesomeIcon icon={faUser} className="mr-2" />
+          Users
+        </NavLink>
+      </NavItem>
+      <NavItem>
+        <NavLink tag={Link} to={"/reports"}>
+          <FontAwesomeIcon icon={faSheetPlastic} className="mr-2" />
+          Report
+        </NavLink>
+      </NavItem>
+      <NavItem>
+        <NavLink tag={Link} to={"/logout"}>
+          <FontAwesomeIcon icon={faSignOut} className="mr-2" />
+          Logout
+        </NavLink>
+      </NavItem>
+
+
+
+    </Nav>
+  </div>
+    
+    
+    
+    
+    
+    
+    )
+    
+    
+    
+    
+    
+    }
+
+
+
+    
   </div>
 );
 

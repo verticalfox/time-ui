@@ -36,10 +36,11 @@ a:focus {
 }
 
 .btn-info:hover, :focus {
-  background-color: #778be2 !important;
+
   border: none !important;
   /* text-decoration: none !important; */
-  background-color: transparent !important;
+  background-color: transparent ;
+  /* background-color: #778be2 ; */
   /* box-shadow: none !important; */
 }
 
@@ -216,4 +217,8 @@ Reactstrap css
 
 .transparent-background {
   background-color: transparent !important;
+}
+
+.btn-background {
+  background-color: #7386d5;
 }

@@ -23,7 +23,7 @@ const Topbar = ({ toggleSidebar }) => {
   const { register, handleSubmit, watch, reset, formState: { errors } } = useForm();
   const [topbarIsOpen, setTopbarOpen] = useState(true);
   const toggleTopbar = () => setTopbarOpen(!topbarIsOpen);
-
+  const name=localStorage.getItem('user_name');
   
   // const [workspace, setWorkspace] = useState([]);
   // useEffect(() => {
@@ -38,7 +38,7 @@ const Topbar = ({ toggleSidebar }) => {
   //   })
   // }, []);
 
-
+  console.log(name);
 
   return (
     <Navbar
@@ -67,7 +67,7 @@ const Topbar = ({ toggleSidebar }) => {
       <WorkspaceModal buttonLabel="Create workspace "/>
       </>
      
-      <h5 style={{color:"black"}}value={"Hello ! Jayesh"}> Hello ! John
+        <h5 style={{color:"black"}}value={"Hello !"}> Hello ! {name}
          </h5>
       <NavbarToggler onClick={toggleTopbar} />
     </Navbar>
