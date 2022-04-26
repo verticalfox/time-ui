@@ -14,16 +14,20 @@ import { Link } from "react-router-dom";
 
 import SubMenu from "./SubMenu";
 import { MyContext } from "./App";
-
+import authContext from "./context/authContext";
 
 
 var user=false;
-var user_role = localStorage.getItem('user_role');
-console.log("sidebar | role | : " + user_role);
-if(user_role==='user') {
-  user=true;
-}
-const SideBar = ({ isOpen, toggle }) => (
+// var user_role = localStorage.getItem('user_role');
+// console.log("sidebar | role | : " + user_role);
+// if(user_role==='user') {
+//   user=true;
+// }
+const SideBar = ({ isOpen, toggle }) => { 
+  const authCurrentContext=useContext(authContext);
+  const user_role= authCurrentContext.userRole;
+  
+  return(
 
  
 
@@ -36,7 +40,7 @@ const SideBar = ({ isOpen, toggle }) => (
        
     </div>
 
-    { user  ?
+    { (user_role === 'user') ?
     
     
     
@@ -124,7 +128,7 @@ const SideBar = ({ isOpen, toggle }) => (
 
     
   </div>
-);
+)};
 
 const submenus = [
   [

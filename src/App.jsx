@@ -8,14 +8,17 @@ import "./App.css";
 import Login from './Login';
 import UnauthorizedView from './components/UnauthorizedView';
 import Logout from './components/Logout';
+import AuthState from './context/AuthState';
 function App() {
   const [sidebarIsOpen, setSidebarOpen] = useState(true);
   const toggleSidebar = () => setSidebarOpen(!sidebarIsOpen);
-  const user= localStorage.getItem('user_role');
-  const MyContext = createContext();
-  return (<BrowserRouter>
-    <Routes>
+  // const user= localStorage.getItem('user_role');
   
+  return (
+  <>
+ <AuthState>
+  <BrowserRouter>
+    <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/unauthorized-user" element={<UnauthorizedView/>}/>
       <Route exact path ="/logout" element={<Logout/>}/>
@@ -25,7 +28,9 @@ function App() {
       </div>}>
       </Route>
     </Routes>
-  </BrowserRouter>);
+  </BrowserRouter>
+  </AuthState>
+  </>);
 
 
 

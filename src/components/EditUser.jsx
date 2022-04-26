@@ -2,7 +2,7 @@ import React, { useState} from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 const initialFormData = Object.freeze({
   name: "",
   description: "",
@@ -13,10 +13,16 @@ function EditUser(props) {
 
   const handleChange = (e) => {
     if(e.target.id === "name") {
-      setProjectNameValue(e.target.value);
+      setName(e.target.value);
     }
-    if(e.target.id === "description") {
-      setProjectDescriptionValue(e.target.value);
+    if(e.target.id === "email") {
+      setEmail(e.target.value);
+    }
+    if(e.target.id === "phone") {
+      setMobileNumber(e.target.value);
+    }
+    if(e.target.id === "role") {
+      setRole(e.target.value);
     }
     updateFormData({
       ...formData,
@@ -31,11 +37,13 @@ function EditUser(props) {
     //fetch workspace id here 
 
     // ... submit to API 
-    axios.patch(`http://localhost:3000/api/v1/projects/${props.project_id}`, {
+    axios.patch(`http://localhost:3000/api/v1/user/${props.user_id}`, {
     "project": {
         "name":formData.name,
-        "description": formData.description,
-        "workspace_id":"50dcdbab-61df-4713-a4a8-6eaa68a46614"
+        "email": formData.email,
+        "mobile_number" : formData.mobileNumber,
+        "role" : formData.role,
+        // "workspace_id":"50dcdbab-61df-4713-a4a8-6eaa68a46614"
     }
 })
       .then(function (response) {
@@ -51,8 +59,12 @@ function EditUser(props) {
   const handleCancel = ()=> {
     // window.location.reload(true);
   }
-  const [projectNameValue, setProjectNameValue] = useState(props.project_name);
-  const [projectDescriptionValue, setProjectDescriptionValue] = useState(props.project_description);
+
+     const [name , setName] = useState(props.user_name);
+     const [email , setEmail] = useState(props.user_email);
+     const [mobileNumber , setMobileNumber] = useState(props.user_mobile_number);
+     const [role , setRole] = useState(props.user_role);
+
   return (
     <div color="light"
       className="navbar shadow-sm p-3 mb-5 bg-white rounded"
@@ -62,30 +74,60 @@ function EditUser(props) {
         {/* <div > */}
           <FormGroup>
             <Label for="name">
-              Project Name :
+               Name : 
             </Label>
             <Input
               id="name"
               name="name"
-              value={projectNameValue}
-              placeholder="enter project title..."
+              value={name}
+              placeholder="enter name..."
+              type="text"
+              onChange={handleChange}
+            />
+          </FormGroup>
+
+
+
+          <FormGroup>
+            <Label for="email">
+              email:
+            </Label>
+            <Input
+              id="email"
+              name="email"
+              value={email}
+              placeholder="enter email..."
               type="text"
               onChange={handleChange}
             />
           </FormGroup>
           <FormGroup>
-            <Label for="text">
-              Project Description :
+            <Label for="phone">
+             phone:
             </Label>
             <Input
-              id="description"
-              name="description"
-              type="textarea"
-              value={projectDescriptionValue}
-              placeholder="enter detail description of project.."
+              id="phone"
+              name="phone"
+              value={mobileNumber}
+              placeholder="enter phone..."
+              type="text"
               onChange={handleChange}
             />
           </FormGroup>
+          <FormGroup>
+            <Label for="role">
+              role :
+            </Label>
+            <Input
+              id="role"
+              name="role"
+              value={role}
+              placeholder="enter role..."
+              type="text"
+              onChange={handleChange}
+            />
+          </FormGroup>
+          
           <span style={{ backgroundColor: "lightblue" }}>
             <Button onClick={handleSubmit} type="submit">
               Save

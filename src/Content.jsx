@@ -49,7 +49,7 @@ const Content = ({ sidebarIsOpen = false, toggleSidebar = {} }) => (
     
       <Route exact path="/users" element={<UsersView/>} />
       <Route exact path="/projects/:id/view" element={<TaskView/>} />
-      <Route exact path="/users/:id/edit" element={<CreateUser/>} />
+      {/* <Route exact path="/users/:id/edit" element={<CreateUser/>} /> */}
       <Route exact path="/users/create" element={<CreateUser/>} />
       <Route exact path="/projects/view/edit" element={<CreateTask/>} />
       <Route exact path="/projects/create" element={<CreateProject/>} />

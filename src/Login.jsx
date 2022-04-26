@@ -1,8 +1,8 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useContext, useState } from "react";
 import "./Login.css";
 import axios from "axios";
 import { Navigate} from "react-router-dom";
-import { MyContext } from "./App";
+import authContext from "./context/authContext";
 const intialData= Object.freeze(
 {
 	username:"",
@@ -12,12 +12,18 @@ const intialData= Object.freeze(
 );
 
 function Login() {
-	localStorage.clear();
 	const [currentFormData , setFormData]= useState(intialData)
 	const [success , setSuccess] =useState(false);
 	const [message , setMessage] = useState("you are not logged in..");
 	const [userRole , setUserRole] = useState("none");
 	const [name , setName] = useState("xyz");
+
+	const authCurrentContext= useContext(authContext);
+
+	console.log("authCurrentContext role : " + authCurrentContext.userRole);
+	// authCurrentContext.updateRole("jayesh");
+	// console.log("authCurrentContext role : " + authCurrentContext.userRole);
+
 	const handleChange=(e) => {
 		setFormData({
 		 ...currentFormData,
@@ -29,7 +35,7 @@ function Login() {
 		e.preventDefault();
 		// console.log(currentFormData);
 		// console.log("you are here !")
-
+		
 		axios.post('http://localhost:3000/users/sign_in', {
 			"user": {
 				"email" : currentFormData.username,
@@ -41,6 +47,7 @@ function Login() {
 				setMessage(response.data.message);
 				setUserRole(response.data.user.role);
 				setName(response.data.user.name);
+				authCurrentContext.updateRole(response.data.user.role)
 			
 			  })
 			  .catch(function (error) {
@@ -51,8 +58,9 @@ function Login() {
 	}
 	return (
 	<>
-		{localStorage.setItem('user_role',userRole)}
-		{localStorage.setItem('user_name',name)}
+		{/* {localStorage.setItem('user_role',userRole)}
+		{localStorage.setItem('user_name',name)} */}
+				
 	{success && (message==="You are logged in.")? (<div><Navigate to="/" /></div>)
 	: (	<div className="container">
 

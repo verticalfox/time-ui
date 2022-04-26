@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState , useContext} from "react";
 import { Table} from "reactstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
@@ -10,6 +10,16 @@ import ProjectModal from './Modal/ProjectModal';
 import axios from "axios";
 import EditProjectModal from './Modal/EditProjectModal'
 import CreateProject from "./CreateProject";
+import authContext from "../context/authContext";
+
+
+
+
+
+
+
+
+
 const handleDelete= (id) => {
     axios.delete(`http://localhost:3000/api/v1/projects/${id}`, {
             headers: {
@@ -57,6 +67,22 @@ const PrintTable =(props) => {
 function ProjectView() {
     const [loading, projects] = useProjects();
     const [userData , setUserData] = useState("");
+
+    //testing context 
+
+  const c = useContext(authContext);
+  console.log("role passed in ProjectView through context" + c.userRole);
+
+
+
+//end of testing context
+
+
+
+
+
+
+
     return (
         <div color="light"
             className="navbar shadow-sm p-3 mb-5 bg-white "

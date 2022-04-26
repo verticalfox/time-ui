@@ -8,7 +8,7 @@ import {
     faPencil,
 } from "@fortawesome/free-solid-svg-icons";
 import { useUsers } from "../hooks/adminProjects";
-import EditProjectModal from './Modal/EditProjectModal'
+import EditUserModal from './Modal/EditUserModal'
 function IterableTable2(info,index) {
     return (
         <PrintTable2
@@ -61,7 +61,7 @@ function PrintTable2(props) {
                                 <FontAwesomeIcon icon={faPencil} className="mr-2" />
                                 Edit
                             </Link> */}
-                                <EditProjectModal buttonLabel="Edit" project__name={props.name} project__description={props.description} project__id={props.id} ></EditProjectModal>
+                                <EditUserModal buttonLabel="Edit" user__name= {props.name} user__email= {props.email} user__id={props.id}  user__mobile_number={props.mobile_number}  user__role={props.role}></EditUserModal>
                             &nbsp;&nbsp;&nbsp;&nbsp;
                            
                             <Button className="btn" color="primary" onClick={()=>deleteUser(props.id)}>

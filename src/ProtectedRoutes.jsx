@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useContext , useEffect } from 'react'
 import { Navigate, Outlet } from 'react-router';
+import authContext from './context/authContext';
 
 const useAuth=()=> {
   const user = {loggedIn :true};
@@ -9,29 +10,27 @@ const useAuth=()=> {
 var user=false;
 var admin=false;
 
-
-const user_role = localStorage.getItem('user_role');
-console.log("Protected routes | role | : " + user_role);
-if(user_role==='user') {
-  user=true;
-}
-if(user_role==='admin') {
-  admin=true;
-}
-
-console.log("value of user in Protected Routes:" + user , "value of admin in Protected Routes :" + admin);
 function ProtectedRoutesUser() {
 
+
+// const user_role = localStorage.getItem('user_role');
+const authCurrentContext=useContext(authContext);
+const user_role= authCurrentContext.userRole;
+console.log("Protected routes | role | : " + user_role);
   const isAuth = useAuth();
  return (
-   isAuth && user? <Outlet/> :<Navigate to="/unauthorized-user"/>
+   isAuth && (user_role==='user')? <Outlet/> :<Navigate to="/unauthorized-user"/>
  )
 }
-
 function ProtectedRoutesAdmin() {
+  // const user_role = localStorage.getItem('user_role');
+const authCurrentContext=useContext(authContext);
+const user_role= authCurrentContext.userRole;
+console.log("Protected routes | role | : " + user_role);
+
  const isAuth = useAuth();
 return (
-  isAuth && admin?<Outlet/> : <Navigate to="/unauthorized-user"/>
+  isAuth && (user_role==='admin')?<Outlet/> : <Navigate to="/unauthorized-user"/>
 )
 }
 export {ProtectedRoutesAdmin , ProtectedRoutesUser};

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Modal, ModalHeader} from 'reactstrap';
-import EditProject from '../EditProject'
+import EditUser from '../EditUser'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 class EditUserModal extends React.Component {
@@ -25,8 +25,8 @@ class EditUserModal extends React.Component {
       
         <Button color="primary" onClick={this.toggle}><FontAwesomeIcon icon={faPencil} className="mr-2" />{this.props.buttonLabel}</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} fade={false}  backdrop={false}>
-          <ModalHeader toggle={this.toggle}>Edit Project</ModalHeader>
-            <EditProject project_name= {this.props.project__name} project_description={this.props.project__description} project_id={this.props.project__id}/>
+          <ModalHeader toggle={this.toggle}>Edit user info </ModalHeader>
+            <EditUser user_name= {this.props.user__name} user_email={this.props.user__email} user_id={this.props.user__id}     user_mobile_number={this.props.user__mobile_number}     user_role={this.props.user__role}/>
         </Modal>
       </>
     );

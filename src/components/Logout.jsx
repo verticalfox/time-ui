@@ -5,7 +5,7 @@ function handleClick() {
 <Navigate to="/login">go to login </Navigate>
 }
 function Logout() {
-  localStorage.clear();
+  // localStorage.clear();
 
   return (
     <div>
