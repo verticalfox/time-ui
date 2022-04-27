@@ -1,6 +1,6 @@
-import React, { useState,useEffect,useContext } from "react";
+import React, { useState,useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAlignLeft, faAlignRight } from "@fortawesome/free-solid-svg-icons";
+import { faAlignLeft } from "@fortawesome/free-solid-svg-icons";
 import { SelectField } from "./components/Form";
 import WorkspaceModal from './components/Modal/WorkspaceModal';
 import { useForm } from 'react-hook-form';
@@ -11,18 +11,12 @@ import {
 } from "reactstrap";
 import { getRequest } from "./utils/http";
 import { getOptions } from "./utils";
-import authContext from "./context/authContext";
 
 const Topbar = ({ toggleSidebar }) => {
   const { register, handleSubmit, watch, reset, formState: { errors } } = useForm();
   const [topbarIsOpen, setTopbarOpen] = useState(true);
   const toggleTopbar = () => setTopbarOpen(!topbarIsOpen);
-  // const name=localStorage.getItem('user_name');
   
-  const authCurrentContext=useContext(authContext);
-  // authCurrentContext.updateRole(localStorage.getItem('user_role'));
-  const user_role= authCurrentContext.userRole;
-
   const [workspace, setWorkspace] = useState([]);
   useEffect(() => {
     getRequest({

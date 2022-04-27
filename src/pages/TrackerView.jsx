@@ -1,11 +1,12 @@
 import React from "react";
 import { Button, Card, CardBody } from "reactstrap";
 import { useForm } from 'react-hook-form';
-import { SelectField, TextField, TextAreaField } from './Form';
+import { SelectField, TextField, TextAreaField } from '../components/Form';
 import { useProjects, useTasks } from '../hooks/userProjects';
 import { getOptions } from "../utils";
 import { useCreateTimeEntry } from '../hooks/useCreateTimeEntry';
-import DateField from "./Form/DateField";
+import DateField from "../components/Form/DateField";
+import { withAuthenticate } from "../Routes";
 
 const TrackerView = () => {
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
@@ -67,4 +68,4 @@ const TrackerView = () => {
   );
 }
 
-export default TrackerView;
+export default withAuthenticate(TrackerView);

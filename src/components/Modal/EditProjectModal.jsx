@@ -9,7 +9,6 @@ class EditProjectModal extends React.Component {
     this.state = {
       modal: false
     };
-
     this.toggle = this.toggle.bind(this);
   }
   toggle() {

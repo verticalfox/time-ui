@@ -4,3 +4,4 @@ export const getOptions = (options, id="id", label="name") => {
     label: option[label],
   }))
 }
+
