@@ -14,7 +14,8 @@ import CreateUser from "./components/CreateUser";
 import CreateTask from "./components/CreateTask";
 import CreateProject from "./components/CreateProject";
 import CreateWorkspace from "./components/CreateWorkspace";
-import ProtectedRoutes, { ProtectedRoutesAdmin, ProtectedRoutesUser } from "./ProtectedRoutes";
+import ProtectedRoutesUser  from "./components/ProtectedRoutesUser";
+import ProtectedRoutesAdmin from "./components/ProtectedRoutesAdmin";
 import UnauthorizedView from "./components/UnauthorizedView";
 function HomeView() {
 

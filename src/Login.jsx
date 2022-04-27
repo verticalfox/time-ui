@@ -3,11 +3,11 @@ import "./Login.css";
 import axios from "axios";
 import { Navigate} from "react-router-dom";
 import authContext from "./context/authContext";
+import { postRequest } from "./utils/http";
 const intialData= Object.freeze(
 {
 	username:"",
 	password:""	,
-
 }
 );
 
@@ -35,7 +35,6 @@ function Login() {
 		e.preventDefault();
 		// console.log(currentFormData);
 		// console.log("you are here !")
-		
 		axios.post('http://localhost:3000/users/sign_in', {
 			"user": {
 				"email" : currentFormData.username,
@@ -58,8 +57,9 @@ function Login() {
 	}
 	return (
 	<>
-		{/* {localStorage.setItem('user_role',userRole)}
-		{localStorage.setItem('user_name',name)} */}
+		{localStorage.setItem('user_role',userRole)}
+		{localStorage.setItem('user_name',name)}
+		{/* {authCurrentContext.updateRole(localStorage.getItem('user_role'))} */}
 				
 	{success && (message==="You are logged in.")? (<div><Navigate to="/" /></div>)
 	: (	<div className="container">

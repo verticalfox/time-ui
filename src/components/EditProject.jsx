@@ -1,8 +1,8 @@
 import React, { useState} from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
-import axios from "axios";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { patchRequest } from "../utils/http";
+import { Navigate } from "react-router";
 const initialFormData = Object.freeze({
   name: "",
   description: "",
@@ -27,29 +27,25 @@ function EditProject(props) {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(formData);
-
     //fetch workspace id here 
-
     // ... submit to API 
-    axios.patch(`http://localhost:3000/api/v1/projects/${props.project_id}`, {
-    "project": {
-        "name":formData.name,
-        "description": formData.description,
-        "workspace_id":"50dcdbab-61df-4713-a4a8-6eaa68a46614"
-    }
-})
-      .then(function (response) {
-        // console.log(response);
-            //  window.location.reload(true);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-
+   patchRequest(
+     {
+       url: `projects/${props.project_id}`,
+       data: {
+        "project": {
+          "name":formData.name,
+          "description": formData.description,
+          // "workspace_id":"50dcdbab-61df-4713-a4a8-6eaa68a46614"
+          "workspace_id": localStorage.getItem('workspace_id')
+         }
+       }
+     }
+   ).then(response => console.log(response));
   };
+
   const handleCancel = ()=> {
-    // window.location.reload(true);
+    <Navigate to="/projects"></Navigate>
   }
   const [projectNameValue, setProjectNameValue] = useState(props.project_name);
   const [projectDescriptionValue, setProjectDescriptionValue] = useState(props.project_description);
@@ -87,16 +83,12 @@ function EditProject(props) {
             />
           </FormGroup>
           <span style={{ backgroundColor: "lightblue" }}>
-            <Button onClick={handleSubmit} type="submit">
-              Save
-            </Button>
+            <Button onClick={handleSubmit} type="submit">Save</Button>
             <Link to={`/projects`}className="btn btn-primary"  onClick={()=>handleCancel()}>Cancel </Link>
           </span>
-
         </div>
       </Form>
     </div>
-
   );
 }
 

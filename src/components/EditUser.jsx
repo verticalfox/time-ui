@@ -1,7 +1,8 @@
 import React, { useState} from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
-import axios from "axios";
 import { Link } from "react-router-dom";
+import { patchRequest } from "../utils/http";
+import { Navigate } from "react-router";
 
 const initialFormData = Object.freeze({
   name: "",
@@ -37,27 +38,40 @@ function EditUser(props) {
     //fetch workspace id here 
 
     // ... submit to API 
-    axios.patch(`http://localhost:3000/api/v1/user/${props.user_id}`, {
-    "project": {
-        "name":formData.name,
-        "email": formData.email,
-        "mobile_number" : formData.mobileNumber,
-        "role" : formData.role,
-        // "workspace_id":"50dcdbab-61df-4713-a4a8-6eaa68a46614"
-    }
-})
-      .then(function (response) {
-        // console.log(response);
-            //  window.location.reload(true);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    patchRequest({
+      url : `user/${props.user_id}`,
+      data: {
+        "project": {
+          "name":formData.name,
+          "email": formData.email,
+          "mobile_number" : formData.mobileNumber,
+          "role" : formData.role,
+          // "workspace_id":"50dcdbab-61df-4713-a4a8-6eaa68a46614"
+        }
+      }
+    }).then(res => console.log("user information updated successfully !!"));
+    
+//     axios.patch(`http://localhost:3000/api/v1/user/${props.user_id}`, {
+//     "project": {
+//         "name":formData.name,
+//         "email": formData.email,
+//         "mobile_number" : formData.mobileNumber,
+//         "role" : formData.role,
+//         // "workspace_id":"50dcdbab-61df-4713-a4a8-6eaa68a46614"
+//     }
+// })
+//       .then(function (response) {
+//         // console.log(response);
+//             //  window.location.reload(true);
+//       })
+//       .catch(function (error) {
+//         console.log(error);
+//       });
 
 
   };
   const handleCancel = ()=> {
-    // window.location.reload(true);
+    <Navigate to="/users"></Navigate>
   }
 
      const [name , setName] = useState(props.user_name);
@@ -85,9 +99,6 @@ function EditUser(props) {
               onChange={handleChange}
             />
           </FormGroup>
-
-
-
           <FormGroup>
             <Label for="email">
               email:
@@ -126,19 +137,16 @@ function EditUser(props) {
               type="text"
               onChange={handleChange}
             />
-          </FormGroup>
-          
+          </FormGroup>   
           <span style={{ backgroundColor: "lightblue" }}>
             <Button onClick={handleSubmit} type="submit">
               Save
             </Button>
-            <Link to={`/projects`}className="btn btn-primary"  onClick={()=>handleCancel()}>Cancel </Link>
+            <Link to={`/users`}className="btn btn-primary"  onClick={()=>handleCancel()}>Cancel </Link>
           </span>
-
         </div>
       </Form>
     </div>
-
   );
 }
 

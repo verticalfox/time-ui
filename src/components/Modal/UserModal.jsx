@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalHeader} from 'reactstrap';
 import CreateUser from '../CreateUser'
 class UserModal extends React.Component {
   constructor(props) {

@@ -25,6 +25,7 @@ var user=false;
 // }
 const SideBar = ({ isOpen, toggle }) => { 
   const authCurrentContext=useContext(authContext);
+  // authCurrentContext.updateRole(localStorage.getItem('user_role'));
   const user_role= authCurrentContext.userRole;
   
   return(

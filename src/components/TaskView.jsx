@@ -5,22 +5,16 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Link, useParams } from "react-router-dom";
 import TaskModal from './TaskModal'
-import { useTasks } from '../hooks/userProjects'
-import axios from "axios";
 import EditTaskModal from './Modal/EditTaskModal'
+import { deleteRequest, getRequest } from "../utils/http";
 const handleDelete= (id) => {
-    axios.delete(`http://localhost:3000/api/v1/tasks/${id}`, {
-            headers: {
-               'Access-Control-Allow-Origin': '*'    
-            }
-        })
-       .then(function (response) {
-            console.log(response.data  + ": deleted successfully !");
-         })
-        
-        //  window.location.reload(true);
+         deleteRequest({
+            url:`/tasks/${id}`
+         }).then((res)=> {
+             console.log("task deleted successfully !")
+            
+         });
 }
-
 function PrintTableForView(props) {
     return (
         <tbody>
@@ -35,7 +29,6 @@ function PrintTableForView(props) {
                     {props.description}
                 </td>
                 <td>
-                    {/* <Link to="/projects/view/edit" className="btn btn-primary"><FontAwesomeIcon icon={faPencil} className="mr-2" />Edit</Link> */}
                     <EditTaskModal buttonLabel="Edit" task__title={props.title} task__description={props.description} task__id={props.id} ></EditTaskModal>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <Link to={`/projects/${props.project_id}/view`}className="btn btn-primary" onClick={()=>handleDelete(props.id)}><FontAwesomeIcon icon={faPencil} className="mr-2" />Delete </Link>
@@ -47,29 +40,16 @@ function PrintTableForView(props) {
 
 function TaskView() {
     const param = useParams();  
-    // const [loading, tasks] = useTasks(param.id);   
-
-
+    // const [loading, tasks] = useTasks(param.id);
     const [tasks , setTasks] = useState([]);   
     useEffect(() => {
-        axios.get(`http://localhost:3000/api/v1/tasks/${param.id}`, {
-        headers: {
-           'Access-Control-Allow-Origin': '*'    
-        }
-    })
-   .then(function (response) {
-       console.log(response);
-       setTasks(response.data.task);
-       console.log(tasks);  
-     },[])
-    
-      return () => {
-        
-      }
-    }, [])
-    
-  
 
+        getRequest({
+            url:`tasks/${param.id}`
+        }).then(response =>  setTasks(response.data.tasks));
+    
+    }, []);
+    
     console.log("check :" + param.id);
     return (<div color="light"
         className="navbar shadow-sm p-3 mb-5 bg-white "
@@ -106,7 +86,5 @@ function TaskView() {
             })}
         </table>
     </div>);
-
 }
-
 export default TaskView;

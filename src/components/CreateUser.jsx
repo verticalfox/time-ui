@@ -5,8 +5,8 @@ const initialFormData = Object.freeze({
   user_name: "",
   email_id: "",
   phone: "",
-  password:"",
-  role:""
+  password: "",
+  role: ""
 });
 function CreateUser() {
   const [formData, updateFormData] = useState(initialFormData);
@@ -23,16 +23,16 @@ function CreateUser() {
     console.log(formData);
     // ... submit to API 
     axios.post('http://localhost:3000/users', {
-   "user":{ 'name': formData.user_name,
-      'email': formData.email_id,
-      'mobile_number': formData.phone,
-      'password': formData.password,
-      'role': formData.role
-  }
+      "user": {
+        'name': formData.user_name,
+        'email': formData.email_id,
+        'mobile_number': formData.phone,
+        'password': formData.password,
+        'role': formData.role
+      }
     })
       .then(function (response) {
         console.log(response);
-        // window.location.reload();
       })
       .catch(function (error) {
         console.log(error);
@@ -56,50 +56,49 @@ function CreateUser() {
             />
           </FormGroup>
           <FormGroup>
-            Email : 
-            <Input 
+            Email :
+            <Input
               id="email_id"
-              name="email_id" 
+              name="email_id"
               placeholder="abc@xyz.com"
               type="text"
               onChange={handleChange}
-              >
-              </Input>
+            >
+            </Input>
           </FormGroup>
           <FormGroup>
-            Password : 
+            Password :
             <Input
-            id="password"
-            name="password" 
-            placeholder="password should be minimum of 6 letter"
-            type="password"
-            onChange={handleChange}
+              id="password"
+              name="password"
+              placeholder="password should be minimum of 6 letter"
+              type="password"
+              onChange={handleChange}
             >
-             </Input>
+            </Input>
           </FormGroup>
           <FormGroup>
-            Phone : 
+            Phone :
             <Input
-            id="phone"
-            name="phone" 
-            placeholder="+91 0000111100"
-            type="text"
-            onChange={handleChange}
+              id="phone"
+              name="phone"
+              placeholder="+91 0000111100"
+              type="text"
+              onChange={handleChange}
             >
-             </Input>
+            </Input>
           </FormGroup>
           <FormGroup>
-            Role : 
+            Role :
             <Input
-            id="role"
-            name="role" 
-            placeholder="enter role (example : user,admin ..etc)"
-            type="text"
-            onChange={handleChange}
+              id="role"
+              name="role"
+              placeholder="enter role (example : user,admin ..etc)"
+              type="text"
+              onChange={handleChange}
             >
-             </Input>
+          </Input>
           </FormGroup>
-         
           <span style={{ backgroundColor: "lightblue" }}>
             <Button onClick={handleSubmit} type="submit">
               Submit
@@ -108,7 +107,6 @@ function CreateUser() {
         </div>
       </Form>
     </div>
-
   );
 }
 

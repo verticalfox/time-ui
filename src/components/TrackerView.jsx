@@ -1,22 +1,18 @@
 import React from "react";
-import { Button, Card, CardBody ,Input} from "reactstrap";
+import { Button, Card, CardBody } from "reactstrap";
 import { useForm } from 'react-hook-form';
-
 import { SelectField, TextField, TextAreaField } from './Form';
-
 import { useProjects, useTasks } from '../hooks/userProjects';
 import { getOptions } from "../utils";
 import { useCreateTimeEntry } from '../hooks/useCreateTimeEntry';
 import DateField from "./Form/DateField";
 
 const TrackerView = () => {
-  const { register, handleSubmit, watch, reset, formState: { errors } } = useForm();
+  const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const [projectLoading, projects] = useProjects();
   const watchProjectId = watch('project_id');
   const [taskLoading, tasks] = useTasks(watchProjectId);
-  
   const { submitting, onCreate } = useCreateTimeEntry();
-
   console.log(projectLoading, taskLoading, errors);
 
   return (

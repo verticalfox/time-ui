@@ -1,5 +1,4 @@
   import React, { useEffect , useState} from "react";
-  import { Table } from "reactstrap";
   import axios from 'axios';
   
   function IterableTable2(tableEntry) {
@@ -12,10 +11,8 @@
         />
     );
   }
-  
   const PrintTable2 = (props) => (
                   <tbody>
-  
                       <tr>
                           <th scope="row">
                               {props.id}
@@ -40,12 +37,8 @@
          .then(function (response) {
                setReportData(response.data);
            })
-      
-     
       }, []);
-  
-  
-  
+      
       return ( <div color="light"
       className="navbar shadow-sm p-3 mb-5 bg-white "
       expand="md">

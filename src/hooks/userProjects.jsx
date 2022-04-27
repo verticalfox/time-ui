@@ -26,7 +26,7 @@ export const useTasks = (projectId) => {
   useEffect(() => {
     setLoading(true);
     getRequest({
-      url: `tasks`
+      url: `tasks/`
     })
     .then(function (response) {
       const allTask = response.data.tasks;

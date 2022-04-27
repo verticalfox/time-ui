@@ -5,10 +5,13 @@ import { getRequest } from '../utils/http';
 export const useProjects = () => {
   const [loading, setLoading] = useState(false);
   const [projects, setProjects] = useState([]);
+  const workspace_id= localStorage.getItem('workspace_id');
   useEffect(() => {
     setLoading(true);
+    //   vf- workspace id : 50dcdbab-61df-4713-a4a8-6eaa68a46614
     getRequest({
-      url: `/projects/`,
+      // url: `/projects/`,
+      url: `/projects/${workspace_id}`,
     })
     .then(function (response) {
       setProjects(response.data.projects);

@@ -1,8 +1,10 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { patchRequest } from "../utils/http";
+import { Navigate } from "react-router";
 const initialFormData = Object.freeze({
   title: "",
   description: "",
@@ -10,12 +12,11 @@ const initialFormData = Object.freeze({
 
 function EditTask(props) {
   const [formData, updateFormData] = useState(initialFormData);
-
   const handleChange = (e) => {
-    if(e.target.id === "title") {
+    if (e.target.id === "title") {
       setTaskNameValue(e.target.value);
     }
-    if(e.target.id === "description") {
+    if (e.target.id === "description") {
       setTaskDescriptionValue(e.target.value);
     }
     updateFormData({
@@ -23,32 +24,25 @@ function EditTask(props) {
       [e.target.name]: e.target.value.trim()
     });
   };
-
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(formData);
-
     //fetch workspace id here 
-console.log("this is task id through props:" + props.task_id);
+    console.log("this is task id through props:" + props.task_id);
     // ... submit to API 
-    axios.patch(`http://localhost:3000/api/v1/tasks/${props.task_id}`, {
-    "task": {
-        "title":formData.title,
-        "description": formData.description,
-    }
-})
-      .then(function (response) {
-        // console.log(response);
-            //  window.location.reload(true);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
+    patchRequest({
+      url: `tasks/${props.task_id}`,
+      data: {
+        "task": {
+          "title": formData.title,
+          "description": formData.description,
+        }
+      }
+    }).then(res => console.log("task updated succesfully !"));
 
   };
-  const handleCancel = ()=> {
-    // window.location.reload(true);
+  const handleCancel = () => {
+    <Navigate to="/projects"></Navigate>
   }
   const [taskNameValue, setTaskNameValue] = useState(props.task_title);
   const [taskDescriptionValue, setTaskDescriptionValue] = useState(props.task_description);
@@ -58,7 +52,7 @@ console.log("this is task id through props:" + props.task_id);
       expand="md">
       <Form action="/" method="POST">
         <div className="modal-input">
-        {/* <div > */}
+          {/* <div > */}
           <FormGroup>
             <Label for="title">
               Task Name :
@@ -89,13 +83,11 @@ console.log("this is task id through props:" + props.task_id);
             <Button onClick={handleSubmit} type="submit">
               Save
             </Button>
-            <Link to={`/tasks`}className="btn btn-primary"  onClick={()=>handleCancel()}>Cancel </Link>
+            <Link to={`/tasks`} className="btn btn-primary" onClick={() => handleCancel()}>Cancel </Link>
           </span>
-
         </div>
       </Form>
     </div>
-
   );
 }
 

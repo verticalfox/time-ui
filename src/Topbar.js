@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState,useEffect,useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAlignLeft, faAlignRight } from "@fortawesome/free-solid-svg-icons";
 import { SelectField } from "./components/Form";
@@ -8,16 +8,10 @@ import {
   Navbar,
   Button,
   NavbarToggler,
-  Collapse,
-  Nav,
-  NavItem,
-  NavLink,
-  Input,
 } from "reactstrap";
-import { Link } from "react-router-dom";
-import UserModal from "./components/Modal/UserModal";
 import { getRequest } from "./utils/http";
 import { getOptions } from "./utils";
+import authContext from "./context/authContext";
 
 const Topbar = ({ toggleSidebar }) => {
   const { register, handleSubmit, watch, reset, formState: { errors } } = useForm();
@@ -25,21 +19,27 @@ const Topbar = ({ toggleSidebar }) => {
   const toggleTopbar = () => setTopbarOpen(!topbarIsOpen);
   // const name=localStorage.getItem('user_name');
   
-  // const [workspace, setWorkspace] = useState([]);
-  // useEffect(() => {
-  //   getRequest({
-  //     url: `/workspaces`,
-  //   })
-  //   .then(function (response) {
-  //     setWorkspace(response.data.workspace);
-  //     console.log("topbar console response");
-  //     console.log(workspace[0].id);
-  //     console.log(workspace.values);
-  //   })
-  // }, []);
+  const authCurrentContext=useContext(authContext);
+  // authCurrentContext.updateRole(localStorage.getItem('user_role'));
+  const user_role= authCurrentContext.userRole;
 
-  // console.log(name);
+  const [workspace, setWorkspace] = useState([]);
+  useEffect(() => {
+    getRequest({
+      url: `/workspaces`,
+    })
+    .then(function (response) {
+      setWorkspace(response.data.workspaces);
+    })
+  },[] );
 
+  // // console.log(workspace);
+
+  const handleChange=(e) => {
+    console.log(e.target.value);
+    localStorage.setItem('workspace_id',e.target.value);
+  }
+  
   return (
     <Navbar
       color="light"
@@ -50,24 +50,18 @@ const Topbar = ({ toggleSidebar }) => {
         <FontAwesomeIcon icon={faAlignLeft} />
       </Button>
       <>
-      {/* <SelectField
+      <SelectField
               name="workspace_id"
               register={register}
               className="form-select"
               rules={{ required: true }}
-              // value=""
+              onChange={handleChange}
               options={getOptions(workspace)}
-            /> */}
-      {/* <select>
-      <FontAwesomeIcon icon={faAlignLeft} />
-        <option>
-         workspace-VF-1
-        </option>
-      </select> */}
+       />
       <WorkspaceModal buttonLabel="Create workspace "/>
       </>
      
-        <h5 style={{color:"black"}}value={"Hello !"}> Hello ! jayesh
+        <h5 style={{color:"black"}}value={"Hello !"}> Hello ! {localStorage.getItem('user_name')}
          </h5>
       <NavbarToggler onClick={toggleTopbar} />
     </Navbar>

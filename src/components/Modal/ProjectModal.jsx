@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalHeader} from 'reactstrap';
 import CreateProject from '../CreateProject'
 class ProjectModal extends React.Component {
   constructor(props) {
@@ -21,9 +21,9 @@ class ProjectModal extends React.Component {
     return (
       <div>
         <Button color="secondary" onClick={this.toggle}>{this.props.buttonLabel}</Button>
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} fade={false}  backdrop={false}>
+        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} fade={false} backdrop={false}>
           <ModalHeader toggle={this.toggle}>New Project</ModalHeader>
-            <CreateProject project_name= {this.props.project__name} project_description={this.props.project__description}/>
+          <CreateProject project_name={this.props.project__name} project_description={this.props.project__description} />
         </Modal>
       </div>
     );

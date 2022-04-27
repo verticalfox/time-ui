@@ -1,45 +1,22 @@
-import React, { useState , useContext} from "react";
-import { Table} from "reactstrap";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
-import { Link} from "react-router-dom";
-
+import { Link } from "react-router-dom";
 import { useProjects } from '../hooks/adminProjects';
-
 import ProjectModal from './Modal/ProjectModal';
-import axios from "axios";
 import EditProjectModal from './Modal/EditProjectModal'
-import CreateProject from "./CreateProject";
-import authContext from "../context/authContext";
+import { deleteRequest } from "../utils/http";
 
+const handleDelete = (id) => {
+    deleteRequest({
+        url: `/projects/${id}`
+    }).then((res) => {
+        console.log(res.data + ": deleted successfully !")
 
-
-
-
-
-
-
-
-const handleDelete= (id) => {
-    axios.delete(`http://localhost:3000/api/v1/projects/${id}`, {
-            headers: {
-               'Access-Control-Allow-Origin': '*'    
-            }
-        })
-       .then(function (response) {
-            console.log(response.data  + ": deleted successfully !");
-            // window.location.reload(true);
-         })
-
+    });
 }
 
-const handleEdit= (id) => {
-    console.log("you are in edit");
-
-
-}
-
-const PrintTable =(props) => {
+const PrintTable = (props) => {
     return (
         <tbody>
             <tr>
@@ -50,15 +27,12 @@ const PrintTable =(props) => {
                     <Link to={`/projects/${props.id}/view`}>{props.name}</Link>
                 </td>
                 <td>
-                    <a href="/projects/view">{props.description}</a>
+                    <Link to={`/projects/${props.id}/view`}>{props.name}</Link>
                 </td>
                 <td>
-                
                     <EditProjectModal buttonLabel="Edit" project__name={props.name} project__description={props.description} project__id={props.id} ></EditProjectModal>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <Link to={`/projects`}className="btn btn-primary" onClick={()=>handleDelete(props.id)}><FontAwesomeIcon icon={faPencil} className="mr-2" />Delete </Link>
-                
-                    
+                    <Link to={`/projects`} className="btn btn-primary" onClick={() => handleDelete(props.id)}><FontAwesomeIcon icon={faPencil} className="mr-2" />Delete </Link>
                 </td>
             </tr>
         </tbody>
@@ -66,23 +40,6 @@ const PrintTable =(props) => {
 }
 function ProjectView() {
     const [loading, projects] = useProjects();
-    const [userData , setUserData] = useState("");
-
-    //testing context 
-
-  const c = useContext(authContext);
-  console.log("role passed in ProjectView through context" + c.userRole);
-
-
-
-//end of testing context
-
-
-
-
-
-
-
     return (
         <div color="light"
             className="navbar shadow-sm p-3 mb-5 bg-white "
@@ -117,7 +74,6 @@ function ProjectView() {
                 }
                 )}
             </table>
-
         </div>
     );
 }

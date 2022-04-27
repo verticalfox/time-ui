@@ -1,7 +1,6 @@
-import React, { useEffect , useState} from "react";
-import { Table , Button} from "reactstrap";
-import axios from 'axios';
-import { Link } from "react-router-dom";
+import React from "react";
+import { Button} from "reactstrap";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import UserModal from './Modal/UserModal'
 import {
@@ -9,6 +8,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useUsers } from "../hooks/adminProjects";
 import EditUserModal from './Modal/EditUserModal'
+import { deleteRequest } from "../utils/http";
 function IterableTable2(info,index) {
     return (
         <PrintTable2
@@ -24,16 +24,12 @@ function IterableTable2(info,index) {
 }
 function deleteUser(id) {
 
-    axios.delete(`http://localhost:3000/api/v1/users/${id}`, {
-            headers: {
-               'Access-Control-Allow-Origin': '*'    
-            }
-        })
-       .then(function (response) {
-            console.log(response.data  + ": deleted successfully !");
-            // window.location.reload(true);
-         })
-
+         deleteRequest({
+            url:`/users/${id}`
+         }).then((res)=> {
+             console.log(" User deleted successfully !")
+            
+         });
 }
 function PrintTable2(props) {
 

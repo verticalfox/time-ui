@@ -1,13 +1,11 @@
-
 import React, { useState } from "react";
 import { Form, FormGroup, Input, Button } from "reactstrap";
-import axios from "axios";
+import { postRequest } from "../utils/http";
+
 const initialFormData = Object.freeze({
   task_name: "",
   task_desc: "",
 });
-
-
 const CreateTask = (props) => {
   const [formData, updateFormData] = useState(initialFormData);
   const handleChange = (e) => {
@@ -21,21 +19,19 @@ const CreateTask = (props) => {
     e.preventDefault()
     console.log(formData);
     //here hit PUT api request.
-    console.log("this is project Id : "+props.projectId);
-    axios.post('http://localhost:3000/api/v1/tasks', {
-    "task": {
-        "title":formData.task_name,
-        "description": formData.task_desc,
-        "project_id":"ab6be56b-0527-4d9b-bb40-d3a8a5dc02c9"
-    }
-})
-      .then(function (response) {
-       console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-      // window.location.reload(true);
+    postRequest({
+      url: `tasks`,
+      data: {
+        "task": {
+          "title": formData.task_name,
+          "description": formData.task_desc,
+          "project_id": props.projectId
+        }
+      }
+    }).then((response) => {
+      console.log(response);
+    });
+    // console.log("this is project Id : "+props.projectId);
   };
   return (
     <div color="light"
@@ -43,7 +39,6 @@ const CreateTask = (props) => {
       expand="md">
       <Form action="/" method="POST">
         <div className="modal-input">
-
           <FormGroup>
             Task :
             <Input
@@ -55,14 +50,13 @@ const CreateTask = (props) => {
             />
           </FormGroup>
           <FormGroup>
-           Description :
+            Description :
             <Input
               id="task_desc"
               name="task_desc"
               placeholder="enter task description..."
               type="textarea"
               onChange={handleChange}
-
             />
           </FormGroup>
           <span style={{ backgroundColor: "lightblue" }}>
@@ -73,9 +67,6 @@ const CreateTask = (props) => {
         </div>
       </Form>
     </div>
-
   );
-
 }
-
 export default CreateTask;

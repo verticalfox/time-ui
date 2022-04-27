@@ -1,12 +1,8 @@
 import React from 'react'
 import { Navigate } from 'react-router-dom';
 
-function handleClick() {
-<Navigate to="/login">go to login </Navigate>
-}
 function Logout() {
-  // localStorage.clear();
-
+  localStorage.clear();
   return (
     <div>
       <p>you are logged out successfully !!</p>
