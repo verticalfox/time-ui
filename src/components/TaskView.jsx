@@ -1,7 +1,7 @@
 import React,{useState,useEffect} from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-    faPencil,
+    faPencil, faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { Link, useParams } from "react-router-dom";
 import TaskModal from './TaskModal'
@@ -31,7 +31,7 @@ function PrintTableForView(props) {
                 <td>
                     <EditTaskModal buttonLabel="Edit" task__title={props.title} task__description={props.description} task__id={props.id} ></EditTaskModal>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <Link to={`/projects/${props.project_id}/view`}className="btn btn-primary" onClick={()=>handleDelete(props.id)}><FontAwesomeIcon icon={faPencil} className="mr-2" />Delete </Link>
+                    <Link to={`/projects/${props.project_id}/view`}className="btn btn-primary" onClick={()=>handleDelete(props.id)}><FontAwesomeIcon icon={faTrash} className="mr-2" />Delete </Link>
                 </td>
             </tr>
         </tbody>
@@ -46,6 +46,7 @@ function TaskView() {
 
         getRequest({
             url:`tasks/${param.id}`
+            // url:`tasks/`
         }).then(response =>  setTasks(response.data.tasks));
     
     }, []);

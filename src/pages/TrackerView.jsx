@@ -58,9 +58,9 @@ const TrackerView = () => {
               rules={{ required: true }}
               placeholder="Enter total time taken"
             />
-            <span style={{ backgroundColor: "lightblue" }}>
+      
               <Button type="submit" disabled={submitting}>Submit</Button>
-            </span>
+   
           </div>
         </form>
       </CardBody>

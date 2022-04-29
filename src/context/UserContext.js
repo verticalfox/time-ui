@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState } from 'react'
 import { AUTH_TOKEN_STORAGE_KEY, USER_STORAGE_KEY } from '../utils/constant';
 import { getItem, setItem } from '../utils/storage';
-
 export const getAuthToken = () => getItem(AUTH_TOKEN_STORAGE_KEY)
 
 const DEFAULT_VALUES = {

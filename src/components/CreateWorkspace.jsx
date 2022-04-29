@@ -23,6 +23,7 @@ function CreateWorkspace(props) {
     })
     .then(function(response) {
       console.log("successfully added workspace entry !");
+      props.toggle(!props.isOpen);
       // window.location.reload(true);
      });
 
@@ -46,11 +47,11 @@ function CreateWorkspace(props) {
               onChange={handleChange}
             />
           </FormGroup>
-          <span style={{ backgroundColor: "lightblue" }}>
+   
             <Button onClick={handleSubmit} type="submit">
               Submit
             </Button>
-          </span>
+
 
         </div>
       </Form>

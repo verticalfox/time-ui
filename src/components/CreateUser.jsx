@@ -9,7 +9,7 @@ const initialFormData = Object.freeze({
   password: "",
   role: ""
 });
-function CreateUser() {
+function CreateUser(props) {
   const [formData, updateFormData] = useState(initialFormData);
 
   const handleChange = (e) => {
@@ -34,6 +34,7 @@ function CreateUser() {
     })
       .then(function (response) {
         console.log(response);
+        props.toggle(!props.isOpen);
       })
       .catch(function (error) {
         console.log(error);
@@ -100,11 +101,11 @@ function CreateUser() {
             >
           </Input>
           </FormGroup>
-          <span style={{ backgroundColor: "lightblue" }}>
+          
             <Button onClick={handleSubmit} type="submit">
               Submit
             </Button>
-          </span>
+      
         </div>
       </Form>
     </div>

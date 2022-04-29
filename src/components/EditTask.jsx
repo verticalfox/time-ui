@@ -5,12 +5,16 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { patchRequest } from "../utils/http";
 import { Navigate } from "react-router";
-const initialFormData = Object.freeze({
-  title: "",
-  description: "",
-});
 
 function EditTask(props) {
+
+  const [taskNameValue, setTaskNameValue] = useState(props.task_title);
+  const [taskDescriptionValue, setTaskDescriptionValue] = useState(props.task_description);
+  const [dummyState ,setdummyState] = useState(false);
+  var initialFormData = {
+    title: taskNameValue,
+    description: taskDescriptionValue
+  }
   const [formData, updateFormData] = useState(initialFormData);
   const handleChange = (e) => {
     if (e.target.id === "title") {
@@ -38,14 +42,10 @@ function EditTask(props) {
           "description": formData.description,
         }
       }
-    }).then(res => console.log("task updated succesfully !"));
+    }).then(res => {console.log("task updated succesfully !");props.toggle(!props.isOpen); setdummyState(!dummyState)});
 
   };
-  const handleCancel = () => {
-    <Navigate to="/projects"></Navigate>
-  }
-  const [taskNameValue, setTaskNameValue] = useState(props.task_title);
-  const [taskDescriptionValue, setTaskDescriptionValue] = useState(props.task_description);
+
   return (
     <div color="light"
       className="navbar shadow-sm p-3 mb-5 bg-white rounded"
@@ -79,12 +79,13 @@ function EditTask(props) {
               onChange={handleChange}
             />
           </FormGroup>
-          <span style={{ backgroundColor: "lightblue" }}>
+  
             <Button onClick={handleSubmit} type="submit">
               Save
             </Button>
-            <Link to={`/tasks`} className="btn btn-primary" onClick={() => handleCancel()}>Cancel </Link>
-          </span>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <Link to={`/tasks`} className="btn btn-primary" onClick={()=>{ props.toggle(!props.isOpen)}}>Cancel </Link>
+         
         </div>
       </Form>
     </div>

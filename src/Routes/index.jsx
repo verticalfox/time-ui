@@ -1,7 +1,9 @@
-import { Navigate, useLocation } from "react-router";
+import { Navigate, Outlet, useLocation } from "react-router";
 import { useUserContext } from "../context/UserContext";
 import paths from "../paths";
-
+import { USER_STORAGE_KEY } from "../utils/constant";
+import { getItem } from "../utils/storage";
+import React, { Component }  from 'react';
 export const AuthenticatedRoute = ({ children }) => {
   let { isLoggedIn } = useUserContext();
   let location = useLocation();
@@ -42,4 +44,16 @@ export const withoutAuthenticate = WrappedComponent =>  {
   );
   
   return HOC;
+}
+
+export const PrivateAdminRoutes = ({ children }) => {
+  let { isLoggedIn ,} = useUserContext();
+  const userData= JSON.parse(getItem(USER_STORAGE_KEY));
+  let location = useLocation();
+
+return( isLoggedIn&&(userData.role === 'admin')? <Outlet/> : <Navigate to="/login"></Navigate> );
+
+  
+
+
 }

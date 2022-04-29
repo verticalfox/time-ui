@@ -1,10 +1,12 @@
 import { useState, useEffect } from 'react';
+import { useWorkspaceContext } from '../context/WorkspaceContext';
 
 import { getRequest } from '../utils/http';
 
 export const useProjects = () => {
   const [loading, setLoading] = useState(false);
   const [projects, setProjects] = useState([]);
+  const{workspaceId ,settingWorkspaceId} = useWorkspaceContext();
   useEffect(() => {
     setLoading(true);
     getRequest({
@@ -14,7 +16,7 @@ export const useProjects = () => {
       setProjects(response.data.projects);
       setLoading(false);
     })
-  }, []);
+  }, [workspaceId]);
 
   return [loading, projects];
 }

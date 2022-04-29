@@ -23,7 +23,7 @@ class TaskModal extends React.Component {
         <Button color="secondary" onClick={this.toggle}>{this.props.buttonLabel}</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} fade={false}  backdrop={false}>
           <ModalHeader toggle={this.toggle}>New Task</ModalHeader>
-            <CreateTask  toggle={this.toggle} projectId={this.props.id}/>          
+            <CreateTask isOpen={this.state.modal} toggle={this.toggle} projectId={this.props.id}/>          
         </Modal>
       </div>
     );

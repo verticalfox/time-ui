@@ -1,20 +1,22 @@
 import React, { useState} from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import { postRequest } from "../utils/http";
-
+import { useWorkspaceContext } from "../context/WorkspaceContext";
 const initialFormData = Object.freeze({
   name: "",
   description: "",
+  workspace_id : ""
   // workspace_id : "50dcdbab-61df-4713-a4a8-6eaa68a46614"
-  workspace_id: localStorage.getItem('workspace_id')
+  // workspace_id: localStorage.getItem('workspace_id')
 });
 
 function CreateProject(props) {
   const [formData, updateFormData] = useState(initialFormData);
-
+  const{workspaceId ,settingWorkspaceId} = useWorkspaceContext();
   const handleChange = (e) => {
     updateFormData({
       ...formData,
+      workspace_id:workspaceId,
       [e.target.name]: e.target.value.trim()
     });
   };
@@ -28,6 +30,7 @@ function CreateProject(props) {
     })
       .then(function (response) {
         console.log("successfully added project entry !");
+        props.toggle(!props.isOpen);
         // window.location.reload(true);
       });
 

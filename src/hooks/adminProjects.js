@@ -1,11 +1,14 @@
 import { useState, useEffect } from 'react';
+import { useWorkspaceContext } from '../context/WorkspaceContext';
 
 import { getRequest } from '../utils/http';
 
 export const useProjects = () => {
   const [loading, setLoading] = useState(false);
   const [projects, setProjects] = useState([]);
-  const workspace_id= localStorage.getItem('workspace_id');
+  const{workspaceId ,settingWorkspaceId} = useWorkspaceContext();
+  // const workspace_id= localStorage.getItem('workspace_id');
+  const workspace_id = workspaceId;
   useEffect(() => {
     setLoading(true);
     //   vf- workspace id : 50dcdbab-61df-4713-a4a8-6eaa68a46614
@@ -17,7 +20,7 @@ export const useProjects = () => {
       setProjects(response.data.projects);
       setLoading(false);
     })
-  }, []);
+  },[workspaceId]);
 
   return [loading, projects];
 }

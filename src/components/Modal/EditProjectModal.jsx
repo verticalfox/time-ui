@@ -22,7 +22,7 @@ class EditProjectModal extends React.Component {
         <Button color="primary" onClick={this.toggle}><FontAwesomeIcon icon={faPencil} className="mr-2" />{this.props.buttonLabel}</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} fade={false} backdrop={false}>
           <ModalHeader toggle={this.toggle}>Edit Project</ModalHeader>
-          <EditProject project_name={this.props.project__name} project_description={this.props.project__description} project_id={this.props.project__id} />
+          <EditProject isOpen={this.state.modal} toggle={this.toggle}  project_name={this.props.project__name} project_description={this.props.project__description} project_id={this.props.project__id} />
         </Modal>
       </>
     );

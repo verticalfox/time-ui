@@ -30,6 +30,7 @@ const CreateTask = (props) => {
       }
     }).then((response) => {
       console.log(response);
+      props.toggle(!props.isOpen);
     });
     // console.log("this is project Id : "+props.projectId);
   };
@@ -59,11 +60,9 @@ const CreateTask = (props) => {
               onChange={handleChange}
             />
           </FormGroup>
-          <span style={{ backgroundColor: "lightblue" }}>
             <Button onClick={handleSubmit} type="submit">
               Submit
             </Button>
-          </span>
         </div>
       </Form>
     </div>

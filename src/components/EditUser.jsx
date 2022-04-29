@@ -1,30 +1,36 @@
 import React, { useState} from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import { Link } from "react-router-dom";
-import { patchRequest } from "../utils/http";
+import { getRequest, patchRequest } from "../utils/http";
 import { Navigate } from "react-router";
 
-const initialFormData = Object.freeze({
-  name: "",
-  description: "",
-});
-
 function EditUser(props) {
+  // const [name , setName] = useState(props.user_name);
+  // const [email , setEmail] = useState(props.user_email);
+  // const [mobileNumber , setMobileNumber] = useState(props.user_mobile_number);
+  // const [role , setRole] = useState(props.user_role);
+
+  var initialFormData={
+    name:props.user_name,
+    email:props.user_email,
+    mobileNumber:props.user_mobile_number,
+    role:props.user_role
+  }
   const [formData, updateFormData] = useState(initialFormData);
 
   const handleChange = (e) => {
-    if(e.target.id === "name") {
-      setName(e.target.value);
-    }
-    if(e.target.id === "email") {
-      setEmail(e.target.value);
-    }
-    if(e.target.id === "phone") {
-      setMobileNumber(e.target.value);
-    }
-    if(e.target.id === "role") {
-      setRole(e.target.value);
-    }
+    // if(e.target.id === "name") {
+    //   setName(e.target.value);
+    // }
+    // if(e.target.id === "email") {
+    //   setEmail(e.target.value);
+    // }
+    // if(e.target.id === "phone") {
+    //   setMobileNumber(e.target.value);
+    // }
+    // if(e.target.id === "role") {
+    //   setRole(e.target.value);
+    // }
     updateFormData({
       ...formData,
       [e.target.name]: e.target.value.trim()
@@ -32,14 +38,14 @@ function EditUser(props) {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault()
+    e.preventDefault();
     console.log(formData);
 
     //fetch workspace id here 
 
     // ... submit to API 
     patchRequest({
-      url : `user/${props.user_id}`,
+      url : `users/${props.user_id}`,
       data: {
         "project": {
           "name":formData.name,
@@ -49,7 +55,10 @@ function EditUser(props) {
           // "workspace_id":"50dcdbab-61df-4713-a4a8-6eaa68a46614"
         }
       }
-    }).then(res => console.log("user information updated successfully !!"));
+    }).then(res =>{ 
+      console.log("user information updated successfully !!");
+      props.toggle(!props.isOpen);
+    });
     
 //     axios.patch(`http://localhost:3000/api/v1/user/${props.user_id}`, {
 //     "project": {
@@ -70,15 +79,6 @@ function EditUser(props) {
 
 
   };
-  const handleCancel = ()=> {
-    <Navigate to="/users"></Navigate>
-  }
-
-     const [name , setName] = useState(props.user_name);
-     const [email , setEmail] = useState(props.user_email);
-     const [mobileNumber , setMobileNumber] = useState(props.user_mobile_number);
-     const [role , setRole] = useState(props.user_role);
-
   return (
     <div color="light"
       className="navbar shadow-sm p-3 mb-5 bg-white rounded"
@@ -93,7 +93,7 @@ function EditUser(props) {
             <Input
               id="name"
               name="name"
-              value={name}
+              value={formData.name}
               placeholder="enter name..."
               type="text"
               onChange={handleChange}
@@ -106,7 +106,7 @@ function EditUser(props) {
             <Input
               id="email"
               name="email"
-              value={email}
+              value={formData.email}
               placeholder="enter email..."
               type="text"
               onChange={handleChange}
@@ -119,7 +119,7 @@ function EditUser(props) {
             <Input
               id="phone"
               name="phone"
-              value={mobileNumber}
+              value={formData.mobileNumber}
               placeholder="enter phone..."
               type="text"
               onChange={handleChange}
@@ -132,18 +132,19 @@ function EditUser(props) {
             <Input
               id="role"
               name="role"
-              value={role}
+              value={formData.role}
               placeholder="enter role..."
               type="text"
               onChange={handleChange}
             />
           </FormGroup>   
-          <span style={{ backgroundColor: "lightblue" }}>
+
             <Button onClick={handleSubmit} type="submit">
               Save
             </Button>
-            <Link to={`/users`}className="btn btn-primary"  onClick={()=>handleCancel()}>Cancel </Link>
-          </span>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <Link to={`/users`}className="btn btn-primary"  onClick={()=>{ props.toggle(!props.isOpen)}}>Cancel </Link>
+
         </div>
       </Form>
     </div>

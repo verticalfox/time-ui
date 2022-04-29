@@ -1,16 +1,24 @@
-import React, { useState} from "react";
+import React, { useEffect, useState} from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import { Link } from "react-router-dom";
 import { patchRequest } from "../utils/http";
-import { Navigate } from "react-router";
-const initialFormData = Object.freeze({
+import { useWorkspaceContext } from "../context/WorkspaceContext";
+var initialFormData = Object.freeze({
   name: "",
   description: "",
+  workspace_id:""
 });
-
 function EditProject(props) {
-  const [formData, updateFormData] = useState(initialFormData);
 
+  const{workspaceId ,settingWorkspaceId} = useWorkspaceContext();
+  const [projectNameValue, setProjectNameValue] = useState(props.project_name);
+  const [projectDescriptionValue, setProjectDescriptionValue] = useState(props.project_description);
+  initialFormData = {
+    name: projectNameValue,
+    description: projectDescriptionValue,
+    workspace_id:""
+  }
+  const [formData, updateFormData] = useState(initialFormData);
   const handleChange = (e) => {
     if(e.target.id === "name") {
       setProjectNameValue(e.target.value);
@@ -20,6 +28,7 @@ function EditProject(props) {
     }
     updateFormData({
       ...formData,
+      workspace_id:workspaceId,
       [e.target.name]: e.target.value.trim()
     });
   };
@@ -27,7 +36,6 @@ function EditProject(props) {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(formData);
-    //fetch workspace id here 
     // ... submit to API 
    patchRequest(
      {
@@ -37,18 +45,14 @@ function EditProject(props) {
           "name":formData.name,
           "description": formData.description,
           // "workspace_id":"50dcdbab-61df-4713-a4a8-6eaa68a46614"
-          "workspace_id": localStorage.getItem('workspace_id')
+          "workspace_id": formData.workspace_id
          }
        }
      }
-   ).then(response => console.log(response));
+   ).then(response =>{ console.log(response); props.toggle(!props.isOpen);});
   };
 
-  const handleCancel = ()=> {
-    <Navigate to="/projects"></Navigate>
-  }
-  const [projectNameValue, setProjectNameValue] = useState(props.project_name);
-  const [projectDescriptionValue, setProjectDescriptionValue] = useState(props.project_description);
+
   return (
     <div color="light"
       className="navbar shadow-sm p-3 mb-5 bg-white rounded"
@@ -82,10 +86,9 @@ function EditProject(props) {
               onChange={handleChange}
             />
           </FormGroup>
-          <span style={{ backgroundColor: "lightblue" }}>
             <Button onClick={handleSubmit} type="submit">Save</Button>
-            <Link to={`/projects`}className="btn btn-primary"  onClick={()=>handleCancel()}>Cancel </Link>
-          </span>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <Link to={`/projects`}className="btn btn-primary"  onClick={()=>{ props.toggle(!props.isOpen)}}>Cancel </Link>
         </div>
       </Form>
     </div>
