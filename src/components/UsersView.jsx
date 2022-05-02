@@ -57,7 +57,7 @@ function UsersView() {
     return (<div color="light"
         className="navbar shadow-sm p-3 mb-5 bg-white "
         expand="md">
-        <table className="table table-striped">
+        <table className="table table-hover">
             <thead>
                 <tr>
                     <th>

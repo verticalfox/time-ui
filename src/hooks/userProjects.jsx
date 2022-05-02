@@ -61,6 +61,7 @@ export const useUsers = () => {
     })
     .then(function (response) {
       setUsers(response.data.users);
+      console.log(response.data.users)
       setLoading(false);
     })
   }, []);

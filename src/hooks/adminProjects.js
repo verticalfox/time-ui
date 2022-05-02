@@ -21,7 +21,6 @@ export const useProjects = () => {
       setLoading(false);
     })
   },[workspaceId]);
-
   return [loading, projects];
 }
 
