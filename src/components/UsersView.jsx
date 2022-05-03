@@ -10,6 +10,7 @@ import { useUsers } from "../hooks/adminProjects";
 import EditUserModal from './Modal/EditUserModal'
 import { deleteRequest } from "../utils/http";
 import { withAuthenticate } from "../Routes";
+import DeleteModal from "./Modal/DeleteModal";
 function deleteUser(id) {
     deleteRequest({
         url: `/users/${id}`
@@ -43,17 +44,18 @@ function UsersRow(props) {
                             </Link> */}
                     <EditUserModal buttonLabel="Edit" user__name={props.name} user__email={props.email} user__id={props.id} user__mobile_number={props.mobile_number} user__role={props.role}></EditUserModal>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-
-                    <Button className="btn" color="primary" onClick={() => deleteUser(props.id)}>
+                    <DeleteModal buttonLabel="Delete" delete={deleteUser} id={props.id} label="user"/>
+                    {/* <Button className="btn" color="primary" onClick={() => deleteUser(props.id)}>
                         <FontAwesomeIcon icon={faTrash} className="mr-2" />
                         Delete
-                    </Button>
+                    </Button> */}
                 </td>
             </tr>
     );
 }
 function UsersView() {
     const [loading, users] = useUsers();
+    // console.log(users);
     return (<div color="light"
         className="navbar shadow-sm p-3 mb-5 bg-white "
         expand="md">

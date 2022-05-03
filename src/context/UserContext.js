@@ -38,7 +38,6 @@ export const UserProvider = (props) => {
     setUser,
     logoutUser,
   };
-  
   return (
     <UserContext.Provider value={contextValue}>
         {props.children}

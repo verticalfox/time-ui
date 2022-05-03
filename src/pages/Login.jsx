@@ -32,10 +32,12 @@ const Login = () => {
 				"password" : currentFormData.password
 			}
 		}).then(function (response) {
+			console.log(response);
 			const { data, headers } = response;
-				console.log(headers);
+				// console.log(headers);
 			navigate(paths.home);
 			setUser(data.user, headers.authorization);
+			// console.log(data.user , headers.authorization);
 		}).catch(function (error) {
 			console.log(error);
 		});

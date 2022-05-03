@@ -7,6 +7,7 @@ import { Link, useParams } from "react-router-dom";
 import TaskModal from './TaskModal'
 import EditTaskModal from './Modal/EditTaskModal'
 import { deleteRequest, getRequest } from "../utils/http";
+import DeleteModal from "./Modal/DeleteModal";
 const handleDelete= (id) => {
          deleteRequest({
             url:`/tasks/${id}`
@@ -31,7 +32,8 @@ function PrintTableForView(props) {
                 <td>
                     <EditTaskModal buttonLabel="Edit" task__title={props.title} task__description={props.description} task__id={props.id} ></EditTaskModal>
                     &nbsp;&nbsp;&nbsp;&nbsp;
-                    <Link to={`/projects/${props.project_id}/view`}className="btn btn-primary" onClick={()=>handleDelete(props.id)}><FontAwesomeIcon icon={faTrash} className="mr-2" />Delete </Link>
+                    <DeleteModal buttonLabel="Delete" delete={handleDelete} id={props.id} label="task"/>
+                    {/* <Link to={`/projects/${props.project_id}/view`}className="btn btn-primary" onClick={()=>handleDelete(props.id)}><FontAwesomeIcon icon={faTrash} className="mr-2" />Delete </Link> */}
                 </td>
             </tr>
         </tbody>

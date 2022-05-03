@@ -8,6 +8,7 @@ import EditProjectModal from '../components/Modal/EditProjectModal'
 import { deleteRequest } from "../utils/http";
 import { withAuthenticate } from "../Routes";
 import WorkspaceContext, { useWorkspaceContext } from "../context/WorkspaceContext";
+import DeleteModal from "../components/Modal/DeleteModal";
 
 const handleDelete = (id) => {
     deleteRequest({
@@ -35,7 +36,8 @@ console.log(workspaceId);
             <td>
                 <EditProjectModal buttonLabel="Edit" project__name={props.name} project__description={props.description} project__id={props.id} ></EditProjectModal>
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <Link to={`/projects`} className="btn btn-primary" onClick={() => handleDelete(props.id)}><FontAwesomeIcon icon={faTrash} className="mr-2" />Delete </Link>
+                <DeleteModal buttonLabel="Delete" delete={handleDelete} id={props.id} label="project"/>
+                {/* <Link to={`/projects`} className="btn btn-primary" onClick={() => handleDelete(props.id)}><FontAwesomeIcon icon={faTrash} className="mr-2" />Delete </Link> */}
             </td>
         </tr>
     );

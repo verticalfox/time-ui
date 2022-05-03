@@ -47,7 +47,7 @@ function EditUser(props) {
     patchRequest({
       url : `users/${props.user_id}`,
       data: {
-        "project": {
+        "user": {
           "name":formData.name,
           "email": formData.email,
           "mobile_number" : formData.mobileNumber,

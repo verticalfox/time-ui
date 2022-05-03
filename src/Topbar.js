@@ -20,6 +20,7 @@ const Topbar = ({ toggleSidebar }) => {
   const toggleTopbar = () => setTopbarOpen(!topbarIsOpen);
   const userData= JSON.parse(getItem(USER_STORAGE_KEY));
   const [workspace, setWorkspace] = useState([]);
+  // console.log(workspace);
   const{workspaceId ,settingWorkspaceId} = useWorkspaceContext();
   // console.log(userData);
   useEffect(() => {
@@ -29,6 +30,7 @@ const Topbar = ({ toggleSidebar }) => {
     .then(function (response) {
       setWorkspace(response.data.workspaces);
       settingWorkspaceId(response.data.workspaces[0].id);
+      //  settingWorkspaceId();
     })
   },[] );
 
