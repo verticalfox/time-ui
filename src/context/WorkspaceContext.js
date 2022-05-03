@@ -5,7 +5,7 @@ const DEFAULT_VALUE = "1234"
 const WorkspaceContext = createContext(DEFAULT_VALUE);
 
 export const WorkspaceProvider = (props) => {
-  const [workspaceId, setWorkspaceId] = useState(DEFAULT_VALUE)
+  const [workspaceId, setWorkspaceId] = useState(localStorage.getItem('workspace_id'))
  const settingWorkspaceId = (data)=>{
     setWorkspaceId(data);
   }

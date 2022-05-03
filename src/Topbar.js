@@ -19,17 +19,16 @@ const Topbar = ({ toggleSidebar }) => {
   const { workspaceId, settingWorkspaceId } = useWorkspaceContext();
   useEffect(() => {
     getRequest({
-      url: `/workspaces`,
+      url: `/workspaces`
     })
       .then(function (response) {
         setWorkspace(response.data.workspaces);
-        settingWorkspaceId(response.data.workspaces[0].id);
       })
   }, []);
   const handleChange = (e) => {
     console.log(e.target.value);
     console.log(e.target);
-    // localStorage.setItem('workspace_id',e.target.value);
+    localStorage.setItem('workspace_id', e.target.value);
     settingWorkspaceId(e.target.value);
   }
   return (
@@ -47,13 +46,13 @@ const Topbar = ({ toggleSidebar }) => {
           register={register}
           className="form-select"
           rules={{ required: true }}
+          value={workspaceId}
           onChange={handleChange}
-          defaultValue={workspaceId}
           options={getOptions(workspace)}
         />
         <WorkspaceModal buttonLabel="Create workspace " />
       </>
-      <h5 style={{ color: "black" }} value={"Hello !"}> Hello ! {userData.name}</h5>
+      <h5 style={{ color: "black" }} > Hello ! {userData.name}</h5>
       <NavbarToggler onClick={toggleTopbar} />
     </Navbar>
   );
