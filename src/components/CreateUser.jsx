@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Form, FormGroup, Input, Button } from "reactstrap";
 import axios from "axios";
-import { Navigate } from "react-router";
 const initialFormData = Object.freeze({
   user_name: "",
   email_id: "",
@@ -22,7 +21,6 @@ function CreateUser(props) {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(formData);
-    // ... submit to API 
     axios.post('http://localhost:3000/users', {
       "user": {
         'name': formData.user_name,
@@ -99,13 +97,11 @@ function CreateUser(props) {
               type="text"
               onChange={handleChange}
             >
-          </Input>
+            </Input>
           </FormGroup>
-          
-            <Button onClick={handleSubmit} type="submit">
-              Submit
-            </Button>
-      
+          <Button onClick={handleSubmit} type="submit">
+            Submit
+          </Button>
         </div>
       </Form>
     </div>

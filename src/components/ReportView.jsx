@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { withAuthenticate } from "../Routes";
 import { DateRangePicker } from 'react-date-range';
-import { SelectField, TextField, TextAreaField } from './Form';
+import { SelectField } from './Form';
 import { getOptions } from "../utils";
 import { useForm } from "react-hook-form";
 import { useUsers } from "../hooks/userProjects";
@@ -10,44 +10,34 @@ import { addDays } from 'date-fns';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
 import { getRequest } from "../utils/http";
+
+function convert(str) {
+    var date = new Date(str),
+        month = ("0" + (date.getMonth() + 1)).slice(-2),
+        day = ("0" + date.getDate()).slice(-2);
+    return [day, month, date.getFullYear()].join("-");
+}
+//   console.log(convert("Thu Jun 09 2011 00:00:00 GMT+0530 (India Standard Time)"))
 function ReportRow(props) {
     return (
         <tbody>
             <tr>
-                <td>
-                    {props.index}
-                </td>
-                <td>
-                    {props.project_name}
-                </td>
-                <td>
-                    {props.task_name}
-                </td>
-                <td>
-                    {props.description}
-                </td>
-                <td>
-                    {props.hours}
-                </td>
+                <td>{props.index}</td>
+                <td>{props.project_name}</td>
+                <td>{props.task_name}</td>
+                <td>{props.description}</td>
+                <td>{props.hours}</td>
             </tr>
         </tbody>
     );
 }
 
-function dateFormat(input) {
-
-    // var day= JSON.stringify(input).slice(1,11);
-    var day = input.getDay();
-    var month = input.getMonth();
-    var year = input.getFullYear();
-    console.log(day, month, year);
-}
 function ReportView() {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const [projectLoading, users] = useUsers();
+    const [reports, setReports] = useState([]);
     const watchUserId = watch('user_id');
     console.log(watchUserId);
-    console.log(users);
     const [formData, setFormData] = useState([]);
     const [state, setState] = useState([
         {
@@ -56,18 +46,18 @@ function ReportView() {
             key: 'selection'
         }
     ]);
-
-    console.log("starting date" + state[0].startDate);
-    console.log("ending date" + state[0].endDate);
-   
+    var startDate = convert(state[0].startDate);
+    var endDate = convert(state[0].endDate)
     function handleClick() {
+        console.log(watchUserId);
         getRequest({
-            url: `time_entries/${watchUserId}?start_date=12-1-2022&end_date=12-5-2022`,
-          })
-          .then(function (response) {
-            console.log(response);
-          })
-        
+            url: `time_entries/${watchUserId}?start_date=${startDate}&end_date=${endDate}`,
+        })
+            .then(function (response) {
+                console.log(response);
+                setReports(response.data.time_entries);
+            })
+
     }
 
     return (
@@ -76,23 +66,23 @@ function ReportView() {
                 className="navbar shadow-sm p-2 mb-5 bg-white date-view "
                 style={{ position: "relative" }}
                 expand="md" >
-                     <SelectField
+                <SelectField
                     labelText="select member"
                     name="user_id"
                     register={register}
                     rules={{ required: true }}
                     options={getOptions(users)}
                 />
-                     <DateRangePicker
-                        onChange={item => setState([item.selection])}
-                        showSelectionPreview={true}
-                        moveRangeOnFirstSelection={false}
-                        months={2}
-                        ranges={state}
-                        direction="horizontal"
-                    />
-                    <button onClick={handleClick}> Generate Report</button>
-               
+                <DateRangePicker
+                    onChange={item => setState([item.selection])}
+                    showSelectionPreview={true}
+                    moveRangeOnFirstSelection={false}
+                    months={2}
+                    ranges={state}
+                    direction="horizontal"
+                />
+                <button className="btn-secondary" onClick={handleClick}> Generate Report</button>
+
             </div>
             <div color="light"
                 className="navbar shadow-sm p-3 mb-5 bg-white "
@@ -100,24 +90,15 @@ function ReportView() {
                 <table className="table table-hover ">
                     <thead>
                         <tr>
-                            <th>
-                                #
-                            </th>
-                            <th>
-                                Project
-                            </th>
-                            <th>
-                                Task
-                            </th>
-                            <th>
-                                Description
-                            </th>
-                            <th>
-                                Hours
-                            </th>
+                            <th>#</th>
+                            <th>Project</th>
+                            <th>Task</th>
+                            <th>Description</th>
+                            <th>Hours</th>
                         </tr>
                     </thead>
-                    {users.map((info, index) => {
+                    {
+                        reports.map((info, index) => {
                         return (
                             <ReportRow
                                 key={info.id}
@@ -126,10 +107,9 @@ function ReportView() {
                                 project_name="project name"
                                 task_name="task name"
                                 description=" this is random description of random task"
-                                hours="6"
-                            />
-                        );
-                    })}
+                                hours="6"/>
+                                ); })
+                    }
                 </table>
             </div>
         </div>

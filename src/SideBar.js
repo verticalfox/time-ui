@@ -1,16 +1,9 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faImage,
-  faClock,
-  faUser,
-  faSheetPlastic,
-  faSignOut,
-} from "@fortawesome/free-solid-svg-icons";
+import {faImage,faClock,faUser,faSheetPlastic,faSignOut} from "@fortawesome/free-solid-svg-icons";
 import { NavItem, NavLink, Nav } from "reactstrap";
 import classNames from "classnames";
 import { Link, useNavigate } from "react-router-dom";
-
 import { useUserContext } from "./context/UserContext";
 import paths from "./paths";
 

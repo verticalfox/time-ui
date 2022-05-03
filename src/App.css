@@ -179,15 +179,11 @@ Tracker View css
 
 .modal-input {
   width: 29rem;
-  /* width: 90%; */
-  /* background: linear-gradient(90deg, #FFF, #D1D1D4); */
 }
 
 .tracker-input {
   width:60rem;
-  /* background: linear-gradient(90deg, #FFF, #D1D1D4); */
 }
-
 
 .date-view {
   position: relative;
@@ -196,8 +192,6 @@ Tracker View css
   align-items: start;
   justify-content: space-around;
 }
-
-
 
 /*
 --------------------------------------------------------------------------

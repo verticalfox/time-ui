@@ -8,7 +8,6 @@ import Login from './pages/Login';
 import { UserProvider } from './context/UserContext';
 import { useToggle } from './hooks';
 import { WorkspaceProvider } from './context/WorkspaceContext';
-import Topbar from './Topbar';
 const AppLayout = () => {
   const [sidebarIsOpen, toggleSidebar] = useToggle(true);
   return (
@@ -18,7 +17,6 @@ const AppLayout = () => {
     </div>
   )
 }
-
 const App = () => (
   <>
     <UserProvider>

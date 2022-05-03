@@ -1,4 +1,4 @@
-import React, { useState} from "react";
+import React, { useState } from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import { postRequest } from "../utils/http";
 const initialFormData = Object.freeze({
@@ -16,16 +16,14 @@ function CreateWorkspace(props) {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(formData);
-    // ... submit to API 
     postRequest({
-      url:`/workspaces`,
+      url: `/workspaces`,
       data: formData,
     })
-    .then(function(response) {
-      console.log("successfully added workspace entry !");
-      props.toggle(!props.isOpen);
-      // window.location.reload(true);
-     });
+      .then(function (response) {
+        console.log("successfully added workspace entry !");
+        props.toggle(!props.isOpen);
+      });
 
   };
   return (
@@ -34,7 +32,6 @@ function CreateWorkspace(props) {
       expand="md">
       <Form action="/" method="POST">
         <div className="modal-input">
-        {/* <div > */}
           <FormGroup>
             <Label for="name">
               Workspace Name :
@@ -47,12 +44,9 @@ function CreateWorkspace(props) {
               onChange={handleChange}
             />
           </FormGroup>
-   
-            <Button onClick={handleSubmit} type="submit">
-              Submit
-            </Button>
-
-
+          <Button onClick={handleSubmit} type="submit">
+            Submit
+          </Button>
         </div>
       </Form>
     </div>

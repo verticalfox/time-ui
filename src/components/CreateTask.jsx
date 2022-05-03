@@ -18,7 +18,6 @@ const CreateTask = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(formData);
-    //here hit PUT api request.
     postRequest({
       url: `tasks`,
       data: {
@@ -32,7 +31,6 @@ const CreateTask = (props) => {
       console.log(response);
       props.toggle(!props.isOpen);
     });
-    // console.log("this is project Id : "+props.projectId);
   };
   return (
     <div color="light"

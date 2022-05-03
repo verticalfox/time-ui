@@ -1,11 +1,5 @@
 import React from "react";
-import { Button } from "reactstrap";
-
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import UserModal from './Modal/UserModal'
-import {
-  faTrash,
-} from "@fortawesome/free-solid-svg-icons";
 import { useUsers } from "../hooks/adminProjects";
 import EditUserModal from './Modal/EditUserModal'
 import { deleteRequest } from "../utils/http";
@@ -22,33 +16,14 @@ function UsersRow(props) {
 
     return (
             <tr>
-                <th scope="row">
-                    {props.index}
-                </th>
+                <th scope="row">{props.index}</th>
+                <td>{props.name}</td>
+                <td>{props.email}</td>
+                <td>{props.mobile_number}</td>
+                <td>{props.role}</td>
                 <td>
-                    {props.name}
-                </td>
-                <td>
-                    {props.email}
-                </td>
-                <td>
-                    {props.mobile_number}
-                </td>
-                <td>
-                    {props.role}
-                </td>
-                <td>
-                    {/* <Link to="/users/edit" className="btn btn-primary">
-                                <FontAwesomeIcon icon={faPencil} className="mr-2" />
-                                Edit
-                            </Link> */}
-                    <EditUserModal buttonLabel="Edit" user__name={props.name} user__email={props.email} user__id={props.id} user__mobile_number={props.mobile_number} user__role={props.role}></EditUserModal>
-                    &nbsp;&nbsp;&nbsp;&nbsp;
+                    <EditUserModal buttonLabel="Edit" user__name={props.name} user__email={props.email} user__id={props.id} user__mobile_number={props.mobile_number} user__role={props.role}></EditUserModal> &nbsp;&nbsp;&nbsp;&nbsp;
                     <DeleteModal buttonLabel="Delete" delete={deleteUser} id={props.id} label="user"/>
-                    {/* <Button className="btn" color="primary" onClick={() => deleteUser(props.id)}>
-                        <FontAwesomeIcon icon={faTrash} className="mr-2" />
-                        Delete
-                    </Button> */}
                 </td>
             </tr>
     );
@@ -62,28 +37,17 @@ function UsersView() {
         <table className="table table-hover">
             <thead>
                 <tr>
-                    <th>
-                        #
-                    </th>
-                    <th>
-                        Employee name
-                    </th>
-                    <th>
-                        Email
-                    </th>
-                    <th>
-                        Phone
-                    </th>
-                    <th>
-                        Role
-                    </th>
-                    <th>
-                        <UserModal buttonLabel="Create User" />
-                    </th>
+                    <th>#</th>
+                    <th>Employee name</th>
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>Role</th>
+                    <th><UserModal buttonLabel="Create User"/></th>
                 </tr>
             </thead>
             <tbody>
-                {users.map((info, index) => {
+                {
+                    users.map((info, index) => {
                     return (
                         <UsersRow
                             key={info.id}
@@ -93,9 +57,9 @@ function UsersView() {
                             email={info.email}
                             mobile_number={info.mobile_number}
                             role={info.role}
-                        />
-                    );
-                })}
+                        />)
+                    })
+                }
             </tbody>
         </table>
     </div>);

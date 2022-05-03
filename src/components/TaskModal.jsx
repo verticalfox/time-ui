@@ -9,7 +9,6 @@ class TaskModal extends React.Component {
     };
     this.toggle = this.toggle.bind(this);
   }
-
   toggle() {
     this.setState({
       modal: !this.state.modal
@@ -17,7 +16,7 @@ class TaskModal extends React.Component {
   }
 
   render() {
-      console.log("this is passed prop id"+ this.props.id)
+      // console.log("this is passed prop id"+ this.props.id)
     return (
       <div>
         <Button color="secondary" onClick={this.toggle}>{this.props.buttonLabel}</Button>

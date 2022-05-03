@@ -1,16 +1,13 @@
 import React, { useState } from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
-import axios from "axios";
 import { Link } from "react-router-dom";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { patchRequest } from "../utils/http";
-import { Navigate } from "react-router";
 
 function EditTask(props) {
 
   const [taskNameValue, setTaskNameValue] = useState(props.task_title);
   const [taskDescriptionValue, setTaskDescriptionValue] = useState(props.task_description);
-  const [dummyState ,setdummyState] = useState(false);
+  const [dummyState, setdummyState] = useState(false);
   var initialFormData = {
     title: taskNameValue,
     description: taskDescriptionValue
@@ -30,10 +27,8 @@ function EditTask(props) {
   };
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(formData);
-    //fetch workspace id here 
-    console.log("this is task id through props:" + props.task_id);
-    // ... submit to API 
+    // console.log(formData);
+    // console.log("this is task id through props:" + props.task_id);
     patchRequest({
       url: `tasks/${props.task_id}`,
       data: {
@@ -42,17 +37,14 @@ function EditTask(props) {
           "description": formData.description,
         }
       }
-    }).then(res => {console.log("task updated succesfully !");props.toggle(!props.isOpen); setdummyState(!dummyState)});
-
+    }).then(res => { console.log("task updated succesfully !"); props.toggle(!props.isOpen); setdummyState(!dummyState) });
   };
-
   return (
     <div color="light"
       className="navbar shadow-sm p-3 mb-5 bg-white rounded"
       expand="md">
       <Form action="/" method="POST">
         <div className="modal-input">
-          {/* <div > */}
           <FormGroup>
             <Label for="title">
               Task Name :
@@ -79,13 +71,8 @@ function EditTask(props) {
               onChange={handleChange}
             />
           </FormGroup>
-  
-            <Button onClick={handleSubmit} type="submit">
-              Save
-            </Button>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <Link to={`/tasks`} className="btn btn-primary" onClick={()=>{ props.toggle(!props.isOpen)}}>Cancel </Link>
-         
+          <Button onClick={handleSubmit} type="submit">Save</Button> &nbsp;&nbsp;&nbsp;&nbsp;
+          <Link to={`/tasks`} className="btn btn-primary" onClick={() => { props.toggle(!props.isOpen) }}>Cancel </Link>
         </div>
       </Form>
     </div>

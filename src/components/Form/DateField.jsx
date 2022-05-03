@@ -5,7 +5,6 @@ import FieldGroup from './FieldGroup';
 const DateField = props => {
   const { id, labelText, name,type, register, rules, ...rest } = props;
   const fieldId = id || name;
-  
   return (
     <FieldGroup labelFor={fieldId} labelText={labelText}>
       <input
@@ -20,7 +19,6 @@ const DateField = props => {
   </FieldGroup>
   )
 }
-
 DateField.defaultProps = {
   rules: { required: false }
 }

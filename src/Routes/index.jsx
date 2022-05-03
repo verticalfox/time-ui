@@ -7,11 +7,9 @@ import React, { Component }  from 'react';
 export const AuthenticatedRoute = ({ children }) => {
   let { isLoggedIn } = useUserContext();
   let location = useLocation();
-
   if (!isLoggedIn) {
     return <Navigate to={paths.login} state={{ from: location }} replace />;
   }
-
   return children;
 }
 

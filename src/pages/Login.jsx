@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
 import "./Login.css";
 import { withoutAuthenticate } from "../Routes";
 import paths from '../paths';
 import { useUserContext } from "../context/UserContext";
-
 const intialData= Object.freeze({
 	email:"",
 	password:""	,
@@ -16,14 +14,12 @@ const Login = () => {
 	let navigate = useNavigate();
 	const [currentFormData , setFormData]= useState(intialData)
 	const { setUser } = useUserContext();
-
 	const handleChange=(e) => {
 		setFormData({
 		 ...currentFormData,
 		 [e.target.name] : e.target.value.trim()
 		});
 	}
-
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		axios.post('http://localhost:3000/users/sign_in', {
@@ -32,12 +28,10 @@ const Login = () => {
 				"password" : currentFormData.password
 			}
 		}).then(function (response) {
-			console.log(response);
+			// console.log(response);
 			const { data, headers } = response;
-				// console.log(headers);
 			navigate(paths.home);
 			setUser(data.user, headers.authorization);
-			// console.log(data.user , headers.authorization);
 		}).catch(function (error) {
 			console.log(error);
 		});

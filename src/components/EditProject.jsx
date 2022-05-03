@@ -1,4 +1,4 @@
-import React, { useEffect, useState} from "react";
+import React, { useState } from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import { Link } from "react-router-dom";
 import { patchRequest } from "../utils/http";
@@ -6,29 +6,29 @@ import { useWorkspaceContext } from "../context/WorkspaceContext";
 var initialFormData = Object.freeze({
   name: "",
   description: "",
-  workspace_id:""
+  workspace_id: ""
 });
 function EditProject(props) {
 
-  const{workspaceId ,settingWorkspaceId} = useWorkspaceContext();
+  const { workspaceId, settingWorkspaceId } = useWorkspaceContext();
   const [projectNameValue, setProjectNameValue] = useState(props.project_name);
   const [projectDescriptionValue, setProjectDescriptionValue] = useState(props.project_description);
   initialFormData = {
     name: projectNameValue,
     description: projectDescriptionValue,
-    workspace_id:""
+    workspace_id: ""
   }
   const [formData, updateFormData] = useState(initialFormData);
   const handleChange = (e) => {
-    if(e.target.id === "name") {
+    if (e.target.id === "name") {
       setProjectNameValue(e.target.value);
     }
-    if(e.target.id === "description") {
+    if (e.target.id === "description") {
       setProjectDescriptionValue(e.target.value);
     }
     updateFormData({
       ...formData,
-      workspace_id:workspaceId,
+      workspace_id: workspaceId,
       [e.target.name]: e.target.value.trim()
     });
   };
@@ -36,22 +36,19 @@ function EditProject(props) {
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(formData);
-    // ... submit to API 
-   patchRequest(
-     {
-       url: `projects/${props.project_id}`,
-       data: {
-        "project": {
-          "name":formData.name,
-          "description": formData.description,
-          // "workspace_id":"50dcdbab-61df-4713-a4a8-6eaa68a46614"
-          "workspace_id": formData.workspace_id
-         }
-       }
-     }
-   ).then(response =>{ console.log(response); props.toggle(!props.isOpen);});
+    patchRequest(
+      {
+        url: `projects/${props.project_id}`,
+        data: {
+          "project": {
+            "name": formData.name,
+            "description": formData.description,
+            "workspace_id": formData.workspace_id
+          }
+        }
+      }
+    ).then(response => { console.log(response); props.toggle(!props.isOpen); });
   };
-
 
   return (
     <div color="light"
@@ -59,7 +56,7 @@ function EditProject(props) {
       expand="md">
       <Form action="/" method="POST">
         <div className="modal-input">
-        {/* <div > */}
+          {/* <div > */}
           <FormGroup>
             <Label for="name">
               Project Name :
@@ -86,9 +83,8 @@ function EditProject(props) {
               onChange={handleChange}
             />
           </FormGroup>
-            <Button onClick={handleSubmit} type="submit">Save</Button>
-            &nbsp;&nbsp;&nbsp;&nbsp;
-            <Link to={`/projects`}className="btn btn-primary"  onClick={()=>{ props.toggle(!props.isOpen)}}>Cancel </Link>
+          <Button onClick={handleSubmit} type="submit">Save</Button> &nbsp;&nbsp;&nbsp;&nbsp;
+          <Link to={`/projects`} className="btn btn-primary" onClick={() => { props.toggle(!props.isOpen) }}>Cancel </Link>
         </div>
       </Form>
     </div>
