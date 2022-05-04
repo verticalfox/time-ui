@@ -33,7 +33,7 @@ function ReportView() {
     const [projectLoading, users] = useUsers();
     const [reports, setReports] = useState([]);
     const watchUserId = watch('user_id');
-    console.log(watchUserId);
+    // console.log(watchUserId);
     const [formData, setFormData] = useState([]);
     const [state, setState] = useState([
         {
@@ -45,7 +45,7 @@ function ReportView() {
     var startDate = convert(state[0].startDate);
     var endDate = convert(state[0].endDate)
     function handleClick() {
-        console.log(watchUserId);
+        // console.log(watchUserId);
         getRequest({
             url: `time_entries/${watchUserId}?start_date=${startDate}&end_date=${endDate}`,
         })

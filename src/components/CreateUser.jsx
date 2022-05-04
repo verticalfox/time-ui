@@ -20,7 +20,7 @@ function CreateUser(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(formData);
+    // console.log(formData);
     axios.post('http://localhost:3000/users', {
       "user": {
         'name': formData.user_name,
@@ -31,7 +31,7 @@ function CreateUser(props) {
       }
     })
       .then(function (response) {
-        console.log(response);
+        // console.log(response);
         props.toggle(!props.isOpen);
         setRefresh(!refresh);
         window.alert("new user created successfully !!");

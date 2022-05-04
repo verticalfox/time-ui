@@ -20,7 +20,7 @@ function EditUser(props) {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
+    // console.log(formData);
     patchRequest({
       url : `users/${props.user_id}`,
       data: {
@@ -32,7 +32,7 @@ function EditUser(props) {
         }
       }
     }).then(res =>{ 
-      console.log("user information updated successfully !!");
+      // console.log("user information updated successfully !!");
       props.toggle(!props.isOpen);
       setRefresh(!refresh);
     });

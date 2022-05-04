@@ -41,7 +41,7 @@ function TaskView() {
     
     }, []);
     
-    console.log("check :" + param.id);
+    // console.log("check :" + param.id);
     return (<div color="light"
         className="navbar shadow-sm p-3 mb-5 bg-white "
         expand="md">
@@ -56,7 +56,6 @@ function TaskView() {
             </thead>
             {
                 tasks.map((tableEntry, index) => {
-                console.log("this is table entry id :" + tableEntry.id);
                 return (
                     <PrintTableForView
                         key={tableEntry.id}

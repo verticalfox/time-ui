@@ -17,7 +17,7 @@ const CreateTask = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(formData);
+    // console.log(formData);
     postRequest({
       url: `tasks`,
       data: {
@@ -28,7 +28,7 @@ const CreateTask = (props) => {
         }
       }
     }).then((response) => {
-      console.log(response);
+      // console.log(response);
       props.toggle(!props.isOpen);
       window.alert("new task created successfully !!");
     });

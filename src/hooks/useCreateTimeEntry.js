@@ -17,13 +17,13 @@ export const useCreateTimeEntry = () => {
   }, [])
 
   const onCreate = (formData) => {
- console.log(formData);
+//  console.log(formData);
       setSubmitting(true);
       postRequest({
         url: 'time_entries',
         data: formData,
       }).then(function (response) {
-        console.log(response);
+      // console.log(response);
       setSubmitting(false);
       window.alert("you have successfully inserted your work entry !!");
       })

@@ -17,7 +17,7 @@ const handleDelete = (id) => {
 }
 const ProjectRow = (props) => {
 const {workspaceId, settingWorkspaceId} = useWorkspaceContext();
-console.log(workspaceId);
+// console.log(workspaceId);
     return (    
         <tr>
             <th scope="row">{props.index}</th>

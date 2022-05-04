@@ -15,13 +15,13 @@ function CreateWorkspace(props) {
   };
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(formData);
+    // console.log(formData);
     postRequest({
       url: `/workspaces`,
       data: formData,
     })
       .then(function (response) {
-        console.log("successfully added workspace entry !");
+        // console.log("successfully added workspace entry !");
         props.toggle(!props.isOpen);
         window.alert("new workspace created successfully !!");
       });

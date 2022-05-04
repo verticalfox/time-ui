@@ -35,7 +35,7 @@ function EditProject(props) {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    console.log(formData);
+    // console.log(formData);
     patchRequest(
       {
         url: `projects/${props.project_id}`,
@@ -47,7 +47,10 @@ function EditProject(props) {
           }
         }
       }
-    ).then(response => { console.log(response); props.toggle(!props.isOpen); });
+    ).then(response => {
+      //  console.log(response);
+        props.toggle(!props.isOpen); 
+      });
   };
 
   return (

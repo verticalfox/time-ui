@@ -20,7 +20,7 @@ class EditTaskModal extends React.Component {
   }
   
   render() {
-    console.log("edit task modal | task__id:" + this.props.task__id);
+    // console.log("edit task modal | task__id:" + this.props.task__id);
     return (
       <>
         <Button color="primary" onClick={this.toggle}><FontAwesomeIcon icon={faPencil} className="mr-2" />{this.props.buttonLabel}</Button>

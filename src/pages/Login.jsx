@@ -28,7 +28,7 @@ const Login = () => {
 				"password" : currentFormData.password
 			}
 		}).then(function (response) {
-			 console.log(response.data.message);
+			//  console.log(response.data.message);
 			 if(response.data.message === "Invalid email or password"){
 				 navigate(paths.login);
 				 window.alert("Oops ! looks like you have entered invalid credentials.")

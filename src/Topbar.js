@@ -26,8 +26,6 @@ const Topbar = ({ toggleSidebar }) => {
       })
   }, []);
   const handleChange = (e) => {
-    console.log(e.target.value);
-    console.log(e.target);
     localStorage.setItem('workspace_id', e.target.value);
     settingWorkspaceId(e.target.value);
   }

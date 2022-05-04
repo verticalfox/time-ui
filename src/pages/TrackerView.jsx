@@ -15,7 +15,7 @@ const TrackerView = () => {
   const watchProjectId = watch('project_id');
   const [taskLoading, tasks] = useTasks(watchProjectId);
   const { submitting, onCreate } = useCreateTimeEntry();
-  console.log(projectLoading, taskLoading, errors);
+  // console.log(projectLoading, taskLoading, errors);
 
   return (
     <Card>
