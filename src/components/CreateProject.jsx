@@ -27,6 +27,7 @@ function CreateProject(props) {
       .then(function (response) {
         console.log("successfully added project entry !");
         props.toggle(!props.isOpen);
+        window.alert("new project created successfully !!");
       });
   };
   return (

@@ -5,7 +5,6 @@ import { SelectField } from './Form';
 import { getOptions } from "../utils";
 import { useForm } from "react-hook-form";
 import { useUsers } from "../hooks/userProjects";
-import { Calendar } from 'react-date-range';
 import { addDays } from 'date-fns';
 import 'react-date-range/dist/styles.css'; // main style file
 import 'react-date-range/dist/theme/default.css'; // theme css file
@@ -23,15 +22,12 @@ function ReportRow(props) {
         <tbody>
             <tr>
                 <td>{props.index}</td>
-                <td>{props.project_name}</td>
-                <td>{props.task_name}</td>
                 <td>{props.description}</td>
                 <td>{props.hours}</td>
             </tr>
         </tbody>
     );
 }
-
 function ReportView() {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const [projectLoading, users] = useUsers();
@@ -59,7 +55,7 @@ function ReportView() {
             })
 
     }
-
+    console.log(reports);
     return (
         <div>
             <div color="light"
@@ -82,7 +78,6 @@ function ReportView() {
                     direction="horizontal"
                 />
                 <button className="btn-secondary" onClick={handleClick}> Generate Report</button>
-
             </div>
             <div color="light"
                 className="navbar shadow-sm p-3 mb-5 bg-white "
@@ -91,10 +86,8 @@ function ReportView() {
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Project</th>
-                            <th>Task</th>
-                            <th>Description</th>
-                            <th>Hours</th>
+                            <th>Task description</th>
+                            <th>Total duration</th>
                         </tr>
                     </thead>
                     {
@@ -104,11 +97,10 @@ function ReportView() {
                                 key={info.id}
                                 index={index + 1}
                                 id={info.id}
-                                project_name="project name"
-                                task_name="task name"
-                                description=" this is random description of random task"
-                                hours="6"/>
-                                ); })
+                                description={info.description}
+                                hours={info.hours}
+                            />
+                            ); })
                     }
                 </table>
             </div>
@@ -117,4 +109,3 @@ function ReportView() {
     );
 }
 export default withAuthenticate(ReportView);
-

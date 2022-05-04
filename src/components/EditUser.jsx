@@ -11,6 +11,7 @@ function EditUser(props) {
     role:props.user_role
   }
   const [formData, updateFormData] = useState(initialFormData);
+  const [refresh , setRefresh] = useState(false);
   const handleChange = (e) => {
     updateFormData({
       ...formData,
@@ -33,6 +34,7 @@ function EditUser(props) {
     }).then(res =>{ 
       console.log("user information updated successfully !!");
       props.toggle(!props.isOpen);
+      setRefresh(!refresh);
     });
   };
   return (

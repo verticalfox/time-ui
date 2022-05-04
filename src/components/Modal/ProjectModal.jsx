@@ -22,7 +22,7 @@ class ProjectModal extends React.Component {
         <Button color="secondary" onClick={this.toggle}>{this.props.buttonLabel}</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} fade={false} backdrop={false}>
           <ModalHeader toggle={this.toggle}>New Project</ModalHeader>
-          <CreateProject isOpen={this.state.modal} toggle={this.toggle} />
+          <CreateProject refresh={this.props.refresh} setRefresh={this.props.setRefresh}  isOpen={this.state.modal} toggle={this.toggle} />
         </Modal>
       </div>
     );

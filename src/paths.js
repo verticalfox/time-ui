@@ -5,6 +5,7 @@ const paths = {
   projects: '/projects',
   users: '/users',
   reports: "/reports",
+  logout: '/logout'
 };
 
 export default paths;

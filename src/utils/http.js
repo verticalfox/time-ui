@@ -1,8 +1,11 @@
 import axios from 'axios';
+import { AUTH_TOKEN_STORAGE_KEY } from './constant';
 
 const BASE_URL = "http://localhost:3000";
 
 const API_NAMESPACE = '/api/v1';
+
+const USER_TOKEN = localStorage.getItem('_time_k_');
 
 const DEFAULT_CONFIG = {
   url: '',
@@ -23,6 +26,7 @@ const http = (method = 'get', userConfig = {}) => {
     url: `${BASE_URL}/${API_NAMESPACE}/${url}`,
     headers: {
       'Content-Type': 'application/json',
+      'Authorization': USER_TOKEN,
       Accept: 'application/json',
       'Access-Control-Allow-Origin': '*',
       ...headers,

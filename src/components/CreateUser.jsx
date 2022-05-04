@@ -10,7 +10,7 @@ const initialFormData = Object.freeze({
 });
 function CreateUser(props) {
   const [formData, updateFormData] = useState(initialFormData);
-
+  const [refresh , setRefresh] = useState(false);
   const handleChange = (e) => {
     updateFormData({
       ...formData,
@@ -33,6 +33,8 @@ function CreateUser(props) {
       .then(function (response) {
         console.log(response);
         props.toggle(!props.isOpen);
+        setRefresh(!refresh);
+        window.alert("new user created successfully !!");
       })
       .catch(function (error) {
         console.log(error);

@@ -28,10 +28,16 @@ const Login = () => {
 				"password" : currentFormData.password
 			}
 		}).then(function (response) {
-			// console.log(response);
-			const { data, headers } = response;
-			navigate(paths.home);
-			setUser(data.user, headers.authorization);
+			 console.log(response.data.message);
+			 if(response.data.message === "Invalid email or password"){
+				 navigate(paths.login);
+				 window.alert("Oops ! looks like you have entered invalid credentials.")
+			 } else {
+				const { data, headers } = response;
+				navigate(paths.home);
+				setUser(data.user, headers.authorization);
+				window.location.reload();
+			 }
 		}).catch(function (error) {
 			console.log(error);
 		});

@@ -6,6 +6,7 @@ import { deleteRequest } from "../utils/http";
 import { withAuthenticate } from "../Routes";
 import { useWorkspaceContext } from "../context/WorkspaceContext";
 import DeleteModal from "../components/Modal/DeleteModal";
+import { useState } from "react";
 
 const handleDelete = (id) => {
     deleteRequest({
@@ -32,6 +33,7 @@ console.log(workspaceId);
 
 function ProjectView() {
     const [loading, projects] = useProjects();
+    const [refresh , setRefresh] = useState(false);
     return (
         <div color="light"
             className="navbar shadow-sm p-3 mb-5 bg-white "
@@ -42,7 +44,7 @@ function ProjectView() {
                         <th>#</th>
                         <th>Project</th>
                         <th>Description</th>
-                        <th><ProjectModal buttonLabel="Create Project"/></th>
+                        <th><ProjectModal  refresh={refresh} setRefresh={setRefresh} buttonLabel="Create Project"/></th>
                     </tr>
                 </thead>
                 <tbody>

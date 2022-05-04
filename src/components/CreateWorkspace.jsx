@@ -23,6 +23,7 @@ function CreateWorkspace(props) {
       .then(function (response) {
         console.log("successfully added workspace entry !");
         props.toggle(!props.isOpen);
+        window.alert("new workspace created successfully !!");
       });
 
   };

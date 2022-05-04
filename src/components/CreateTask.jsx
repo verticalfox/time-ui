@@ -30,6 +30,7 @@ const CreateTask = (props) => {
     }).then((response) => {
       console.log(response);
       props.toggle(!props.isOpen);
+      window.alert("new task created successfully !!");
     });
   };
   return (

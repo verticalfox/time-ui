@@ -9,6 +9,7 @@ import DateField from "../components/Form/DateField";
 import { withAuthenticate } from "../Routes";
 
 const TrackerView = () => {
+
   const { register, handleSubmit, watch, formState: { errors } } = useForm();
   const [projectLoading, projects] = useProjects();
   const watchProjectId = watch('project_id');
