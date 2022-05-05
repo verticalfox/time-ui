@@ -43,7 +43,7 @@ function CreateUser(props) {
 
   return (
     <div color="light"
-      className="navbar shadow-sm p-3 mb-5 bg-white rounded"
+      className="navbar shadow-sm p-3 mb-5 bg-white rounded shadow-1"
       expand="md">
       <Form action="/" method="POST">
         <div className="modal-input">

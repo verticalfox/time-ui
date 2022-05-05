@@ -4,8 +4,7 @@ const paths = {
   tracker: '/tracker',
   projects: '/projects',
   users: '/users',
-  reports: "/reports",
-  logout: '/logout'
+  reports: "/reports"
 };
 
 export default paths;

@@ -17,8 +17,8 @@ const SideBar = ({ isOpen, toggle }) => {
   };
 
   return (
-    <div className={classNames("sidebar", { "is-open": isOpen })}>
-      <div className="sidebar-header">
+    <div className={classNames("sidebar shadow-1", { "is-open": isOpen })}>
+      <div className="sidebar-header shadow-2">
         <span color="info" onClick={toggle} style={{ color: "#fff" }}>
           &times;
         </span>

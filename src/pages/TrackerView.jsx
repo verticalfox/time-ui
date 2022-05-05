@@ -18,7 +18,7 @@ const TrackerView = () => {
   // console.log(projectLoading, taskLoading, errors);
 
   return (
-    <Card>
+    <Card className="shadow-1">
       <CardBody>
         <form onSubmit={handleSubmit(onCreate)} autoComplete="off">
           <input type="hidden" value="2022-04-20" name="entry_date" />

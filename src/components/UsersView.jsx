@@ -32,7 +32,7 @@ function UsersView() {
     const [loading, users] = useUsers();
     // console.log(users);
     return (<div color="light"
-        className="navbar shadow-sm p-3 mb-5 bg-white "
+        className="navbar shadow-sm p-3 mb-5 bg-white shadow-1"
         expand="md">
         <table className="table table-hover">
             <thead>
@@ -42,7 +42,7 @@ function UsersView() {
                     <th>Email</th>
                     <th>Phone</th>
                     <th>Role</th>
-                    <th><UserModal buttonLabel="Create User"/></th>
+                    <th><UserModal className="shadow-1" buttonLabel="Create User"/></th>
                 </tr>
             </thead>
             <tbody>

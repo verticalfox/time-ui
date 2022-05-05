@@ -32,7 +32,7 @@ const Topbar = ({ toggleSidebar }) => {
   return (
     <Navbar
       color="light"
-      className="navbar shadow-sm p-3 mb-5 bg-white rounded"
+      className="navbar shadow-sm p-3 mb-5 bg-white shadow-1"
       expand="md"
     >
       <Button color="" onClick={toggleSidebar}>

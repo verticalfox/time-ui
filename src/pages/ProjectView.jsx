@@ -36,7 +36,7 @@ function ProjectView() {
     const [refresh , setRefresh] = useState(false);
     return (
         <div color="light"
-            className="navbar shadow-sm p-3 mb-5 bg-white "
+            className="navbar shadow-sm p-3 mb-5 bg-white shadow-1"
             expand="md">
             <table className="table table-hover">
                 <thead>

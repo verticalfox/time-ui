@@ -12,9 +12,12 @@ import CreateUser from "./components/CreateUser";
 import CreateTask from "./components/CreateTask";
 import CreateProject from "./components/CreateProject";
 import { PrivateAdminRoutes } from "./Routes";
-
-const Content = ({ sidebarIsOpen = false, toggleSidebar = {} }) => (
-  <Container
+import { useUserContext } from "./context/UserContext";
+import { Navigate } from "react-router";
+const Content = ({ sidebarIsOpen = false, toggleSidebar = {} }) => {
+  const {isLoggedIn} = useUserContext();
+  return(
+    isLoggedIn?  <Container
     fluid
     className={classNames("content", { "is-open": sidebarIsOpen })}
   >
@@ -33,6 +36,7 @@ const Content = ({ sidebarIsOpen = false, toggleSidebar = {} }) => (
           <Route exact path="/projects/edit" element={<CreateProject />} />
         </Route>
     </Routes>
-  </Container>
-);
+  </Container>: <Navigate to="/login" />
+ 
+)};
 export default Content;
