@@ -72,7 +72,7 @@ function EditTask(props) {
             />
           </FormGroup>
           <Button onClick={handleSubmit} type="submit">Save</Button> &nbsp;&nbsp;&nbsp;&nbsp;
-          <Link to={`/tasks`} className="btn btn-primary" onClick={() => { props.toggle(!props.isOpen) }}>Cancel </Link>
+          <Link to={`/tasks`} className="btn btn-light" onClick={() => { props.toggle(!props.isOpen) }}>Cancel </Link>
         </div>
       </Form>
     </div>

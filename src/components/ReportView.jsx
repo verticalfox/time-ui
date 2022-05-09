@@ -29,10 +29,11 @@ const handleDownloadPdf = () => {
          'Authorization': auth_token
         }
         }).then((result) => {
-            // console.log(res.url);
-            const blob = result.blob();
-            const objectURL = window.URL.createObjectURL(blob)
-            window.location.href=objectURL;
+            window.location.href=result.url;
+            // console.log(result.url);
+            // const blob = result.blob();
+            // const objectURL = window.URL.createObjectURL(blob)
+            // window.location.href=objectURL;
         });
 }
 const handleDownloadExcel = () => {
@@ -44,10 +45,13 @@ const handleDownloadExcel = () => {
          'Authorization': auth_token
         }
         }).then((result) => {
+            window.location.href=result.url;
+
+
             // console.log(res.url);
-            const blob = result.blob();
-            const objectURL = window.URL.createObjectURL(blob)
-            window.location.href=objectURL;
+            // const blob = result.blob();
+            // const objectURL = window.URL.createObjectURL(blob)
+            // window.location.href=objectURL;
         });
 }
 function ReportRow(props) {
