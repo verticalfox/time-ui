@@ -21,7 +21,7 @@ class WorkspaceModal extends React.Component {
     return (
       <div>
         <Button color="secondary" onClick={this.toggle}>{this.props.buttonLabel}</Button>
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} fade={false} backdrop={false}>
+        <Modal isOpen={this.state.modal} toggle={this.toggle} className={`shadow-1 ${this.props.className}`} fade={false} backdrop={false}>
           <ModalHeader toggle={this.toggle}>New workspace</ModalHeader>
           <CreateWorkspace isOpen={this.state.modal} toggle={this.toggle}/>
         </Modal>

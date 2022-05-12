@@ -14,17 +14,15 @@ const handleDelete= (id) => {
 }
 function PrintTableForView(props) {
     return (
-        <tbody>
             <tr>
                 <th scope="row">{props.index}</th>
                 <td>{props.title}</td>
                 <td>{props.description}</td>
                 <td>
-                    <EditTaskModal buttonLabel="Edit" task__title={props.title} task__description={props.description} task__id={props.id} ></EditTaskModal>&nbsp;&nbsp;&nbsp;&nbsp;
-                    <DeleteModal buttonLabel="Delete" delete={handleDelete} id={props.id} label="task"/>
+                    <EditTaskModal buttonLabel="" task__title={props.title} task__description={props.description} task__id={props.id} ></EditTaskModal>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <DeleteModal buttonLabel="" delete={handleDelete} id={props.id} label="task"/>
                 </td>
             </tr>
-        </tbody>
     );
 }
 
@@ -54,6 +52,7 @@ function TaskView() {
                     <th><TaskModal id={param.id} buttonLabel="Create Task" /></th>
                 </tr>
             </thead>
+            <tbody>
             {
                 tasks.map((tableEntry, index) => {
                 return (
@@ -66,6 +65,7 @@ function TaskView() {
                         description={tableEntry.description}/>);
                          })
             }
+            </tbody>
         </table>
     </div>);
 }

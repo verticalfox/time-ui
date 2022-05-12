@@ -22,8 +22,8 @@ function UsersRow(props) {
                 <td>{props.mobile_number}</td>
                 <td>{props.role}</td>
                 <td>
-                    <EditUserModal buttonLabel="Edit" user__name={props.name} user__email={props.email} user__id={props.id} user__mobile_number={props.mobile_number} user__role={props.role}></EditUserModal> &nbsp;&nbsp;&nbsp;&nbsp;
-                    <DeleteModal buttonLabel="Delete" delete={deleteUser} id={props.id} label="user"/>
+                    <EditUserModal buttonLabel="" user__name={props.name} user__email={props.email} user__id={props.id} user__mobile_number={props.mobile_number} user__role={props.role}></EditUserModal> &nbsp;&nbsp;&nbsp;&nbsp;
+                    <DeleteModal buttonLabel="" delete={deleteUser} id={props.id} label="user"/>
                 </td>
             </tr>
     );

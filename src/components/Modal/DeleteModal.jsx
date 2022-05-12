@@ -26,8 +26,8 @@ class DeleteModal extends React.Component {
   render() {
     return (
       <>
-        <Button color="primary" onClick={this.toggle}><FontAwesomeIcon icon={faTrash} className="mr-2" />{this.props.buttonLabel}</Button>
-        <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className} fade={false} backdrop={false}>
+        <Button color="delete-btn" onClick={this.toggle}><FontAwesomeIcon icon={faTrash} className="mr-2" />{this.props.buttonLabel}</Button>
+        <Modal isOpen={this.state.modal} toggle={this.toggle} className={`shadow-1 ${this.props.className}`} fade={false} backdrop={false}>
           <ModalBody toggle={this.toggle}>Are you sure, you want to delete this {this.props.label} ??</ModalBody>
           <ModalFooter>
             <Button onClick={() => { this.handleDel(); }}> Yes</Button>

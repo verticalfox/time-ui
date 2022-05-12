@@ -55,6 +55,10 @@ a:focus {
   /* box-shadow: none !important; */
 }
 
+.delete-btn, .edit-btn{
+  background-color: transparent;
+}
+
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
@@ -252,4 +256,40 @@ Reactstrap css
 }
 
 
-/* free frontend */
+/* extra frontend */
+.select2-search {
+  display: inline-block;
+  width: 100%;
+  min-height: 26px;
+  margin: 0;
+  padding: 4px 4px 0 4px;
+  position: relative;
+  z-index: 10000;
+  white-space: nowrap;
+}
+select2-results {
+  max-height: 200px;
+  padding: 0 0 0 4px;
+  margin: 4px 4px 4px 0;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.select2-drop-mask {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  position: fixed;
+  left: 0;
+  top: 0;
+  min-height: 100%;
+  min-width: 100%;
+  height: auto;
+  width: auto;
+  opacity: 0;
+  z-index: 9998;
+  background-color: #fff;
+  filter: alpha(opacity=0);
+}

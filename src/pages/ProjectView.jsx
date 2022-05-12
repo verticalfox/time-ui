@@ -24,8 +24,8 @@ const {workspaceId, settingWorkspaceId} = useWorkspaceContext();
             <td><Link to={`/projects/${props.id}/view`}>{props.name}</Link></td>
             <td><Link to={`/projects/${props.id}/view`}>{props.description}</Link></td>
             <td>
-                <EditProjectModal buttonLabel="Edit" project__name={props.name} project__description={props.description} project__id={props.id} ></EditProjectModal>&nbsp;&nbsp;&nbsp;&nbsp;
-                <DeleteModal buttonLabel="Delete" delete={handleDelete} id={props.id} label="project"/>
+                <EditProjectModal buttonLabel="" project__name={props.name} project__description={props.description} project__id={props.id} ></EditProjectModal>&nbsp;&nbsp;&nbsp;&nbsp;
+                <DeleteModal buttonLabel="" delete={handleDelete} id={props.id} label="project"/>
             </td>
         </tr>
     );

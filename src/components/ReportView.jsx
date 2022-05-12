@@ -18,52 +18,18 @@ function convert(str) {
     return [day, month, date.getFullYear()].join("-");
 }
 //   console.log(convert("Thu Jun 09 2011 00:00:00 GMT+0530 (India Standard Time)"))
-const auth_token= localStorage.getItem(AUTH_TOKEN_STORAGE_KEY);
+const auth_token = localStorage.getItem(AUTH_TOKEN_STORAGE_KEY);
 console.log(auth_token);
-const handleDownloadPdf = () => {
-      fetch("http://localhost:3000/api/v1/time_entries/report.pdf?created_by_id=da8758a9-842d-4659-9e91-bad41a598ecd&start_date=3-5-2022&end_date=15-5-2022", {
-        method: 'GET',
-        headers: {
-         'Accept': 'application/json',
-         'Content-Type': 'application/json',
-         'Authorization': auth_token
-        }
-        }).then((result) => {
-            window.location.href=result.url;
-            // console.log(result.url);
-            // const blob = result.blob();
-            // const objectURL = window.URL.createObjectURL(blob)
-            // window.location.href=objectURL;
-        });
-}
-const handleDownloadExcel = () => {
-    fetch("http://localhost:3000/api/v1/time_entries/report.xml?created_by_id=da8758a9-842d-4659-9e91-bad41a598ecd&start_date=3-5-2022&end_date=15-5-2022", {
-        method: 'GET',
-        headers: {
-         'Accept': 'application/json',
-         'Content-Type': 'application/json',
-         'Authorization': auth_token
-        }
-        }).then((result) => {
-            window.location.href=result.url;
-
-
-            // console.log(res.url);
-            // const blob = result.blob();
-            // const objectURL = window.URL.createObjectURL(blob)
-            // window.location.href=objectURL;
-        });
-}
 function ReportRow(props) {
     return (
-            <tr>
-                <td>{props.index}</td>
-                <td>{props.description}</td>
-                <td>{props.hours}</td>
-            </tr>
+        <tr>
+            <td>{props.index}</td>
+            <td>{props.description}</td>
+            <td>{props.hours}</td>
+        </tr>
     );
 }
-function ReportView() {    
+function ReportView() {
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
     const [projectLoading, users] = useUsers();
     const [reports, setReports] = useState([]);
@@ -77,7 +43,20 @@ function ReportView() {
         }
     ]);
     var startDate = convert(state[0].startDate);
-    var endDate = convert(state[0].endDate)
+    var endDate = convert(state[0].endDate);
+
+    const handleDownloadPdf = () => {
+        fetch(`http://localhost:3000/api/v1/time_entries/report.pdf?created_by_id=${watchUserId}&start_date=${startDate}&end_date=${endDate}`, {
+            method: 'GET',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': auth_token
+            }
+        }).then((result) => {
+            window.location.href = result.url;
+        });
+    }
     function handleClick() {
         // console.log(watchUserId);
         getRequest({
@@ -114,9 +93,7 @@ function ReportView() {
                 <div className="btn-group date-view-items">
                     <button className="btn-secondary" onClick={handleClick}> Generate Report</button>
                     <button className="btn-secondary" onClick={handleDownloadPdf}> Download as pdf</button>
-                    <button className="btn-secondary" onClick={handleDownloadExcel}> Download as excel</button>
                 </div>
-               
             </div>
             <div color="light"
                 className="navbar shadow-sm p-3 mb-5 bg-white shadow-1"
@@ -130,19 +107,20 @@ function ReportView() {
                         </tr>
                     </thead>
                     <tbody>
-                    {
-                        reports.map((info, index) => {
-                        return (
-                            <ReportRow
-                                key={info.id}
-                                index={index + 1}
-                                id={info.id}
-                                description={info.description}
-                                hours={info.hours}
-                            />
-                            ); })
-                    }
-                    </tbody> 
+                        {
+                            reports.map((info, index) => {
+                                return (
+                                    <ReportRow
+                                        key={info.id}
+                                        index={index + 1}
+                                        id={info.id}
+                                        description={info.description}
+                                        hours={info.hours}
+                                    />
+                                );
+                            })
+                        }
+                    </tbody>
                 </table>
             </div>
         </div>
