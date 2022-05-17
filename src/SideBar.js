@@ -11,6 +11,7 @@ const SideBar = ({ isOpen, toggle }) => {
   const { role, logoutUser } = useUserContext();
   const navigate = useNavigate();
   const isAdmin = role === 'admin';
+  const isUser = role === 'user';
   const handleLogout = () => {
     logoutUser();
     navigate(paths.login);
@@ -32,6 +33,15 @@ const SideBar = ({ isOpen, toggle }) => {
               Tracker
             </NavLink>
           </NavItem>
+          {/* {isUser && (<>
+            <NavItem>
+              <NavLink tag={Link} to={paths.projectsUser}>
+                  <FontAwesomeIcon icon={faImage} className="mr-2" />
+                  Records
+              </NavLink>
+          </NavItem>
+          </>)} */}
+
           {isAdmin && (
             <>
               <NavItem>

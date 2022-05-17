@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Modal, ModalHeader} from 'reactstrap';
-import CreateUser from '../CreateUser'
+import CreateUser from '../../pages/create/CreateUser'
 class UserModal extends React.Component {
   constructor(props) {
     super(props);

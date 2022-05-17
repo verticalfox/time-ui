@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import { Link } from "react-router-dom";
-import { patchRequest } from "../utils/http";
-import { useWorkspaceContext } from "../context/WorkspaceContext";
+import { patchRequest } from "../../utils/http";
+import { useWorkspaceContext } from "../../context/WorkspaceContext";
 var initialFormData = Object.freeze({
   name: "",
   description: "",

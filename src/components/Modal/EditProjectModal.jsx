@@ -1,13 +1,12 @@
 import React from 'react';
 import { Button, Modal, ModalHeader } from 'reactstrap';
-import EditProject from '../EditProject'
+import EditProject from '../../pages/create/EditProject.jsx'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 class EditProjectModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      modal: false
     };
     this.toggle = this.toggle.bind(this);
   }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Modal, ModalHeader } from 'reactstrap';
-import CreateTask from './CreateTask'
+import CreateTask from '../../pages/create/CreateTask'
 class TaskModal extends React.Component {
   constructor(props) {
     super(props);

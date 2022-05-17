@@ -1,12 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Card, CardBody } from "reactstrap";
 import { useForm } from 'react-hook-form';
 import { SelectField, TextField, TextAreaField } from '../components/Form';
 import { useProjects, useTasks } from '../hooks/userProjects';
 import { getOptions } from "../utils";
 import { useCreateTimeEntry } from '../hooks/useCreateTimeEntry';
-import DateField from "../components/Form/DateField";
 import { withAuthenticate } from "../Routes";
+import { Calendar } from "react-date-range";
+import { getRequest } from "../utils/http";
+
+function convert(str) {
+  var date = new Date(str),
+    month = ("0" + (date.getMonth() + 1)).slice(-2),
+    day = ("0" + date.getDate()).slice(-2);
+  return [day, month, date.getFullYear()].join("-");
+}
+
+const ReportRow = (props) => {
+  return (
+    <tr>
+      <td>{props.index}</td>
+      <td>{props.description}</td>
+      <td>{props.hours}</td>
+    </tr>
+  );
+}
 
 const TrackerView = () => {
 
@@ -15,53 +33,103 @@ const TrackerView = () => {
   const watchProjectId = watch('project_id');
   const [taskLoading, tasks] = useTasks(watchProjectId);
   const { submitting, onCreate } = useCreateTimeEntry();
+  const [reports, setReports] = useState([]);
+  const [date, setDate] = useState(null);
+
+
+
+  var str = "Tue May 10 2022 00:00:00 GMT+0530 (India Standard Time)"
+  console.log(convert(date));
+
+
+
+
   // console.log(projectLoading, taskLoading, errors);
+  useEffect(() => {
+    getRequest({
+      url: `time_entries/da8758a9-842d-4659-9e91-bad41a598ecd?start_date=${convert(date)}&end_date=${convert(date)}`,
+    })
+      .then(function (response) {
+        // console.log(response);
+        setReports(response.data.time_entries);
+      })
+  }, [date])
 
   return (
     <Card className="shadow-1">
       <CardBody>
         <form onSubmit={handleSubmit(onCreate)} autoComplete="off">
-          <input type="hidden" value="2022-04-20" name="entry_date" />
-          <div className="tracker-input">
-          <DateField
-              labelText="Select Date"
-              name="recorded_at"
-              type="date"
-              register={register}
-              rules={{ required: true }}
-              options={getOptions(projects)}
-            />
-            <SelectField
-              labelText="Select Project"
-              name="project_id"
-              register={register}
-              rules={{ required: true }}
-              options={getOptions(projects)}
-            />
-            <SelectField
-              labelText="Select Task"
-              name="task_id"
-              register={register}
-              rules={{ required: true }}
-              options={getOptions(tasks, 'id', 'title')}
-            />
-            <TextAreaField
-              labelText="Description"
-              name="description"
-              register={register}
-              rules={{ required: true }}
-              placeholder="Enter detail description of task."
-            />
-            <TextField
-              labelText="Time"
-              name="hours"
-              register={register}
-              rules={{ required: true }}
-              placeholder="Enter total time taken"
-            />
-              <Button type="submit" disabled={submitting}>Submit</Button>
+          <div className="form-layout">
+              <Calendar
+                name="recorded_at"
+                id="recorded_at"
+                onChange={item => { setDate(item)}}
+                date={date}
+              />
+            <input value={convert(date)} {...register("recorded_at")} type="hidden" ></input>
+            <div>
+              <SelectField
+                labelText="Select Project"
+                name="project_id"
+                register={register}
+                rules={{ required: true }}
+                options={getOptions(projects)}
+              />
+              <SelectField
+                labelText="Select Task"
+                name="task_id"
+                register={register}
+                rules={{ required: true }}
+                options={getOptions(tasks, 'id', 'title')}
+              />
+              <TextAreaField
+                labelText="Description"
+                name="description"
+                register={register}
+                rules={{ required: true }}
+                placeholder="Enter detail description of task."
+              />
+              <TextField
+                labelText="Time"
+                name="hours"
+                register={register}
+                rules={{ required: true }}
+                placeholder="Enter total time taken"
+              />
+              {/* </div> */}
+            </div>
+            <div>  <Button type="submit" disabled={submitting}>Submit</Button> </div>
+
           </div>
         </form>
+        <div color="light"
+          className="navbar shadow-sm p-3 mb-5 bg-white shadow-1"
+          expand="md">
+          <table className="table table-hover ">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Task description</th>
+                <th>Total duration</th>
+              </tr>
+            </thead>
+            <tbody>
+              {
+                reports.map((info, index) => {
+                  return (
+                    <ReportRow
+                      key={info.id}
+                      index={index + 1}
+                      id={info.id}
+                      description={info.description}
+                      hours={info.hours}
+                    />
+                  );
+                })
+              }
+            </tbody>
+          </table>
+        </div>
       </CardBody>
     </Card>
   );

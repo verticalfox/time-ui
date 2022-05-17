@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import { useProjects } from '../hooks/adminProjects';
-import ProjectModal from '../components/Modal/ProjectModal';
-import EditProjectModal from '../components/Modal/EditProjectModal'
+import ProjectModal from '../components/modal/ProjectModal';
+import EditProjectModal from '../components/modal/EditProjectModal'
 import { deleteRequest } from "../utils/http";
 import { withAuthenticate } from "../Routes";
 import { useWorkspaceContext } from "../context/WorkspaceContext";
-import DeleteModal from "../components/Modal/DeleteModal";
+import DeleteModal from "../components/modal/DeleteModal";
 import { useState } from "react";
 
 const handleDelete = (id) => {

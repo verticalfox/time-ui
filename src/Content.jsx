@@ -4,16 +4,17 @@ import { Container } from "reactstrap";
 import { Routes, Route } from "react-router-dom";
 import Topbar from "./Topbar";
 import ProjectView from "./pages/ProjectView";
-import TaskView from "./components/TaskView"
+import TaskView from "./pages/TaskView"
 import TrackerView from "./pages/TrackerView";
-import UsersView from "./components/UsersView";
-import ReportView from "./components/ReportView";
-import CreateUser from "./components/CreateUser";
-import CreateTask from "./components/CreateTask";
-import CreateProject from "./components/CreateProject";
-import { PrivateAdminRoutes } from "./Routes";
+import UsersView from "./pages/UsersView";
+import ReportView from "./pages/ReportView";
+import CreateUser from "./pages/create/CreateUser";
+import CreateTask from "./pages/create/CreateTask";
+import CreateProject from "./pages/create/CreateProject";
+import { PrivateAdminRoutes, PrivateUserRoutes } from "./Routes";
 import { useUserContext } from "./context/UserContext";
 import { Navigate } from "react-router";
+import ProjectViewUser from "./pages/ProjectViewUser";
 const Content = ({ sidebarIsOpen = false, toggleSidebar = {} }) => {
   const {isLoggedIn} = useUserContext();
   return(
@@ -24,6 +25,10 @@ const Content = ({ sidebarIsOpen = false, toggleSidebar = {} }) => {
     <Topbar toggleSidebar={toggleSidebar} />
     <Routes>
       <Route path="/" element={<TrackerView />} />
+
+        <Route element={<PrivateUserRoutes/>}>
+        <Route path="/projects/user" element={<ProjectViewUser />} />
+        </Route>
         <Route exact path="/tracker" element={<TrackerView />} />
         <Route element={<PrivateAdminRoutes/>}> 
           <Route path="/projects" element={<ProjectView />} />

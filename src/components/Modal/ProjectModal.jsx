@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Modal, ModalHeader} from 'reactstrap';
-import CreateProject from '../CreateProject'
+import CreateProject from '../../pages/create/CreateProject'
 class ProjectModal extends React.Component {
   constructor(props) {
     super(props);

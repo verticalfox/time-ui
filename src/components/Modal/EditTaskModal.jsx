@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Modal, ModalHeader } from 'reactstrap';
-import EditTask from '../EditTask'
+import EditTask from '../../pages/create/EditTask.jsx'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 class EditTaskModal extends React.Component {

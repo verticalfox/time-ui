@@ -1,10 +1,10 @@
 import React from "react";
-import UserModal from './Modal/UserModal'
+import UserModal from '../components/modal/UserModal'
 import { useUsers } from "../hooks/adminProjects";
-import EditUserModal from './Modal/EditUserModal'
+import EditUserModal from '../components/modal/EditUserModal'
 import { deleteRequest } from "../utils/http";
 import { withAuthenticate } from "../Routes";
-import DeleteModal from "./Modal/DeleteModal";
+import DeleteModal from "../components/modal/DeleteModal";
 function deleteUser(id) {
     deleteRequest({
         url: `/users/${id}`

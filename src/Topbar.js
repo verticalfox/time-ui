@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAlignLeft } from "@fortawesome/free-solid-svg-icons";
 import { SelectField } from "./components/Form";
-import WorkspaceModal from './components/Modal/WorkspaceModal';
+import WorkspaceModal from './components/modal/WorkspaceModal';
 import { useForm } from 'react-hook-form';
 import { Navbar, Button, NavbarToggler } from "reactstrap";
 import { getRequest } from "./utils/http";

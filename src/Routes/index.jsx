@@ -51,7 +51,13 @@ export const PrivateAdminRoutes = ({ children }) => {
 
 return( isLoggedIn&&(userData.role === 'admin')? <Outlet/> : <Navigate to="/login"></Navigate> );
 
-  
+}
 
+export const PrivateUserRoutes = ({ children }) => {
+  let { isLoggedIn ,} = useUserContext();
+  const userData= JSON.parse(getItem(USER_STORAGE_KEY));
+  let location = useLocation();
+
+return( isLoggedIn&&(userData.role === 'user')? <Outlet/> : <Navigate to="/login"></Navigate> );
 
 }

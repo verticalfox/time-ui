@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { withAuthenticate } from "../Routes";
 import { DateRangePicker } from 'react-date-range';
-import { SelectField } from './Form';
+import { SelectField } from '../components/Form';
 import { getOptions } from "../utils";
 import { useForm } from "react-hook-form";
 import { useUsers } from "../hooks/userProjects";
@@ -19,7 +19,7 @@ function convert(str) {
 }
 //   console.log(convert("Thu Jun 09 2011 00:00:00 GMT+0530 (India Standard Time)"))
 const auth_token = localStorage.getItem(AUTH_TOKEN_STORAGE_KEY);
-console.log(auth_token);
+// console.log(auth_token);
 function ReportRow(props) {
     return (
         <tr>
@@ -34,7 +34,7 @@ function ReportView() {
     const [projectLoading, users] = useUsers();
     const [reports, setReports] = useState([]);
     const watchUserId = watch('user_id');
-    // console.log(watchUserId);
+     console.log(watchUserId);
     const [state, setState] = useState([
         {
             startDate: new Date(),

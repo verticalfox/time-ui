@@ -1,7 +1,7 @@
 import React, { useState} from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
-import { postRequest } from "../utils/http";
-import { useWorkspaceContext } from "../context/WorkspaceContext";
+import { postRequest } from "../../utils/http";
+import { useWorkspaceContext } from "../../context/WorkspaceContext";
 const initialFormData = Object.freeze({
   name: "",
   description: "",

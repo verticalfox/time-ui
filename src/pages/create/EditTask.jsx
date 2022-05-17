@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Form, FormGroup, Label, Input, Button } from "reactstrap";
 import { Link } from "react-router-dom";
-import { patchRequest } from "../utils/http";
+import { patchRequest } from "../../utils/http";
 
 function EditTask(props) {
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Modal, ModalHeader } from 'reactstrap';
-import EditUser from '../EditUser'
+import EditUser from '../../pages/create/EditUser'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 class EditUserModal extends React.Component {

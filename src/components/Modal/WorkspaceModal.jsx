@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Modal, ModalHeader } from 'reactstrap';
-import CreateWorkspace from '../CreateWorkspace';
+import CreateWorkspace from '../../pages/create/CreateWorkspace';
 class WorkspaceModal extends React.Component {
   constructor(props) {
     super(props);

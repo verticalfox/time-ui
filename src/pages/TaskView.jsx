@@ -1,9 +1,9 @@
 import React,{useState,useEffect} from "react";
 import { useParams } from "react-router-dom";
-import TaskModal from './TaskModal'
-import EditTaskModal from './Modal/EditTaskModal'
+import TaskModal from '../components/modal/TaskModal'
+import EditTaskModal from '../components/modal/EditTaskModal'
 import { deleteRequest, getRequest } from "../utils/http";
-import DeleteModal from "./Modal/DeleteModal";
+import DeleteModal from '../components/modal/DeleteModal';
 const handleDelete= (id) => {
          deleteRequest({
             url:`/tasks/${id}`
