@@ -7,7 +7,9 @@ import { getOptions } from "../utils";
 import { useCreateTimeEntry } from '../hooks/useCreateTimeEntry';
 import { withAuthenticate } from "../Routes";
 import { Calendar } from "react-date-range";
-import { getRequest } from "../utils/http";
+import { deleteRequest, getRequest } from "../utils/http";
+import EditProjectModal from "../components/modal/EditProjectModal";
+import DeleteModal from "../components/modal/DeleteModal";
 
 function convert(str) {
   var date = new Date(str),
@@ -15,20 +17,31 @@ function convert(str) {
     day = ("0" + date.getDate()).slice(-2);
   return [day, month, date.getFullYear()].join("-");
 }
-
+const handleDelete = (id) => {
+  deleteRequest({
+      url: `/time_entries/${id}`
+  }).then((res) => {
+      console.log("task entry deleted successfully !")
+  });
+}
 const ReportRow = (props) => {
   return (
     <tr>
       <td>{props.index}</td>
       <td>{props.description}</td>
       <td>{props.hours}</td>
+      <td>
+                <EditProjectModal buttonLabel="" project__name={props.name} project__description={props.description} project__id={props.id} ></EditProjectModal>&nbsp;&nbsp;&nbsp;&nbsp;
+                <DeleteModal buttonLabel="" delete={handleDelete} id={props.id} label="task entry"/>
+            </td>
     </tr>
   );
 }
 
 const TrackerView = () => {
 
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const { register, handleSubmit, watch, formState: { errors }, getValues , ...rest } = useForm();
+  console.log('data', getValues());
   const [projectLoading, projects] = useProjects();
   const watchProjectId = watch('project_id');
   const [taskLoading, tasks] = useTasks(watchProjectId);
@@ -39,7 +52,7 @@ const TrackerView = () => {
 
 
   var str = "Tue May 10 2022 00:00:00 GMT+0530 (India Standard Time)"
-  console.log(convert(date));
+
 
 
 
@@ -53,20 +66,19 @@ const TrackerView = () => {
         // console.log(response);
         setReports(response.data.time_entries);
       })
-  }, [date])
+  },[date])
 
   return (
     <Card className="shadow-1">
       <CardBody>
         <form onSubmit={handleSubmit(onCreate)} autoComplete="off">
+        <input  value={convert(date)} {...register("recorded_at")} hidden />
           <div className="form-layout">
               <Calendar
-                name="recorded_at"
-                id="recorded_at"
-                onChange={item => { setDate(item)}}
+                onChange={item => {setDate(item)}}
                 date={date}
               />
-            <input value={convert(date)} {...register("recorded_at")} type="hidden" ></input>
+             
             <div>
               <SelectField
                 labelText="Select Project"
@@ -111,6 +123,7 @@ const TrackerView = () => {
                 <th>#</th>
                 <th>Task description</th>
                 <th>Total duration</th>
+
               </tr>
             </thead>
             <tbody>
