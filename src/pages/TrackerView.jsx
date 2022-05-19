@@ -15,13 +15,13 @@ function convert(str) {
   var date = new Date(str),
     month = ("0" + (date.getMonth() + 1)).slice(-2),
     day = ("0" + date.getDate()).slice(-2);
-  return [day, month, date.getFullYear()].join("-");
+  return [date.getFullYear(), month, day].join("-");
 }
 const handleDelete = (id) => {
   deleteRequest({
-      url: `/time_entries/${id}`
+    url: `/time_entries/${id}`
   }).then((res) => {
-      console.log("task entry deleted successfully !")
+    console.log("task entry deleted successfully !")
   });
 }
 const ReportRow = (props) => {
@@ -31,54 +31,46 @@ const ReportRow = (props) => {
       <td>{props.description}</td>
       <td>{props.hours}</td>
       <td>
-                <EditProjectModal buttonLabel="" project__name={props.name} project__description={props.description} project__id={props.id} ></EditProjectModal>&nbsp;&nbsp;&nbsp;&nbsp;
-                <DeleteModal buttonLabel="" delete={handleDelete} id={props.id} label="task entry"/>
-            </td>
+        <EditProjectModal buttonLabel="" project__name={props.name} project__description={props.description} project__id={props.id} ></EditProjectModal>&nbsp;&nbsp;&nbsp;&nbsp;
+        <DeleteModal buttonLabel="" delete={handleDelete} id={props.id} label="task entry" />
+      </td>
     </tr>
   );
 }
 
 const TrackerView = () => {
 
-  const { register, handleSubmit, watch, formState: { errors }, getValues , ...rest } = useForm();
-  console.log('data', getValues());
+  const { register, handleSubmit, watch, setValue } = useForm();
   const [projectLoading, projects] = useProjects();
   const watchProjectId = watch('project_id');
   const [taskLoading, tasks] = useTasks(watchProjectId);
+  const watchDate = watch('recorded_at') || convert(new Date())
   const { submitting, onCreate } = useCreateTimeEntry();
   const [reports, setReports] = useState([]);
-  const [date, setDate] = useState(null);
-
-
-
-  var str = "Tue May 10 2022 00:00:00 GMT+0530 (India Standard Time)"
-
-
-
+  const handleDateChange = (d) => {
+    setValue('recorded_at', convert(d));
+  }
 
 
   // console.log(projectLoading, taskLoading, errors);
   useEffect(() => {
     getRequest({
-      url: `time_entries/da8758a9-842d-4659-9e91-bad41a598ecd?start_date=${convert(date)}&end_date=${convert(date)}`,
+      url: `time_entries/da8758a9-842d-4659-9e91-bad41a598ecd?start_date=${watchDate}&end_date=${watchDate}`,
     })
       .then(function (response) {
         // console.log(response);
         setReports(response.data.time_entries);
       })
-  },[date])
+  }, [watchDate])
 
   return (
     <Card className="shadow-1">
       <CardBody>
         <form onSubmit={handleSubmit(onCreate)} autoComplete="off">
-        <input  value={convert(date)} {...register("recorded_at")} hidden />
+
           <div className="form-layout">
-              <Calendar
-                onChange={item => {setDate(item)}}
-                date={date}
-              />
-             
+            <Calendar onChange={item => { handleDateChange(item) }} date={new Date(watchDate)} />
+            <input type="hidden" name="recorded_at" {...register("recorded_at")} />
             <div>
               <SelectField
                 labelText="Select Project"
@@ -108,9 +100,9 @@ const TrackerView = () => {
                 rules={{ required: true }}
                 placeholder="Enter total time taken"
               />
-              {/* </div> */}
+              <Button type="submit" disabled={submitting}>Submit</Button>
             </div>
-            <div>  <Button type="submit" disabled={submitting}>Submit</Button> </div>
+
 
           </div>
         </form>

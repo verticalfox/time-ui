@@ -17,7 +17,9 @@ export const useCreateTimeEntry = () => {
   }, [])
 
   const onCreate = (formData) => {
-//  console.log(formData);
+     console.log(formData);
+
+      debugger;
       setSubmitting(true);
       postRequest({
         url: 'time_entries',
