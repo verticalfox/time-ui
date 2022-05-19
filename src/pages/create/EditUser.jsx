@@ -35,6 +35,7 @@ function EditUser(props) {
       // console.log("user information updated successfully !!");
       props.toggle(!props.isOpen);
       setRefresh(!refresh);
+      window.location.reload();
     });
   };
   return (

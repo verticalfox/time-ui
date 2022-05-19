@@ -15,6 +15,7 @@ const SideBar = ({ isOpen, toggle }) => {
   const handleLogout = () => {
     logoutUser();
     navigate(paths.login);
+    window.location.reload();
   };
 
   return (

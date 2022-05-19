@@ -35,6 +35,7 @@ function CreateUser(props) {
         props.toggle(!props.isOpen);
         setRefresh(!refresh);
         window.alert("new user created successfully !!");
+        window.location.reload();
       })
       .catch(function (error) {
         console.log(error);

@@ -28,6 +28,7 @@ function CreateProject(props) {
         // console.log("successfully added project entry !");
         props.toggle(!props.isOpen);
         window.alert("new project created successfully !!");
+        window.location.reload();
       });
   };
   return (

@@ -37,7 +37,7 @@ function EditTask(props) {
           "description": formData.description,
         }
       }
-    }).then(res => { console.log("task updated succesfully !"); props.toggle(!props.isOpen); setdummyState(!dummyState) });
+    }).then(res => { console.log("task updated succesfully !"); props.toggle(!props.isOpen); setdummyState(!dummyState); window.location.reload();});
   };
   return (
     <div color="light"

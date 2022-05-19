@@ -50,6 +50,7 @@ function EditProject(props) {
     ).then(response => {
       //  console.log(response);
         props.toggle(!props.isOpen); 
+        window.location.reload();
       });
   };
 

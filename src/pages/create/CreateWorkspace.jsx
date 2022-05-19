@@ -24,6 +24,7 @@ function CreateWorkspace(props) {
         // console.log("successfully added workspace entry !");
         props.toggle(!props.isOpen);
         window.alert("new workspace created successfully !!");
+        window.location.reload();
       });
 
   };

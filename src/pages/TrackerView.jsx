@@ -28,6 +28,8 @@ const ReportRow = (props) => {
   return (
     <tr>
       <td>{props.index}</td>
+      <td>{props.projectName}</td>
+      <td>{props.taskName}</td>
       <td>{props.description}</td>
       <td>{props.hours}</td>
       <td>
@@ -126,6 +128,8 @@ const TrackerView = () => {
                       key={info.id}
                       index={index + 1}
                       id={info.id}
+                      project_name={info.projectName}
+                      task_name={info.taskName}
                       description={info.description}
                       hours={info.hours}
                     />

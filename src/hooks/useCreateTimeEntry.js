@@ -28,6 +28,7 @@ export const useCreateTimeEntry = () => {
       // console.log(response);
       setSubmitting(false);
       window.alert("you have successfully inserted your work entry !!");
+      window.location.reload();
       })
       .catch(function (error) {
         console.log(error);
